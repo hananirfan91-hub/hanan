@@ -13,7 +13,7 @@ export const PrivacyPage: React.FC = () => {
         <section className="space-y-2">
           <h2 className="text-lg font-bold font-display text-white">1. Introduction</h2>
           <p>
-            This Privacy Policy explains how Hanan Irfan ("we", "our", or "us") collects, uses, and safeguards information when you visit the official portfolio website at hananirfanportfolio.vercel.app or interact with associated web services.
+            This Privacy Policy explains how Hanan Irfan ("we", "our", or "us") collects, uses, and safeguards information when you visit the official portfolio website at hanan56.vercel.app or interact with associated web services.
           </p>
         </section>
 

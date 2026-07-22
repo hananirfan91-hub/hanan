@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
     id: 'hanan-portfolio',
     number: '04',
     title: 'HANAN IRFAN PORTFOLIO',
-    url: 'https://hananirfanportfolio.vercel.app/',
+    url: 'https://hanan56.vercel.app/',
     category: 'Portfolio',
     filterCategory: 'WEB',
     featured: false,

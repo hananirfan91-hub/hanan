@@ -5,4 +5,4 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /dashboard/
 
-Sitemap: https://hananirfanportfolio.vercel.app/sitemap.xml
+Sitemap: https://hanan56.vercel.app/sitemap.xml
