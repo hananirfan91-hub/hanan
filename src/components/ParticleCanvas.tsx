@@ -23,7 +23,8 @@ export const ParticleCanvas: React.FC = () => {
     window.addEventListener('resize', handleResize);
 
     // Particles setup
-    const particleCount = Math.min(Math.floor(width / 22), 65);
+    const isMobile = width < 640;
+    const particleCount = isMobile ? 18 : Math.min(Math.floor(width / 32), 35);
     const particles: Array<{
       x: number;
       y: number;
@@ -40,8 +41,8 @@ export const ParticleCanvas: React.FC = () => {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
         radius: Math.random() * 1.8 + 0.8,
         color: colors[Math.floor(Math.random() * colors.length)],
         alpha: Math.random() * 0.5 + 0.2
@@ -57,7 +58,7 @@ export const ParticleCanvas: React.FC = () => {
       mouseY = e.clientY;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
@@ -86,9 +87,10 @@ export const ParticleCanvas: React.FC = () => {
           const p2 = particles[j];
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < 120) {
+          if (distSq < 14400) { // 120 * 120
+            const dist = Math.sqrt(distSq);
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -100,17 +102,20 @@ export const ParticleCanvas: React.FC = () => {
         }
 
         // Connect to mouse pointer
-        const mdx = p.x - mouseX;
-        const mdy = p.y - mouseY;
-        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mdist < 150) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouseX, mouseY);
-          ctx.strokeStyle = '#38bdf8';
-          ctx.globalAlpha = (1 - mdist / 150) * 0.25;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
+        if (mouseX > 0 && mouseY > 0) {
+          const mdx = p.x - mouseX;
+          const mdy = p.y - mouseY;
+          const mdistSq = mdx * mdx + mdy * mdy;
+          if (mdistSq < 22500) { // 150 * 150
+            const mdist = Math.sqrt(mdistSq);
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.strokeStyle = '#38bdf8';
+            ctx.globalAlpha = (1 - mdist / 150) * 0.25;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
         }
       }
 
