@@ -20,9 +20,22 @@ import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 
+function getPageFromPath(path: string): PageId {
+  const cleanPath = path.replace(/^\/+|\/+$/g, '').toLowerCase();
+  const validPages: PageId[] = ['home', 'about', 'skills', 'experience', 'projects', 'services', 'contact', 'privacy', 'terms'];
+  if (cleanPath === '' || cleanPath === 'home') return 'home';
+  if (validPages.includes(cleanPath as PageId)) return cleanPath as PageId;
+  return 'home';
+}
+
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState<PageId>('home');
+  const [currentPage, setCurrentPage] = useState<PageId>(() => {
+    if (typeof window !== 'undefined') {
+      return getPageFromPath(window.location.pathname);
+    }
+    return 'home';
+  });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [audioEnabled, setAudioEnabled] = useState(false);
 
@@ -83,8 +96,25 @@ export default function App() {
     };
   }, []);
 
-  const handleNavigate = (page: PageId) => {
+  // Listen to browser Back/Forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const pageFromUrl = getPageFromPath(window.location.pathname);
+      setCurrentPage(pageFromUrl);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const handleNavigate = (page: PageId, pushState = true) => {
     setCurrentPage(page);
+    if (pushState && typeof window !== 'undefined') {
+      const targetPath = page === 'home' ? '/' : `/${page}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ page }, '', targetPath);
+      }
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
