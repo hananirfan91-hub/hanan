@@ -154,6 +154,20 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                     </span>
                   </div>
 
+                  {project.image && (
+                    <div className="h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          e.currentTarget.src = '/nexapos.jpg';
+                        }}
+                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  )}
+
                   <h3 className="text-2xl font-bold font-display text-white hover:text-purple-300 transition-colors">
                     {project.title}
                   </h3>

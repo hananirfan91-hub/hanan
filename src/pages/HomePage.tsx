@@ -200,6 +200,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 <img
                   src="/hanan-irfan.jpg"
                   alt="Hanan Irfan Headshot"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.src = '/avatar.jpg';
+                  }}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -258,6 +262,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
               <img
                 src="/certificate.jpg"
                 alt="ACM KFUEIT Web Developer Certificate — Abdul Hanan Irfan"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = '/avatar.jpg';
+                }}
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <a

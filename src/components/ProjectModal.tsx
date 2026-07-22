@@ -64,6 +64,21 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {project.description}
           </p>
 
+          {/* Project Banner Image */}
+          {project.image && (
+            <div className="mb-6 rounded-2xl overflow-hidden border border-white/10 max-h-64 sm:max-h-80 bg-black/40">
+              <img
+                src={project.image}
+                alt={project.title}
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = '/nexapos.jpg';
+                }}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
           {/* Live Button CTA */}
           <div className="mb-8">
             <a

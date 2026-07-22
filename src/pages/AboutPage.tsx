@@ -63,6 +63,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <img
                 src="/hanan-irfan.jpg"
                 alt="Hanan Irfan — Full-Stack Developer"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = '/avatar.jpg';
+                }}
                 className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -120,6 +124,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <img
                 src="/certificate.jpg"
                 alt="Abdul Hanan Irfan — Web Developer Certificate of Appreciation ACM KFUEIT"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = '/avatar.jpg';
+                }}
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <a

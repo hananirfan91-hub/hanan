@@ -80,6 +80,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <img
                 src="/hanan-irfan.jpg"
                 alt="Hanan Irfan Avatar"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = '/avatar.jpg';
+                }}
                 className="w-full h-full object-cover"
               />
             </div>

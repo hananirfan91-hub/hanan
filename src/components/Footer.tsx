@@ -24,7 +24,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               className="text-left group flex items-center gap-3"
             >
               <div className="w-12 h-12 rounded-xl overflow-hidden border border-purple-500/40 shadow-lg shadow-purple-600/30 shrink-0">
-                <img src="/hanan-irfan.jpg" alt="Hanan Irfan Avatar" className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                <img
+                  src="/hanan-irfan.jpg"
+                  alt="Hanan Irfan Avatar"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.src = '/avatar.jpg';
+                  }}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                />
               </div>
               <div>
                 <h2 className="text-3xl sm:text-4xl font-black font-display text-white tracking-wider group-hover:text-purple-400 transition-colors text-glow">

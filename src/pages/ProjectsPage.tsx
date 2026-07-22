@@ -200,6 +200,20 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
                   </span>
                 </div>
 
+                {project.image && (
+                  <div className="h-40 rounded-2xl overflow-hidden border border-white/10 mb-4 bg-black/40">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        e.currentTarget.src = '/nexapos.jpg';
+                      }}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                )}
+
                 <h3 className="text-xl font-bold font-display text-white group-hover:text-purple-300 transition-colors mb-3">
                   {project.title}
                 </h3>

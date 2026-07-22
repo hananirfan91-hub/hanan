@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PWA', 'REST APIs', 'Chart.js'],
     status: 'Live SaaS Product',
-    image: 'https://picsum.photos/seed/nexapos/800/500'
+    image: '/nexapos.jpg'
   },
   {
     id: 'free-tools-hub',
@@ -76,7 +76,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'JavaScript', 'Tailwind CSS', 'Client-side Processing', 'Canvas API'],
     status: 'Live Web Utility',
-    image: 'https://picsum.photos/seed/freetoolshub/800/500'
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'ai-tool-guide',
@@ -95,7 +95,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'Next.js', 'Tailwind CSS', 'AI APIs', 'Search Filters'],
     status: 'Live Platform',
-    image: 'https://picsum.photos/seed/aitoolguide/800/500'
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'hanan-portfolio',
@@ -114,7 +114,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
     status: 'Official Site',
-    image: 'https://picsum.photos/seed/hananportfolio/800/500'
+    image: '/hanan-irfan.jpg'
   },
   {
     id: 'hi-digital-group',
@@ -133,7 +133,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'Tailwind CSS', 'SEO Optimization', 'Framer Motion'],
     status: 'Live Agency Hub',
-    image: 'https://picsum.photos/seed/hidigital/800/500'
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'acm-kfueit',
@@ -152,7 +152,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Community Tools'],
     status: 'Live Community Site',
-    image: 'https://picsum.photos/seed/acmkfueit/800/500'
+    image: '/certificate.jpg'
   },
   {
     id: 'caesar-2026',
@@ -170,7 +170,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['HTML5', 'CSS3', 'JavaScript', 'Vercel Deployment'],
     status: 'Live Concept Project',
-    image: 'https://picsum.photos/seed/caesar2026/800/500'
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'garden-layout-tips',
@@ -188,7 +188,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'Technical SEO', 'Tailwind CSS', 'Content Structure'],
     status: 'Live Web Experience',
-    image: 'https://picsum.photos/seed/gardenlayout/800/500'
+    image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'punch-monkey',
@@ -206,7 +206,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['HTML5 Canvas', 'JavaScript', 'CSS Animations'],
     status: 'Live Experimental Project',
-    image: 'https://picsum.photos/seed/punchmonkey/800/500'
+    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'ai-course-hanan',
@@ -224,7 +224,7 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'Tailwind CSS', 'Markdown Reader', 'AI Integration'],
     status: 'Live Educational Resource',
-    image: 'https://picsum.photos/seed/aicourse/800/500'
+    image: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1000&q=80'
   }
 ];
 
