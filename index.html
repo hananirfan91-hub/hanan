@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <script>
+      (function() {
+        try {
+          var realFetch = window.fetch;
+          var desc = Object.getOwnPropertyDescriptor(window, 'fetch') ||
+                     (Object.getPrototypeOf && Object.getOwnPropertyDescriptor(Object.getPrototypeOf(window), 'fetch'));
+          if (!desc || (desc.get && !desc.set) || !desc.writable) {
+            Object.defineProperty(window, 'fetch', {
+              get: function() { return realFetch; },
+              set: function(fn) { realFetch = fn; },
+              configurable: true,
+              enumerable: true
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hanan Irfan | Full-Stack Developer, Web Developer & Digital Creator</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/hanan-irfan.jpg" />
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Hanan Irfan | Full-Stack Developer, Web Developer & Digital Creator" />
+    <meta name="description" content="Hanan Irfan is an 18-year-old multidisciplinary full-stack software developer, web developer, SEO specialist, entrepreneur, and AI enthusiast from Rahim Yar Khan, Pakistan, building modern digital experiences and practical software products." />
+    <meta name="keywords" content="Hanan, Hanan Irfan, Hanan Irfan Developer, Hanan Irfan Software Developer, Hanan Irfan Web Developer, Hanan Irfan Full Stack Developer, Hanan Irfan Portfolio, Hanan Irfan Rahim Yar Khan, Full Stack Developer Pakistan, React Developer Pakistan, Next.js Developer Pakistan, SEO Expert Pakistan, Technical SEO Expert" />
+    <meta name="author" content="Hanan Irfan" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://hananirfanportfolio.vercel.app/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hananirfanportfolio.vercel.app/" />
+    <meta property="og:title" content="Hanan Irfan | Full-Stack Developer & Digital Creator" />
+    <meta property="og:description" content="Multidisciplinary Full-Stack Software Developer, SEO Specialist, Graphic Designer & AI Enthusiast from Rahim Yar Khan, Punjab, Pakistan." />
+    <meta property="og:site_name" content="Hanan Irfan Portfolio" />
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://hananirfanportfolio.vercel.app/" />
+    <meta property="twitter:title" content="Hanan Irfan | Full-Stack Developer & Digital Creator" />
+    <meta property="twitter:description" content="Multidisciplinary Full-Stack Software Developer, SEO Specialist, Graphic Designer & AI Enthusiast from Rahim Yar Khan, Punjab, Pakistan." />
+
+    <!-- Google Fonts: Syne & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://hananirfanportfolio.vercel.app/#person",
+          "name": "Hanan Irfan",
+          "alternateName": ["Hanan", "Hanan Irfan Developer"],
+          "jobTitle": [
+            "Full-Stack Software Developer",
+            "Web Developer",
+            "SEO Specialist",
+            "Entrepreneur",
+            "Graphic Designer",
+            "AI Enthusiast"
+          ],
+          "description": "Hanan Irfan is a multidisciplinary full-stack software developer and digital creator based in Rahim Yar Khan, Punjab, Pakistan, pursuing BS Computer Science at KFUEIT.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Rahim Yar Khan",
+            "addressRegion": "Punjab",
+            "addressCountry": "Pakistan"
+          },
+          "almaMater": {
+            "@type": "EducationalOrganization",
+            "name": "Khwaja Fareed University of Engineering and Information Technology (KFUEIT)"
+          },
+          "email": "mailto:hananirfan91@gmail.com",
+          "url": "https://hananirfanportfolio.vercel.app/",
+          "sameAs": [
+            "https://www.linkedin.com/in/hananirfan/",
+            "https://facebook.com/HananIrfan001",
+            "https://instagram.com/hananirfan2026",
+            "https://tiktok.com/@pathan_x_babarian565"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hananirfanportfolio.vercel.app/#website",
+          "url": "https://hananirfanportfolio.vercel.app/",
+          "name": "Hanan Irfan Portfolio",
+          "description": "Personal Portfolio & Digital Experience of Hanan Irfan",
+          "publisher": {
+            "@id": "https://hananirfanportfolio.vercel.app/#person"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://hananirfanportfolio.vercel.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Who is Hanan Irfan?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hanan Irfan is an 18-year-old multidisciplinary full-stack software developer, web developer, technical SEO specialist, entrepreneur, and AI enthusiast based in Rahim Yar Khan, Punjab, Pakistan. He is currently pursuing a Bachelor of Science in Computer Science (BSCS) at Khwaja Fareed University of Engineering and Information Technology (KFUEIT)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What services does Hanan Irfan offer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Hanan Irfan offers Full-Stack Web Application Development, Technical SEO & Performance Audits, SaaS & POS Software Engineering, Responsive UI/UX Design, and Custom Tool & API Development."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What projects has Hanan Irfan built?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Key featured projects built by Hanan Irfan include NEXA Point of Sale (POS System for modern retail & inventory), Free Web Tools Hub (interactive utility engine), and various full-stack React and Next.js applications."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I contact Hanan Irfan?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can contact Hanan Irfan via email at hananirfan91@gmail.com or through his official portfolio website at https://hananirfanportfolio.vercel.app/."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://hananirfanportfolio.vercel.app/#nexa-pos",
+          "name": "NEXA POS System",
+          "operatingSystem": "Web / Cross-Platform",
+          "applicationCategory": "BusinessApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@id": "https://hananirfanportfolio.vercel.app/#person"
+          },
+          "description": "Modern Point of Sale & Inventory Management System for retail and commerce built with React, TypeScript, and Supabase."
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body class="bg-[#07080c] text-slate-100 antialiased selection:bg-purple-500/30 selection:text-purple-200 overflow-x-hidden font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
