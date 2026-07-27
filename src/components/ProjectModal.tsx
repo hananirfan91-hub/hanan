@@ -70,11 +70,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               <img
                 src={project.image}
                 alt={project.title}
+                width={800}
+                height={450}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   e.currentTarget.src = '/nexapos.jpg';
                 }}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover aspect-video"
               />
             </div>
           )}

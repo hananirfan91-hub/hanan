@@ -159,11 +159,15 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                       <img
                         src={project.image}
                         alt={project.title}
+                        width={420}
+                        height={236}
+                        loading="lazy"
+                        decoding="async"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
                           e.currentTarget.src = '/nexapos.jpg';
                         }}
-                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500 aspect-video"
                       />
                     </div>
                   )}

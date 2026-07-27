@@ -27,11 +27,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <img
                   src="/hanan-irfan.jpg"
                   alt="Hanan Irfan Avatar"
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     e.currentTarget.src = '/avatar.jpg';
                   }}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform aspect-square"
                 />
               </div>
               <div>
@@ -67,16 +71,23 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               // NAVIGATION
             </h3>
             <ul className="space-y-2.5 text-xs font-semibold">
-              {(['home', 'about', 'skills', 'experience', 'projects', 'services', 'contact'] as PageId[]).map((p) => (
-                <li key={p}>
-                  <button
-                    onClick={() => { onNavigate(p); scrollToTop(); }}
-                    className="text-slate-400 hover:text-white hover:translate-x-1 transition-all uppercase"
-                  >
-                    {p}
-                  </button>
-                </li>
-              ))}
+              {(['home', 'about', 'projects', 'web-development', 'seo-expert', 'graphic-design', 'services', 'contact'] as PageId[]).map((p) => {
+                const labels: Record<string, string> = {
+                  'web-development': 'WEB DEVELOPMENT',
+                  'seo-expert': 'SEO EXPERT',
+                  'graphic-design': 'GRAPHIC DESIGN'
+                };
+                return (
+                  <li key={p}>
+                    <button
+                      onClick={() => { onNavigate(p); scrollToTop(); }}
+                      className="text-slate-400 hover:text-white hover:translate-x-1 transition-all uppercase"
+                    >
+                      {labels[p] || p}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

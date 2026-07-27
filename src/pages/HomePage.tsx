@@ -199,12 +199,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
               <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-purple-500/40 shadow-xl shadow-purple-600/30 shrink-0">
                 <img
                   src="/hanan-irfan.jpg"
-                  alt="Hanan Irfan Headshot"
+                  alt="Hanan Irfan Headshot — Web Developer in Rahim Yar Khan"
+                  width={144}
+                  height={144}
+                  loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     e.currentTarget.src = '/avatar.jpg';
                   }}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 aspect-square"
                 />
               </div>
               <div className="space-y-4">
@@ -262,11 +266,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
               <img
                 src="/certificate.jpg"
                 alt="ACM KFUEIT Web Developer Certificate — Abdul Hanan Irfan"
+                width={900}
+                height={672}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   e.currentTarget.src = '/avatar.jpg';
                 }}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[4/3]"
               />
               <a
                 href="/certificate.jpg"

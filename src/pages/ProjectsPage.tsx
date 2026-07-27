@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Project } from '../types';
+import { Project, PageId } from '../types';
 import { PROJECTS } from '../data/portfolioData';
 import { SplitTextReveal } from '../components/animations/SplitTextReveal';
-import { ExternalLink, Search, Sparkles, Filter, ArrowUpRight, Layers, Wrench, ShieldCheck, Terminal, Rocket } from 'lucide-react';
+import { ExternalLink, Search, Sparkles, Code2, SearchCheck, Palette, ArrowRight, ArrowUpRight, ShieldCheck, Terminal, Rocket } from 'lucide-react';
 
 interface ProjectsPageProps {
   onSelectProject: (project: Project) => void;
+  onNavigate?: (page: PageId) => void;
 }
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) => {
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject, onNavigate }) => {
   const [selectedFilter, setSelectedFilter] = useState<'ALL' | 'WEB' | 'SAAS' | 'AI' | 'TOOLS' | 'DESIGN'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -36,17 +37,82 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
       
-      {/* SECTION 1: HEADER */}
+      {/* SECTION 1: HEADER OVERVIEW */}
       <div className="space-y-4">
-        <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// ARCHITECTURE & CODE</span>
+        <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// PORTFOLIO OVERVIEW & HUB</span>
         <SplitTextReveal
-          text="PROJECTS & SAAS"
+          text="PROJECTS & DIGITAL WORK"
           as="h1"
           className="text-4xl sm:text-7xl font-black font-display text-white tracking-wide text-glow"
         />
         <p className="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-          Explore 10 live web applications, SaaS platforms, browser utilities, and creative digital experiences built and launched by Hanan Irfan.
+          Overview of live software applications, SaaS products, Web Development builds, SEO case studies, and Graphic Design portfolios created by Hanan Irfan.
         </p>
+
+        {/* OVERVIEW SERVICES HUB NAVIGATION */}
+        {onNavigate && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+            <button
+              onClick={() => onNavigate('web-development')}
+              className="glass-card p-5 rounded-2xl border border-purple-500/30 hover:border-purple-500/80 bg-purple-950/20 text-left transition-all group flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform">
+                  <Code2 className="w-5 h-5" />
+                </div>
+                <h2 className="text-lg font-bold font-display text-white group-hover:text-purple-300 transition-colors">
+                  Web Development
+                </h2>
+                <p className="text-xs text-slate-300">
+                  Full stack React, Next.js &amp; WordPress web development in Rahim Yar Khan.
+                </p>
+              </div>
+              <div className="pt-4 flex items-center gap-1 text-xs font-mono text-purple-400 group-hover:text-white">
+                <span>VIEW WEB DEV PAGE</span> <ArrowRight className="w-3.5 h-3.5" />
+              </div>
+            </button>
+
+            <button
+              onClick={() => onNavigate('seo-expert')}
+              className="glass-card p-5 rounded-2xl border border-cyan-500/30 hover:border-cyan-500/80 bg-cyan-950/20 text-left transition-all group flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 group-hover:scale-110 transition-transform">
+                  <SearchCheck className="w-5 h-5" />
+                </div>
+                <h2 className="text-lg font-bold font-display text-white group-hover:text-cyan-300 transition-colors">
+                  SEO Expert
+                </h2>
+                <p className="text-xs text-slate-300">
+                  Local SEO, Google ranking, and technical audit services in RYK.
+                </p>
+              </div>
+              <div className="pt-4 flex items-center gap-1 text-xs font-mono text-cyan-400 group-hover:text-white">
+                <span>VIEW SEO PAGE</span> <ArrowRight className="w-3.5 h-3.5" />
+              </div>
+            </button>
+
+            <button
+              onClick={() => onNavigate('graphic-design')}
+              className="glass-card p-5 rounded-2xl border border-pink-500/30 hover:border-pink-500/80 bg-pink-950/20 text-left transition-all group flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-300 group-hover:scale-110 transition-transform">
+                  <Palette className="w-5 h-5" />
+                </div>
+                <h2 className="text-lg font-bold font-display text-white group-hover:text-pink-300 transition-colors">
+                  Graphic Design
+                </h2>
+                <p className="text-xs text-slate-300">
+                  Logo design, social media posts, and branding kits in Rahim Yar Khan.
+                </p>
+              </div>
+              <div className="pt-4 flex items-center gap-1 text-xs font-mono text-pink-400 group-hover:text-white">
+                <span>VIEW DESIGN PAGE</span> <ArrowRight className="w-3.5 h-3.5" />
+              </div>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* SECTION 2: FEATURED BANNER PROJECT - NEXA POS */}
@@ -205,11 +271,15 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
                     <img
                       src={project.image}
                       alt={project.title}
+                      width={600}
+                      height={338}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       onError={(e) => {
                         e.currentTarget.src = '/nexapos.jpg';
                       }}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 aspect-video"
                     />
                   </div>
                 )}

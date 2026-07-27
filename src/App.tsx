@@ -16,13 +16,16 @@ import { SkillsPage } from './pages/SkillsPage';
 import { ExperiencePage } from './pages/ExperiencePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ServicesPage } from './pages/ServicesPage';
+import { WebDevelopmentPage } from './pages/WebDevelopmentPage';
+import { SeoPage } from './pages/SeoPage';
+import { GraphicDesignPage } from './pages/GraphicDesignPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 
 function getPageFromPath(path: string): PageId {
   const cleanPath = path.replace(/^\/+|\/+$/g, '').toLowerCase();
-  const validPages: PageId[] = ['home', 'about', 'skills', 'experience', 'projects', 'services', 'contact', 'privacy', 'terms'];
+  const validPages: PageId[] = ['home', 'about', 'skills', 'experience', 'projects', 'services', 'web-development', 'seo-expert', 'graphic-design', 'contact', 'privacy', 'terms'];
   if (cleanPath === '' || cleanPath === 'home') return 'home';
   if (validPages.includes(cleanPath as PageId)) return cleanPath as PageId;
   return 'home';
@@ -120,19 +123,47 @@ export default function App() {
 
   useEffect(() => {
     const titleMap: Record<PageId, string> = {
-      home: 'Hanan Irfan | Full-Stack Developer, Web Developer & Digital Creator',
-      about: 'About Hanan Irfan | BSCS Student, Software Developer & Tech Enthusiast',
-      skills: 'Skills & Tech Stack | Hanan Irfan — React, Next.js, Technical SEO & AI',
-      experience: 'Experience & Milestones | Hanan Irfan — Full-Stack Developer & Entrepreneur',
-      projects: 'Featured Projects & Software | Hanan Irfan — NEXA POS & Web Applications',
-      services: 'Services & Digital Solutions | Hanan Irfan — Development, SEO & UI/UX',
-      contact: "Contact & Let's Work Together | Hanan Irfan — Rahim Yar Khan, Pakistan",
+      home: 'Hanan Irfan | Web Developer & SEO Expert',
+      about: 'About Hanan Irfan | Web Developer in RYK',
+      skills: 'Skills & Stack | Hanan Irfan SEO Specialist',
+      experience: 'Hanan Irfan Experience | Full Stack Developer',
+      projects: 'Projects Overview | Hanan Irfan Web Developer',
+      services: 'Web Development Services | Hanan Irfan',
+      'web-development': 'Web Developer in Rahim Yar Khan | Hanan Irfan',
+      'seo-expert': 'SEO Expert in Rahim Yar Khan | Hanan Irfan RYK',
+      'graphic-design': 'Graphic Designer in Rahim Yar Khan | Hanan Irfan',
+      contact: 'Contact Hanan Irfan | Web Developer in RYK',
       privacy: 'Privacy Policy | Hanan Irfan Portfolio',
       terms: 'Terms of Service | Hanan Irfan Portfolio'
     };
 
+    const descriptionMap: Record<PageId, string> = {
+      home: 'Hanan Irfan is a professional full-stack web developer, SEO expert, and graphic designer in Rahim Yar Khan (RYK), Pakistan, creating modern responsive websites and digital applications.',
+      about: 'Learn about Hanan Irfan, an 18-year-old BSCS student at KFUEIT, full stack developer, SEO specialist, and entrepreneur in Rahim Yar Khan offering custom web development and tech solutions.',
+      skills: "Explore Hanan Irfan's skills in React, Next.js, TypeScript, WordPress, technical SEO, local SEO, graphic design, and database engineering. Expert web development services in Rahim Yar Khan.",
+      experience: 'Review the career milestones, software projects, and academic background of Hanan Irfan, full stack web developer and technical SEO specialist operating out of Rahim Yar Khan, Pakistan.',
+      projects: 'Explore the project overview portfolio by Hanan Irfan featuring web development, SEO optimization, SaaS apps, and graphic design work crafted for clients in Rahim Yar Khan and globally.',
+      services: 'Professional website development, local SEO optimization, graphic design, and full stack web development services in Rahim Yar Khan (RYK) by freelance developer Hanan Irfan.',
+      'web-development': 'Hanan Irfan is a professional web developer in Rahim Yar Khan (RYK) providing custom website development services, React, Next.js, and WordPress solutions for local and global businesses.',
+      'seo-expert': 'Hanan Irfan is a local SEO expert in Rahim Yar Khan (RYK) specializing in Google rankings, technical SEO audits, and keyword optimization services to grow your business search visibility.',
+      'graphic-design': 'Hanan Irfan is a creative graphic designer in Rahim Yar Khan (RYK) providing logo design, social media post design, and branding services for businesses looking for premium visual identity.',
+      contact: 'Contact Hanan Irfan to hire a professional web developer, SEO specialist, or graphic designer in Rahim Yar Khan (RYK). Get a custom quote for your website or SaaS project today.',
+      privacy: "Read the Privacy Policy for Hanan Irfan's portfolio website. Learn how we handle user data with complete transparency, privacy protection, and security across all our web applications.",
+      terms: "Review the Terms of Service for using Hanan Irfan's website, web apps, and digital services. Clear terms governing usage, intellectual property, and service agreements."
+    };
+
     if (titleMap[currentPage]) {
       document.title = titleMap[currentPage];
+    }
+
+    if (descriptionMap[currentPage]) {
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', descriptionMap[currentPage]);
     }
   }, [currentPage]);
 
@@ -152,9 +183,15 @@ export default function App() {
       case 'experience':
         return <ExperiencePage />;
       case 'projects':
-        return <ProjectsPage onSelectProject={(p) => setSelectedProject(p)} />;
+        return <ProjectsPage onSelectProject={(p) => setSelectedProject(p)} onNavigate={handleNavigate} />;
       case 'services':
         return <ServicesPage onNavigate={handleNavigate} />;
+      case 'web-development':
+        return <WebDevelopmentPage onNavigate={handleNavigate} />;
+      case 'seo-expert':
+        return <SeoPage onNavigate={handleNavigate} />;
+      case 'graphic-design':
+        return <GraphicDesignPage onNavigate={handleNavigate} />;
       case 'contact':
         return <ContactPage />;
       case 'privacy':

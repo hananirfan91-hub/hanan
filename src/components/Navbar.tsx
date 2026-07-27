@@ -41,9 +41,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems: { id: PageId; label: string }[] = [
     { id: 'home', label: 'HOME' },
     { id: 'about', label: 'ABOUT' },
-    { id: 'skills', label: 'SKILLS' },
-    { id: 'experience', label: 'EXPERIENCE' },
     { id: 'projects', label: 'PROJECTS' },
+    { id: 'web-development', label: 'WEB DEV' },
+    { id: 'seo-expert', label: 'SEO' },
+    { id: 'graphic-design', label: 'DESIGN' },
     { id: 'services', label: 'SERVICES' },
     { id: 'contact', label: 'CONTACT' }
   ];
@@ -80,11 +81,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               <img
                 src="/hanan-irfan.jpg"
                 alt="Hanan Irfan Avatar"
+                width={40}
+                height={40}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   e.currentTarget.src = '/avatar.jpg';
                 }}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover aspect-square"
               />
             </div>
             <div>

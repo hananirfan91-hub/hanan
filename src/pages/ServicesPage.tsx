@@ -44,8 +44,44 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
           className="text-4xl sm:text-7xl font-black font-display text-white tracking-wide text-glow"
         />
         <p className="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-          Comprehensive full-stack development, technical SEO, digital product design, and AI integrations engineered for performance, indexing, and user engagement.
+          Comprehensive full-stack development, technical SEO, digital product design, and AI integrations engineered for performance, indexing, and user engagement in Rahim Yar Khan (RYK) and worldwide.
         </p>
+
+        {/* Quick Nav Hub */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+          <button
+            onClick={() => onNavigate('web-development')}
+            className="p-4 rounded-2xl glass-card border border-purple-500/30 hover:border-purple-500 bg-purple-950/20 text-left transition-all flex items-center justify-between group"
+          >
+            <div>
+              <span className="text-[10px] font-mono text-purple-400 block uppercase">SPECIALIZED PAGE</span>
+              <span className="text-sm font-bold font-display text-white group-hover:text-purple-300">Web Development Services</span>
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-purple-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+
+          <button
+            onClick={() => onNavigate('seo-expert')}
+            className="p-4 rounded-2xl glass-card border border-cyan-500/30 hover:border-cyan-500 bg-cyan-950/20 text-left transition-all flex items-center justify-between group"
+          >
+            <div>
+              <span className="text-[10px] font-mono text-cyan-400 block uppercase">SPECIALIZED PAGE</span>
+              <span className="text-sm font-bold font-display text-white group-hover:text-cyan-300">SEO Expert Services</span>
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+
+          <button
+            onClick={() => onNavigate('graphic-design')}
+            className="p-4 rounded-2xl glass-card border border-pink-500/30 hover:border-pink-500 bg-pink-950/20 text-left transition-all flex items-center justify-between group"
+          >
+            <div>
+              <span className="text-[10px] font-mono text-pink-400 block uppercase">SPECIALIZED PAGE</span>
+              <span className="text-sm font-bold font-display text-white group-hover:text-pink-300">Graphic Design Services</span>
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-pink-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+        </div>
       </div>
 
       {/* SECTION 2: SERVICES GRID (7 DETAILED SERVICES) */}

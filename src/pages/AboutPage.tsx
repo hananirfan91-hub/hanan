@@ -62,12 +62,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             <div className="relative w-36 h-36 mx-auto rounded-3xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-cyan-500 p-1 shadow-2xl shadow-purple-600/40 overflow-hidden group">
               <img
                 src="/hanan-irfan.jpg"
-                alt="Hanan Irfan — Full-Stack Developer"
+                alt="Hanan Irfan — Full-Stack Developer & SEO Expert in Rahim Yar Khan"
+                width={144}
+                height={144}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   e.currentTarget.src = '/avatar.jpg';
                 }}
-                className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500 aspect-square"
               />
             </div>
 
@@ -124,11 +128,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <img
                 src="/certificate.jpg"
                 alt="Abdul Hanan Irfan — Web Developer Certificate of Appreciation ACM KFUEIT"
+                width={900}
+                height={672}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   e.currentTarget.src = '/avatar.jpg';
                 }}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[4/3]"
               />
               <a
                 href="/certificate.jpg"
