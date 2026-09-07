@@ -156,6 +156,48 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               </p>
             </div>
           </div>
+
+          {/* Official D' Educationist Ambassador Highlight */}
+          <div className="glass-card rounded-3xl p-6 border border-emerald-500/30 bg-[#07130f] space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono font-extrabold text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
+                <GraduationCap className="w-3.5 h-3.5" /> D' EDUCATIONIST AMBASSADOR
+              </span>
+              <span className="text-[10px] font-mono text-slate-400">KFUEIT RYK</span>
+            </div>
+
+            <div className="relative group overflow-hidden rounded-2xl border border-emerald-500/30 shadow-xl shadow-emerald-950/30">
+              <img
+                src="/deducationist-ambassador.jpg"
+                alt="Hanan Irfan joins D' Educationist as Ambassador at KFUEIT"
+                width={800}
+                height={1000}
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = '/certificate.jpg';
+                }}
+                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4]"
+              />
+              <a
+                href="/deducationist-ambassador.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+              >
+                <span>CLICK TO VIEW FULL POSTER</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold font-display text-white">Ambassador of D' Educationist @ KFUEIT</h3>
+              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                Empowering university students across the KFUEIT Rahim Yar Khan campus with awareness on international study pathways, scholarships, seminars, and academic career guidance.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Right Content Story */}

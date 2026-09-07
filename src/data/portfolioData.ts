@@ -5,6 +5,7 @@ export const PERSONAL_INFO = {
   primaryBrand: 'HANAN',
   title: 'Full-Stack Software Developer, Web Developer & Digital Creator',
   roles: [
+    "D' Educationist Ambassador @ KFUEIT",
     'Full-Stack Developer',
     'Web Developer & Designer',
     'SEO & Web Performance Specialist',
@@ -307,6 +308,21 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 ];
 
 export const EXPERIENCE_ITEMS: ExperienceItem[] = [
+  {
+    id: 'exp-ambassador',
+    period: '2025 — PRESENT',
+    title: "Campus Ambassador — D' Educationist",
+    category: 'LEADERSHIP & STUDENT ENGAGEMENT',
+    organization: "D' Educationist @ KFUEIT Rahim Yar Khan",
+    description: "Serving as the official Ambassador of D' Educationist at Khwaja Fareed University of Engineering and Information Technology (KFUEIT), actively bridging students with global study pathways, career development sessions, and international higher education opportunities.",
+    highlights: [
+      'Representing D\' Educationist across KFUEIT student community in Rahim Yar Khan',
+      'Guiding university students on international study programs and scholarships',
+      'Organizing educational awareness seminars and interactive student guidance sessions',
+      'Fostering community engagement, youth leadership, and academic counseling'
+    ],
+    technologies: ['Student Leadership', 'Career Counseling', 'Public Speaking', 'Event Organizing', 'Networking']
+  },
   {
     id: 'exp-1',
     period: '2024 — PRESENT',

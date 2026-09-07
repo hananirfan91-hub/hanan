@@ -8,7 +8,7 @@ import { SplitTextReveal } from '../components/animations/SplitTextReveal';
 import { Parallax3DCard } from '../components/animations/Parallax3DCard';
 import { HorizontalScrollShowcase } from '../components/animations/HorizontalScrollShowcase';
 import { ImageMaskReveal } from '../components/animations/ImageMaskReveal';
-import { ArrowUpRight, Sparkles, Code2, Terminal, ChevronDown, CheckCircle2, Cpu, Globe, Rocket, Layers, ExternalLink, Wrench, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Code2, Terminal, ChevronDown, CheckCircle2, Cpu, Globe, Rocket, Layers, ExternalLink, Wrench, ShieldCheck, GraduationCap, Award, BookOpen, Users, Compass } from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
@@ -308,6 +308,133 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                   <span className="text-white font-bold">HAMZA ARSHAD</span>
                 </div>
               </div>
+            </div>
+
+          </div>
+        </div>
+      </motion.section>
+
+      {/* ================= SECTION 2.6: D' EDUCATIONIST CAMPUS AMBASSADOR ================= */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
+        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-emerald-500/30 bg-gradient-to-br from-[#07130f] via-[#081017] to-[#0d0a1b] relative overflow-hidden shadow-2xl shadow-emerald-950/30">
+          
+          {/* Subtle Ambient Background Highlights */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-[90px] pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+            
+            {/* Left Column: Ambassador Poster Visual */}
+            <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-2xl shadow-emerald-950/50 bg-[#06100d]">
+              <img
+                src="/deducationist-ambassador.jpg"
+                alt="Hanan Irfan joins D' Educationist as Ambassador of KFUEIT RYK"
+                width={800}
+                height={1000}
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = '/certificate.jpg';
+                }}
+                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]"
+              />
+              <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-emerald-400/40 text-emerald-300 font-mono text-[11px] font-bold flex items-center gap-1.5 shadow-lg">
+                <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
+                <span>OFFICIAL APPOINTMENT</span>
+              </div>
+              <a
+                href="/deducationist-ambassador.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center"
+              >
+                <span>D' EDUCATIONIST &times; KFUEIT RYK</span>
+                <span className="text-white text-sm font-sans underline">Click to View Full Announcement</span>
+              </a>
+            </div>
+
+            {/* Right Column: Narrative & Mission Points */}
+            <div className="lg:col-span-7 space-y-6">
+              
+              {/* Badge & Title */}
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-semibold">
+                  <Award className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>CAMPUS AMBASSADOR APPOINTMENT</span>
+                </div>
+                <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white tracking-tight leading-tight">
+                  Hanan Irfan joins <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300">D' Educationist</span> as Ambassador of KFUEIT RYK
+                </h3>
+              </div>
+
+              {/* Exact User Text Narratives */}
+              <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                <p>
+                  As an Ambassador of <strong className="text-white font-semibold">D' Educationist</strong> at the <strong className="text-emerald-300 font-semibold">KFUEIT RYK Campus</strong>, Hanan Irfan is actively contributing to creating awareness among university students about educational opportunities, career development, and international study pathways. Through this role, he aims to connect students with valuable information and guide them toward making informed decisions about their academic and professional futures.
+                </p>
+                <p>
+                  Hanan works as a bridge between D' Educationist and the student community at KFUEIT, helping promote educational awareness initiatives, seminars, and student-focused sessions. His responsibilities include engaging with students, sharing relevant opportunities, and encouraging them to explore suitable academic and career options.
+                </p>
+                <p className="text-slate-300/90 italic border-l-2 border-emerald-500/60 pl-4 py-1">
+                  "Through this ambassadorial role, Hanan is strengthening his communication, leadership, networking, and community engagement skills while contributing to a more informed and opportunity-driven student environment at KFUEIT's Rahim Yar Khan campus."
+                </p>
+              </div>
+
+              {/* Highlight Pillars */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
+                  <Globe className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-white font-bold text-xs font-display">International Study Pathways</div>
+                    <div className="text-[11px] text-slate-400">Global admissions, scholarships & university programs.</div>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
+                  <Users className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-white font-bold text-xs font-display">Student Community Bridge</div>
+                    <div className="text-[11px] text-slate-400">Promoting awareness seminars & career guidance sessions.</div>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
+                  <BookOpen className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-white font-bold text-xs font-display">Informed Academic Futures</div>
+                    <div className="text-[11px] text-slate-400">Connecting peers with verified career & degree opportunities.</div>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
+                  <Compass className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-white font-bold text-xs font-display">Leadership & Engagement</div>
+                    <div className="text-[11px] text-slate-400">Strengthening networking & student empowerment at KFUEIT.</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Institution Meta Footer */}
+              <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-slate-400">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                  <span className="text-slate-300 font-semibold">Active Ambassador @ KFUEIT RYK</span>
+                </div>
+                <div className="flex items-center gap-4 text-[11px]">
+                  <span className="text-emerald-300">#DEducationist</span>
+                  <span className="text-cyan-300">#KFUEIT</span>
+                  <span className="text-purple-300">#StudentEmpowerment</span>
+                </div>
+              </div>
+
             </div>
 
           </div>
