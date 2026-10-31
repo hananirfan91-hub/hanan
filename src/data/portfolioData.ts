@@ -226,6 +226,42 @@ export const PROJECTS: Project[] = [
     technologies: ['React', 'Tailwind CSS', 'Markdown Reader', 'AI Integration'],
     status: 'Live Educational Resource',
     image: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    id: 'the-sports-room',
+    number: '11',
+    title: 'The Sports Room',
+    url: 'https://thesportsroom.online',
+    category: 'Web Development & SEO',
+    filterCategory: 'WEB',
+    featured: true,
+    projectType: 'Independent Digital Sports Media and Analytics Platform',
+    coFounders: 'Hanan Irfan and Urwah Farooq',
+    organization: 'HI Digital Group',
+    location: 'Rahim Yar Khan, Pakistan',
+    description: 'The Sports Room is an independent digital sports media and analytics platform co-founded by Hanan Irfan and Urwah Farooq, operated by HI Digital Group. It delivers real-time sports news, live match coverage, tactical breakdowns, cricket telemetry, daily sports quizzes, and monthly fan leaderboards across cricket, football, basketball, and other sports.',
+    features: [
+      'Independent Digital Sports Media and Analytics Platform',
+      'Co-founded by Hanan Irfan and Urwah Farooq',
+      'Operated by HI Digital Group — Rahim Yar Khan, Pakistan',
+      'Real-time sports news, live match coverage & tactical breakdowns',
+      'Cricket telemetry, daily sports quizzes & monthly fan leaderboards',
+      'Multi-sport coverage across cricket, football, basketball & other sports'
+    ],
+    technologies: [
+      'Web Development',
+      'SEO',
+      'Technical SEO',
+      'Sports Analytics',
+      'Digital Media'
+    ],
+    status: 'Live Platform',
+    image: '/the-sports-room.webp',
+    fallbackImage: '/assets/aistudio/ChatGPT_Image_Sep_21__2026__11_29_50_AM_41851869.png',
+    imageAlt: 'The Sports Room sports media and analytics platform co-founded by Hanan Irfan.',
+    preserveAspectRatio: true,
+    seoTitle: 'The Sports Room — Web Development & SEO Project by Hanan Irfan',
+    seoDescription: 'The Sports Room is an independent sports media and analytics platform co-founded by Hanan Irfan, featuring real-time sports news, match coverage, analytics, and interactive fan experiences.'
   }
 ];
 

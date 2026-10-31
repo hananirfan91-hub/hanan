@@ -254,8 +254,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject, onN
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
               onClick={() => onSelectProject(project)}
+              itemScope={project.seoTitle ? true : undefined}
+              itemType={project.seoTitle ? 'https://schema.org/CreativeWork' : undefined}
               className="group glass-card rounded-3xl p-6 border border-white/10 hover:border-purple-500/50 bg-[#090b14] transition-all cursor-pointer flex flex-col justify-between"
             >
+              {project.seoTitle && <meta itemProp="name" content={project.seoTitle} />}
+              {project.seoDescription && <meta itemProp="description" content={project.seoDescription} />}
+              {project.seoTitle && <link itemProp="url" href={project.url} />}
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-xs font-mono font-extrabold text-purple-400">
@@ -267,19 +272,27 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject, onN
                 </div>
 
                 {project.image && (
-                  <div className="h-40 rounded-2xl overflow-hidden border border-white/10 mb-4 bg-black/40">
+                  <div className={`h-40 rounded-2xl overflow-hidden border border-white/10 mb-4 ${project.preserveAspectRatio ? 'bg-[#041209] flex items-center justify-center' : 'bg-black/40'}`}>
                     <img
                       src={project.image}
-                      alt={project.title}
-                      width={600}
-                      height={338}
+                      alt={project.imageAlt || project.title}
+                      title={project.seoTitle || undefined}
+                      width={project.preserveAspectRatio ? 1254 : 600}
+                      height={project.preserveAspectRatio ? 1254 : 338}
                       loading="lazy"
                       decoding="async"
                       referrerPolicy="no-referrer"
                       onError={(e) => {
-                        e.currentTarget.src = '/nexapos.jpg';
+                        const fallback = project.fallbackImage || '/nexapos.jpg';
+                        if (!e.currentTarget.src.endsWith(fallback)) {
+                          e.currentTarget.src = fallback;
+                        }
                       }}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 aspect-video"
+                      className={
+                        project.preserveAspectRatio
+                          ? 'w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 aspect-square'
+                          : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 aspect-video'
+                      }
                     />
                   </div>
                 )}

@@ -138,12 +138,17 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                   width: `${cardWidth}px`,
                   transformStyle: 'preserve-3d',
                 }}
+                itemScope={project.seoTitle ? true : undefined}
+                itemType={project.seoTitle ? 'https://schema.org/CreativeWork' : undefined}
                 className={`shrink-0 glass-card rounded-3xl p-6 sm:p-8 border transition-colors duration-300 ${
                   isCenter
                     ? 'border-purple-500/60 bg-[#0c0f1e] shadow-2xl shadow-purple-950/50'
                     : 'border-white/10 bg-[#080a14] hover:border-purple-500/30'
                 }`}
               >
+                {project.seoTitle && <meta itemProp="name" content={project.seoTitle} />}
+                {project.seoDescription && <meta itemProp="description" content={project.seoDescription} />}
+                {project.seoTitle && <link itemProp="url" href={project.url} />}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono text-purple-400 font-extrabold px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
@@ -155,19 +160,27 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                   </div>
 
                   {project.image && (
-                    <div className="h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                    <div className={`h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/10 relative group/img ${project.preserveAspectRatio ? 'bg-[#041209] flex items-center justify-center' : ''}`}>
                       <img
                         src={project.image}
-                        alt={project.title}
-                        width={420}
-                        height={236}
+                        alt={project.imageAlt || project.title}
+                        title={project.seoTitle || undefined}
+                        width={project.preserveAspectRatio ? 1254 : 420}
+                        height={project.preserveAspectRatio ? 1254 : 236}
                         loading="lazy"
                         decoding="async"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
-                          e.currentTarget.src = '/nexapos.jpg';
+                          const fallback = project.fallbackImage || '/nexapos.jpg';
+                          if (!e.currentTarget.src.endsWith(fallback)) {
+                            e.currentTarget.src = fallback;
+                          }
                         }}
-                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500 aspect-video"
+                        className={
+                          project.preserveAspectRatio
+                            ? 'w-full h-full object-contain group-hover/img:scale-105 transition-transform duration-500 aspect-square'
+                            : 'w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500 aspect-video'
+                        }
                       />
                     </div>
                   )}
@@ -181,7 +194,7 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 pt-2">
-                    {project.technologies.slice(0, 4).map((tech, idx) => (
+                    {(project.id === 'the-sports-room' ? project.technologies : project.technologies.slice(0, 4)).map((tech, idx) => (
                       <span
                         key={idx}
                         className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-purple-950/40 border border-purple-500/20 text-purple-300"

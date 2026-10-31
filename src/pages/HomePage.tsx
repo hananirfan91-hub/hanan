@@ -314,6 +314,76 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
         </div>
       </motion.section>
 
+      {/* ================= SECTION 2.55: NAYI MANZIL WEB DEVELOPMENT CERTIFICATE ================= */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.5 }}
+        aria-labelledby="nayi-manzil-certificate-heading"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
+        <article className="glass-card glass-card-hover rounded-3xl p-8 sm:p-10 border border-amber-500/30 bg-gradient-to-br from-[#0c0d18] via-[#090b14] to-[#120f09] relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-2xl shadow-amber-950/40 bg-white">
+              <picture className="block w-full">
+                <source srcSet="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp" type="image/webp" />
+                <img
+                  src="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                  alt="Abdul Hanan Irfan's Web Development Certificate awarded by Nayi Manzil."
+                  width={3508}
+                  height={2481}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg')) {
+                      target.src = '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg';
+                    }
+                  }}
+                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500 aspect-[3508/2481]"
+                />
+              </picture>
+              <a
+                href="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open full-resolution Web Development Certificate awarded to Abdul Hanan Irfan by Nayi Manzil"
+                className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center"
+              >
+                <span>NAYI MANZIL — WEB DEVELOPMENT</span>
+                <span className="text-white text-sm font-sans underline">Click to Open Full Certificate</span>
+              </a>
+            </div>
+
+            <div className="lg:col-span-7 space-y-4">
+              <span className="text-xs font-mono text-amber-400 uppercase tracking-widest px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 inline-block">
+                ★ OFFICIAL RECOGNITION & CERTIFICATE
+              </span>
+              <h3 id="nayi-manzil-certificate-heading" className="text-2xl sm:text-4xl font-extrabold font-display text-white">
+                Web Development Certificate — Nayi Manzil
+              </h3>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                <strong className="text-amber-300">Abdul Hanan Irfan</strong> successfully completed a <strong className="text-cyan-300">Web Development</strong> program at <strong className="text-purple-300">Nayi Manzil</strong>, earning recognition for his learning and development in web technologies. This achievement represents another milestone in his journey as a web developer and technology enthusiast.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 pt-2 font-mono text-xs text-slate-300 border-t border-white/10">
+                <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                  <span className="text-slate-400 block text-[10px]">ISSUING ORGANIZATION</span>
+                  <span className="text-white font-bold">NAYI MANZIL</span>
+                </div>
+                <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                  <span className="text-slate-400 block text-[10px]">CATEGORY</span>
+                  <span className="text-white font-bold">WEB DEVELOPMENT</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </article>
+      </motion.section>
+
       {/* ================= SECTION 2.6: D' EDUCATIONIST CAMPUS AMBASSADOR ================= */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
@@ -462,7 +532,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             onClick={() => onNavigate('projects')}
             className="text-xs font-mono text-purple-400 hover:text-white flex items-center gap-1 transition-colors"
           >
-            <span>VIEW ALL 10 PROJECTS</span>
+            <span>VIEW ALL {PROJECTS.length} PROJECTS</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>

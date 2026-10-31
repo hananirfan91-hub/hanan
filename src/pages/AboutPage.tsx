@@ -157,6 +157,54 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             </div>
           </div>
 
+          {/* Official Nayi Manzil Web Development Certificate Highlight */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-purple-500/30 bg-[#090c1a] space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5" /> NAYI MANZIL CERTIFICATE
+              </span>
+              <span className="text-[10px] font-mono text-slate-400">WEB DEVELOPMENT</span>
+            </div>
+
+            <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 shadow-xl shadow-amber-950/30 bg-white">
+              <picture className="block w-full">
+                <source srcSet="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp" type="image/webp" />
+                <img
+                  src="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                  alt="Abdul Hanan Irfan's Web Development Certificate awarded by Nayi Manzil."
+                  width={3508}
+                  height={2481}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg')) {
+                      target.src = '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg';
+                    }
+                  }}
+                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500 aspect-[3508/2481]"
+                />
+              </picture>
+              <a
+                href="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open full-resolution Web Development Certificate awarded to Abdul Hanan Irfan by Nayi Manzil"
+                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+              >
+                <span>CLICK TO VIEW FULL RESOLUTION</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold font-display text-white">Web Development Certificate — Nayi Manzil</h3>
+              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                <strong className="text-amber-300">Abdul Hanan Irfan</strong> successfully completed a <strong className="text-cyan-300">Web Development</strong> program at <strong className="text-purple-300">Nayi Manzil</strong>, earning recognition for his learning and development in web technologies. This achievement represents another milestone in his journey as a web developer and technology enthusiast.
+              </p>
+            </div>
+          </article>
+
           {/* Official D' Educationist Ambassador Highlight */}
           <div className="glass-card rounded-3xl p-6 border border-emerald-500/30 bg-[#07130f] space-y-4">
             <div className="flex items-center justify-between">

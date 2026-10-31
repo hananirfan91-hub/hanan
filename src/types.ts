@@ -5,7 +5,7 @@ export interface Project {
   number: string;
   title: string;
   url: string;
-  category: 'SaaS' | 'Web Tools' | 'AI' | 'Portfolio' | 'Agency' | 'Education' | 'Web Project' | 'Content' | 'Creative Web Project';
+  category: 'SaaS' | 'Web Tools' | 'AI' | 'Portfolio' | 'Agency' | 'Education' | 'Web Project' | 'Content' | 'Creative Web Project' | 'Web Development & SEO';
   filterCategory: 'WEB' | 'SAAS' | 'AI' | 'TOOLS' | 'DESIGN';
   description: string;
   featured?: boolean;
@@ -13,6 +13,15 @@ export interface Project {
   technologies: string[];
   status: string;
   image: string;
+  imageAlt?: string;
+  fallbackImage?: string;
+  preserveAspectRatio?: boolean;
+  seoTitle?: string;
+  seoDescription?: string;
+  projectType?: string;
+  coFounders?: string;
+  organization?: string;
+  location?: string;
 }
 
 export interface SkillCategory {

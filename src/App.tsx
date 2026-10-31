@@ -4,10 +4,12 @@ import { PageId, Project } from './types';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { ParticleCanvas } from './components/ParticleCanvas';
+import { ScrollAnimatedBackground } from './components/ScrollAnimatedBackground';
 import { CustomCursor } from './components/CustomCursor';
 import { ProjectModal } from './components/ProjectModal';
 import { PageLoader } from './components/PageLoader';
 import { SmoothLenis } from './components/animations/SmoothLenis';
+import { BackgroundMusicControl } from './components/BackgroundMusicControl';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -41,61 +43,107 @@ export default function App() {
   });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [audioEnabled, setAudioEnabled] = useState(false);
+  const [audioError, setAudioError] = useState(false);
 
-  // Web Audio Synth ambient sound setup
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const oscRef = useRef<OscillatorNode | null>(null);
-  const gainRef = useRef<GainNode | null>(null);
+  // Single HTML5 Background Music Audio Instance
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const userManuallyPausedRef = useRef(false);
+  const lastManualToggleMsRef = useRef(0);
+  const cleanupInteractionListenersRef = useRef<(() => void) | null>(null);
 
   const toggleAudio = () => {
-    if (!audioEnabled) {
-      try {
-        const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-        if (!audioCtxRef.current) {
-          audioCtxRef.current = new AudioCtx();
-        }
-        const ctx = audioCtxRef.current;
-        if (ctx.state === 'suspended') {
-          ctx.resume();
-        }
+    const audio = audioRef.current;
+    if (!audio || audioError) return;
 
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+    lastManualToggleMsRef.current = performance.now();
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(110, ctx.currentTime); // Low deep drone (A2)
-
-        gain.gain.setValueAtTime(0.015, ctx.currentTime); // Very soft background level
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        oscRef.current = osc;
-        gainRef.current = gain;
-
-        setAudioEnabled(true);
-      } catch (err) {
-        console.log('Audio init blocked or unsupported');
+    if (!audio.paused) {
+      userManuallyPausedRef.current = true;
+      if (cleanupInteractionListenersRef.current) {
+        cleanupInteractionListenersRef.current();
+        cleanupInteractionListenersRef.current = null;
       }
-    } else {
-      if (oscRef.current) {
-        try {
-          oscRef.current.stop();
-          oscRef.current.disconnect();
-        } catch (e) {}
-      }
+      audio.pause();
       setAudioEnabled(false);
+    } else {
+      userManuallyPausedRef.current = false;
+      audio
+        .play()
+        .then(() => {
+          setAudioEnabled(true);
+          if (cleanupInteractionListenersRef.current) {
+            cleanupInteractionListenersRef.current();
+            cleanupInteractionListenersRef.current = null;
+          }
+        })
+        .catch(() => {
+          setAudioEnabled(false);
+        });
     }
   };
 
   useEffect(() => {
-    return () => {
-      if (oscRef.current) {
-        try {
-          oscRef.current.stop();
-        } catch (e) {}
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.4;
+
+    const removeInteractionListeners = () => {
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
+    };
+
+    function handleFirstInteraction(e: Event) {
+      if (userManuallyPausedRef.current) {
+        removeInteractionListeners();
+        return;
       }
+      if (performance.now() - lastManualToggleMsRef.current < 300) {
+        return;
+      }
+      const target = e.target;
+      if (target instanceof Element && target.closest('[data-music-control="true"], #btn-audio-toggle')) {
+        return;
+      }
+
+      const currentAudio = audioRef.current;
+      if (!currentAudio || !currentAudio.paused) {
+        removeInteractionListeners();
+        return;
+      }
+
+      currentAudio
+        .play()
+        .then(() => {
+          setAudioEnabled(true);
+          removeInteractionListeners();
+          cleanupInteractionListenersRef.current = null;
+        })
+        .catch(() => {
+          // Keep listeners active until a browser-permitted user interaction occurs
+        });
+    }
+
+    cleanupInteractionListenersRef.current = removeInteractionListeners;
+
+    // Attempt autoplay on initial website load
+    audio
+      .play()
+      .then(() => {
+        setAudioEnabled(true);
+        removeInteractionListeners();
+        cleanupInteractionListenersRef.current = null;
+      })
+      .catch(() => {
+        // Autoplay with sound was blocked by browser policy; wait for first permitted user interaction
+        document.addEventListener('click', handleFirstInteraction, { passive: true });
+        document.addEventListener('keydown', handleFirstInteraction, { passive: true });
+      });
+
+    return () => {
+      removeInteractionListeners();
+      cleanupInteractionListenersRef.current = null;
+      audio.pause();
     };
   }, []);
 
@@ -217,6 +265,9 @@ export default function App() {
           {loading && <PageLoader onComplete={() => setLoading(false)} />}
         </AnimatePresence>
 
+        {/* Scroll Animated Deep Depth Background featuring Hanan Irfan */}
+        <ScrollAnimatedBackground />
+
         {/* Interactive Background Particle Canvas */}
         <ParticleCanvas />
 
@@ -253,6 +304,34 @@ export default function App() {
         <ProjectModal
           project={selectedProject}
           onClose={() => setSelectedProject(null)}
+        />
+
+        {/* Single Persistent Background Music Audio Element & Floating Control */}
+        <audio
+          ref={audioRef}
+          src="/assets/aistudio/pilot2kid-wallpaper-glow-k-pop-312341_ace7dd72.mp3"
+          loop
+          preload="auto"
+          onPlay={() => setAudioEnabled(true)}
+          onPause={() => {
+            setAudioEnabled(false);
+            if (audioRef.current && audioRef.current.currentTime > 0 && !audioRef.current.ended) {
+              userManuallyPausedRef.current = true;
+            }
+          }}
+          onError={() => {
+            setAudioError(true);
+            setAudioEnabled(false);
+            if (cleanupInteractionListenersRef.current) {
+              cleanupInteractionListenersRef.current();
+              cleanupInteractionListenersRef.current = null;
+            }
+          }}
+        />
+        <BackgroundMusicControl
+          isPlaying={audioEnabled}
+          onToggle={toggleAudio}
+          disabled={audioError}
         />
       </div>
     </SmoothLenis>

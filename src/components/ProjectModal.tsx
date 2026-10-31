@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../types';
 import { X, ExternalLink, CheckCircle2, Sparkles, Layers } from 'lucide-react';
@@ -10,6 +10,28 @@ interface ProjectModalProps {
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
+  useEffect(() => {
+    if (!project?.seoTitle && !project?.seoDescription) return;
+
+    const prevTitle = document.title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const prevDesc = metaDesc?.getAttribute('content') ?? null;
+
+    if (project.seoTitle) {
+      document.title = project.seoTitle;
+    }
+    if (project.seoDescription && metaDesc) {
+      metaDesc.setAttribute('content', project.seoDescription);
+    }
+
+    return () => {
+      document.title = prevTitle;
+      if (prevDesc !== null && metaDesc) {
+        metaDesc.setAttribute('content', prevDesc);
+      }
+    };
+  }, [project]);
+
   if (!project) return null;
 
   const isFreeToolsHub = project.id === 'free-tools-hub';
@@ -66,19 +88,27 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
           {/* Project Banner Image */}
           {project.image && (
-            <div className="mb-6 rounded-2xl overflow-hidden border border-white/10 max-h-64 sm:max-h-80 bg-black/40">
+            <div className={`mb-6 rounded-2xl overflow-hidden border border-white/10 ${project.preserveAspectRatio ? 'max-h-80 sm:max-h-96 bg-[#041209] flex items-center justify-center' : 'max-h-64 sm:max-h-80 bg-black/40'}`}>
               <img
                 src={project.image}
-                alt={project.title}
-                width={800}
-                height={450}
+                alt={project.imageAlt || project.title}
+                title={project.seoTitle || undefined}
+                width={project.preserveAspectRatio ? 1254 : 800}
+                height={project.preserveAspectRatio ? 1254 : 450}
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
-                  e.currentTarget.src = '/nexapos.jpg';
+                  const fallback = project.fallbackImage || '/nexapos.jpg';
+                  if (!e.currentTarget.src.endsWith(fallback)) {
+                    e.currentTarget.src = fallback;
+                  }
                 }}
-                className="w-full h-full object-cover aspect-video"
+                className={
+                  project.preserveAspectRatio
+                    ? 'w-full max-h-80 sm:max-h-96 object-contain aspect-square'
+                    : 'w-full h-full object-cover aspect-video'
+                }
               />
             </div>
           )}
