@@ -10,6 +10,7 @@ import { ProjectModal } from './components/ProjectModal';
 import { PageLoader } from './components/PageLoader';
 import { SmoothLenis } from './components/animations/SmoothLenis';
 import { BackgroundMusicControl } from './components/BackgroundMusicControl';
+import { PWAInstallModal } from './components/PWAInstallModal';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -333,6 +334,9 @@ export default function App() {
           onToggle={toggleAudio}
           disabled={audioError}
         />
+
+        {/* 10-Second PWA Installation Prompt */}
+        <PWAInstallModal />
       </div>
     </SmoothLenis>
   );

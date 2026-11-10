@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../types';
 import { X, ExternalLink, CheckCircle2, Sparkles, Layers } from 'lucide-react';
 import { InteractiveToolsEngine } from './InteractiveToolsEngine';
+import { SportsRoomImpactChart } from './SportsRoomImpactChart';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -35,6 +36,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   if (!project) return null;
 
   const isFreeToolsHub = project.id === 'free-tools-hub';
+  const isTheSportsRoom = project.id === 'the-sports-room';
 
   return (
     <AnimatePresence>
@@ -128,6 +130,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
           {/* If Free Tools Hub, show the live embedded tool playground */}
           {isFreeToolsHub && <InteractiveToolsEngine />}
+
+          {/* Project Impact Section for The Sports Room with Recharts Bar Chart */}
+          {isTheSportsRoom && <SportsRoomImpactChart />}
 
           {/* Key Features */}
           <div className="mb-8">
