@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { PageId, Project } from '../types';
 import { PERSONAL_INFO, PROJECTS, SERVICES, SKILL_CATEGORIES, EXPERIENCE_ITEMS } from '../data/portfolioData';
 import { ProjectSlider } from '../components/ProjectSlider';
@@ -8,7 +8,7 @@ import { SplitTextReveal } from '../components/animations/SplitTextReveal';
 import { Parallax3DCard } from '../components/animations/Parallax3DCard';
 import { HorizontalScrollShowcase } from '../components/animations/HorizontalScrollShowcase';
 import { ImageMaskReveal } from '../components/animations/ImageMaskReveal';
-import { ArrowUpRight, Sparkles, Code2, Terminal, ChevronDown, CheckCircle2, Cpu, Globe, Rocket, Layers, ExternalLink, Wrench, ShieldCheck, GraduationCap, Award, BookOpen, Users, Compass } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Code2, Terminal, ChevronDown, CheckCircle2, Cpu, Globe, Rocket, Layers, ExternalLink, Wrench, ShieldCheck, GraduationCap, Award, BookOpen, Users, Compass, X, ZoomIn } from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
@@ -17,6 +17,11 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject }) => {
   const featuredProjects = PROJECTS.filter((p) => p.featured);
+  const [activeCertificate, setActiveCertificate] = useState<{
+    title: string;
+    image: string;
+    subtitle?: string;
+  } | null>(null);
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-20">
@@ -251,264 +256,391 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
         </div>
       </motion.section>
 
-      {/* ================= SECTION 2.5: ACM KFUEIT CERTIFICATE OF APPRECIATION ================= */}
+      {/* ================= SECTION 2.5: RECOGNITION & CERTIFICATIONS ================= */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        aria-labelledby="recognition-certifications-heading"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"
       >
-        <div className="glass-card rounded-3xl p-8 sm:p-10 border border-amber-500/30 bg-gradient-to-br from-[#0c0d18] via-[#090b14] to-[#120f09] relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-2xl shadow-amber-950/40">
-              <img
-                src="/certificate.jpg"
-                alt="ACM KFUEIT Web Developer Certificate — Abdul Hanan Irfan"
-                width={900}
-                height={672}
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  e.currentTarget.src = '/avatar.jpg';
-                }}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[4/3]"
-              />
-              <a
-                href="/certificate.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center"
-              >
-                <span>ACM KFUEIT SESSION 2025–26</span>
-                <span className="text-white text-sm font-sans underline">Click to Open Full Certificate</span>
-              </a>
-            </div>
-
-            <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-mono text-amber-400 uppercase tracking-widest px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 inline-block">
-                ★ OFFICIAL RECOGNITION & CERTIFICATE
-              </span>
-              <h3 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-                Certificate of Appreciation — Web Developer
-              </h3>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                Proudly presented to <strong className="text-amber-300">Abdul Hanan Irfan</strong> in recognition of dedication, commitment, and valuable contributions as <strong className="text-cyan-300">WEB DEVELOPER</strong> for <strong className="text-purple-300">ACM KFUEIT</strong> during session 2025–26.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 pt-2 font-mono text-xs text-slate-300 border-t border-white/10">
-                <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                  <span className="text-slate-400 block text-[10px]">SUPERVISOR</span>
-                  <span className="text-white font-bold">DR. ASMA NADEEM</span>
-                </div>
-                <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                  <span className="text-slate-400 block text-[10px]">PRESIDENT</span>
-                  <span className="text-white font-bold">HAMZA ARSHAD</span>
-                </div>
-              </div>
-            </div>
-
+        {/* Section Header */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-xs font-semibold">
+            <Award className="w-3.5 h-3.5 text-purple-400" />
+            <span>HONORS, AWARDS & CREDENTIALS</span>
           </div>
+          <h3 id="recognition-certifications-heading" className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
+            Recognition & Certifications
+          </h3>
+          <p className="text-slate-300 text-sm sm:text-base max-w-3xl leading-relaxed">
+            A collection of my academic achievements and professional certifications, reflecting my commitment to continuous learning, technical growth, and academic excellence.
+          </p>
         </div>
-      </motion.section>
 
-      {/* ================= SECTION 2.55: NAYI MANZIL WEB DEVELOPMENT CERTIFICATE ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        aria-labelledby="nayi-manzil-certificate-heading"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <article className="glass-card glass-card-hover rounded-3xl p-8 sm:p-10 border border-amber-500/30 bg-gradient-to-br from-[#0c0d18] via-[#090b14] to-[#120f09] relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-2xl shadow-amber-950/40 bg-white">
-              <picture className="block w-full">
-                <source srcSet="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp" type="image/webp" />
+        {/* 4-Certificate Modern Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          
+          {/* Certificate 1: Dean's Honor Certificate (FIRST & LATEST ACHIEVEMENT) */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 sm:p-7 border border-emerald-500/40 bg-gradient-to-br from-[#07130f] via-[#090b14] to-[#0c0d18] relative overflow-hidden flex flex-col justify-between group">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none" />
+
+            <div className="space-y-4">
+              {/* Badges */}
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-emerald-300 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center gap-1.5 shadow-lg shadow-emerald-950/40">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" /> Latest Achievement
+                </span>
+                <span className="text-[11px] font-mono text-slate-400">November 2026</span>
+              </div>
+
+              {/* Certificate Image Preview */}
+              <div
+                onClick={() => setActiveCertificate({
+                  title: "Dean's Honor Certificate",
+                  subtitle: "Khwaja Fareed University of Engineering and Information Technology (KFUEIT)",
+                  image: "/images/certificates/deans-honor-certificate-2026.png"
+                })}
+                className="relative group/img overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-xl shadow-emerald-950/40 bg-white cursor-pointer aspect-[3/4] max-h-72 flex items-center justify-center"
+              >
                 <img
-                  src="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
-                  alt="Abdul Hanan Irfan's Web Development Certificate awarded by Nayi Manzil."
-                  width={3508}
-                  height={2481}
+                  src="/images/certificates/deans-honor-certificate-2026.png"
+                  alt="Dean's Honor Certificate awarded to Abdul Hanan Irfan by KFUEIT"
+                  width={1080}
+                  height={1440}
                   loading="lazy"
                   decoding="async"
                   onError={(e) => {
                     const target = e.currentTarget;
-                    if (!target.src.endsWith('/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg')) {
-                      target.src = '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg';
+                    if (!target.src.endsWith('/deans-honor-certificate-2026.png')) {
+                      target.src = '/deans-honor-certificate-2026.png';
                     }
                   }}
-                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500 aspect-[3508/2481]"
+                  className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
                 />
-              </picture>
-              <a
-                href="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open full-resolution Web Development Certificate awarded to Abdul Hanan Irfan by Nayi Manzil"
-                className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center"
-              >
-                <span>NAYI MANZIL — WEB DEVELOPMENT</span>
-                <span className="text-white text-sm font-sans underline">Click to Open Full Certificate</span>
-              </a>
-            </div>
-
-            <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-mono text-amber-400 uppercase tracking-widest px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 inline-block">
-                ★ OFFICIAL RECOGNITION & CERTIFICATE
-              </span>
-              <h3 id="nayi-manzil-certificate-heading" className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-                Web Development Certificate — Nayi Manzil
-              </h3>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                <strong className="text-amber-300">Abdul Hanan Irfan</strong> successfully completed a <strong className="text-cyan-300">Web Development</strong> program at <strong className="text-purple-300">Nayi Manzil</strong>, earning recognition for his learning and development in web technologies. This achievement represents another milestone in his journey as a web developer and technology enthusiast.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 pt-2 font-mono text-xs text-slate-300 border-t border-white/10">
-                <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                  <span className="text-slate-400 block text-[10px]">ISSUING ORGANIZATION</span>
-                  <span className="text-white font-bold">NAYI MANZIL</span>
-                </div>
-                <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                  <span className="text-slate-400 block text-[10px]">CATEGORY</span>
-                  <span className="text-white font-bold">WEB DEVELOPMENT</span>
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center">
+                  <ZoomIn className="w-6 h-6 text-emerald-400 animate-bounce" />
+                  <span>DEAN'S HONOR ROLL // SPRING 2026</span>
+                  <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
                 </div>
               </div>
-            </div>
 
-          </div>
-        </article>
-      </motion.section>
-
-      {/* ================= SECTION 2.6: D' EDUCATIONIST CAMPUS AMBASSADOR ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-emerald-500/30 bg-gradient-to-br from-[#07130f] via-[#081017] to-[#0d0a1b] relative overflow-hidden shadow-2xl shadow-emerald-950/30">
-          
-          {/* Subtle Ambient Background Highlights */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-[90px] pointer-events-none" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
-            
-            {/* Left Column: Ambassador Poster Visual */}
-            <div className="lg:col-span-5 relative group overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-2xl shadow-emerald-950/50 bg-[#06100d]">
-              <img
-                src="/deducationist-ambassador.jpg"
-                alt="Hanan Irfan joins D' Educationist as Ambassador of KFUEIT RYK"
-                width={800}
-                height={1000}
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  e.currentTarget.src = '/certificate.jpg';
-                }}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]"
-              />
-              <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-emerald-400/40 text-emerald-300 font-mono text-[11px] font-bold flex items-center gap-1.5 shadow-lg">
-                <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
-                <span>OFFICIAL APPOINTMENT</span>
-              </div>
-              <a
-                href="/deducationist-ambassador.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center"
-              >
-                <span>D' EDUCATIONIST &times; KFUEIT RYK</span>
-                <span className="text-white text-sm font-sans underline">Click to View Full Announcement</span>
-              </a>
-            </div>
-
-            {/* Right Column: Narrative & Mission Points */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              {/* Badge & Title */}
+              {/* Certificate Meta Details */}
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-semibold">
-                  <Award className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>CAMPUS AMBASSADOR APPOINTMENT</span>
+                <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
+                  <Award className="w-3.5 h-3.5" />
+                  <span>ACADEMIC EXCELLENCE &bull; KFUEIT</span>
                 </div>
-                <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white tracking-tight leading-tight">
-                  Hanan Irfan joins <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300">D' Educationist</span> as Ambassador of KFUEIT RYK
-                </h3>
-              </div>
-
-              {/* Exact User Text Narratives */}
-              <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
-                <p>
-                  As an Ambassador of <strong className="text-white font-semibold">D' Educationist</strong> at the <strong className="text-emerald-300 font-semibold">KFUEIT RYK Campus</strong>, Hanan Irfan is actively contributing to creating awareness among university students about educational opportunities, career development, and international study pathways. Through this role, he aims to connect students with valuable information and guide them toward making informed decisions about their academic and professional futures.
-                </p>
-                <p>
-                  Hanan works as a bridge between D' Educationist and the student community at KFUEIT, helping promote educational awareness initiatives, seminars, and student-focused sessions. His responsibilities include engaging with students, sharing relevant opportunities, and encouraging them to explore suitable academic and career options.
-                </p>
-                <p className="text-slate-300/90 italic border-l-2 border-emerald-500/60 pl-4 py-1">
-                  "Through this ambassadorial role, Hanan is strengthening his communication, leadership, networking, and community engagement skills while contributing to a more informed and opportunity-driven student environment at KFUEIT's Rahim Yar Khan campus."
+                <h4 className="text-xl sm:text-2xl font-bold font-display text-white group-hover:text-emerald-300 transition-colors">
+                  Dean's Honor Certificate
+                </h4>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Received in recognition of achieving a good CGPA in a single semester. Awarded to <strong className="text-emerald-300">Abdul Hanan Irfan</strong> by the <strong className="text-white">Faculty of Information Technology</strong> at Khwaja Fareed University of Engineering and Information Technology (KFUEIT).
                 </p>
               </div>
-
-              {/* Highlight Pillars */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
-                  <Globe className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-white font-bold text-xs font-display">International Study Pathways</div>
-                    <div className="text-[11px] text-slate-400">Global admissions, scholarships & university programs.</div>
-                  </div>
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
-                  <Users className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-white font-bold text-xs font-display">Student Community Bridge</div>
-                    <div className="text-[11px] text-slate-400">Promoting awareness seminars & career guidance sessions.</div>
-                  </div>
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
-                  <BookOpen className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-white font-bold text-xs font-display">Informed Academic Futures</div>
-                    <div className="text-[11px] text-slate-400">Connecting peers with verified career & degree opportunities.</div>
-                  </div>
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-white/5 border border-emerald-500/20 flex items-start gap-3">
-                  <Compass className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-white font-bold text-xs font-display">Leadership & Engagement</div>
-                    <div className="text-[11px] text-slate-400">Strengthening networking & student empowerment at KFUEIT.</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Institution Meta Footer */}
-              <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-slate-400">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                  <span className="text-slate-300 font-semibold">Active Ambassador @ KFUEIT RYK</span>
-                </div>
-                <div className="flex items-center gap-4 text-[11px]">
-                  <span className="text-emerald-300">#DEducationist</span>
-                  <span className="text-cyan-300">#KFUEIT</span>
-                  <span className="text-purple-300">#StudentEmpowerment</span>
-                </div>
-              </div>
-
             </div>
 
-          </div>
+            {/* Footer Attributes */}
+            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span className="text-slate-300 font-semibold">KFUEIT &bull; BS Computer Science</span>
+              <button
+                type="button"
+                onClick={() => setActiveCertificate({
+                  title: "Dean's Honor Certificate",
+                  subtitle: "Khwaja Fareed University of Engineering and Information Technology (KFUEIT)",
+                  image: "/images/certificates/deans-honor-certificate-2026.png"
+                })}
+                className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>VIEW CERTIFICATE</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </article>
+
+          {/* Certificate 2: ACM KFUEIT Certificate of Appreciation */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 sm:p-7 border border-amber-500/40 bg-gradient-to-br from-[#0c0d18] via-[#090b14] to-[#120f09] relative overflow-hidden flex flex-col justify-between group">
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5" /> Web Developer Recognition
+                </span>
+                <span className="text-[11px] font-mono text-slate-400">Session 2025–26</span>
+              </div>
+
+              <div
+                onClick={() => setActiveCertificate({
+                  title: "Certificate of Appreciation — Web Developer",
+                  subtitle: "ACM KFUEIT Student Chapter",
+                  image: "/certificate.jpg"
+                })}
+                className="relative group/img overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-xl shadow-amber-950/40 bg-black/40 cursor-pointer aspect-[4/3] max-h-72 flex items-center justify-center"
+              >
+                <img
+                  src="/certificate.jpg"
+                  alt="ACM KFUEIT Web Developer Certificate — Abdul Hanan Irfan"
+                  width={900}
+                  height={672}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    e.currentTarget.src = '/avatar.jpg';
+                  }}
+                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center">
+                  <ZoomIn className="w-6 h-6 text-amber-400 animate-bounce" />
+                  <span>ACM KFUEIT SESSION 2025–26</span>
+                  <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-amber-400">
+                  <Award className="w-3.5 h-3.5" />
+                  <span>ACM CHAPTER &bull; WEB DEVELOPER</span>
+                </div>
+                <h4 className="text-xl sm:text-2xl font-bold font-display text-white group-hover:text-amber-300 transition-colors">
+                  Certificate of Appreciation — Web Developer
+                </h4>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Proudly presented to <strong className="text-amber-300">Abdul Hanan Irfan</strong> in recognition of dedication, commitment, and valuable contributions as <strong className="text-cyan-300">WEB DEVELOPER</strong> for <strong className="text-purple-300">ACM KFUEIT</strong> during session 2025–26.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span className="text-slate-300 font-semibold">Dr. Asma Nadeem & Hamza Arshad</span>
+              <button
+                type="button"
+                onClick={() => setActiveCertificate({
+                  title: "Certificate of Appreciation — Web Developer",
+                  subtitle: "ACM KFUEIT Student Chapter",
+                  image: "/certificate.jpg"
+                })}
+                className="text-amber-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>VIEW CERTIFICATE</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </article>
+
+          {/* Certificate 3: Nayi Manzil Web Development Certificate */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 sm:p-7 border border-amber-500/30 bg-gradient-to-br from-[#0c0d18] via-[#090b14] to-[#120f09] relative overflow-hidden flex flex-col justify-between group">
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5" /> Professional Program
+                </span>
+                <span className="text-[11px] font-mono text-slate-400">Web Development</span>
+              </div>
+
+              <div
+                onClick={() => setActiveCertificate({
+                  title: "Web Development Certificate — Nayi Manzil",
+                  subtitle: "Nayi Manzil Program Completion",
+                  image: "/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                })}
+                className="relative group/img overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-xl shadow-amber-950/40 bg-white cursor-pointer aspect-[3508/2481] max-h-72 flex items-center justify-center"
+              >
+                <picture className="block w-full h-full">
+                  <source srcSet="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp" type="image/webp" />
+                  <img
+                    src="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                    alt="Abdul Hanan Irfan's Web Development Certificate awarded by Nayi Manzil."
+                    width={3508}
+                    height={2481}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg')) {
+                        target.src = '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
+                  />
+                </picture>
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center">
+                  <ZoomIn className="w-6 h-6 text-amber-400 animate-bounce" />
+                  <span>NAYI MANZIL &bull; WEB DEVELOPMENT</span>
+                  <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-amber-400">
+                  <Award className="w-3.5 h-3.5" />
+                  <span>NAYI MANZIL &bull; PROFESSIONAL TECH</span>
+                </div>
+                <h4 className="text-xl sm:text-2xl font-bold font-display text-white group-hover:text-amber-300 transition-colors">
+                  Web Development Certificate — Nayi Manzil
+                </h4>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  <strong className="text-amber-300">Abdul Hanan Irfan</strong> successfully completed a <strong className="text-cyan-300">Web Development</strong> program at <strong className="text-purple-300">Nayi Manzil</strong>, earning recognition for his learning and development in web technologies.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span className="text-slate-300 font-semibold">Issuing Org: Nayi Manzil</span>
+              <button
+                type="button"
+                onClick={() => setActiveCertificate({
+                  title: "Web Development Certificate — Nayi Manzil",
+                  subtitle: "Nayi Manzil Program Completion",
+                  image: "/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                })}
+                className="text-amber-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>VIEW CERTIFICATE</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </article>
+
+          {/* Certificate 4: D' Educationist Campus Ambassador Appointment */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 sm:p-7 border border-emerald-500/30 bg-gradient-to-br from-[#07130f] via-[#081017] to-[#0d0a1b] relative overflow-hidden flex flex-col justify-between group shadow-xl shadow-emerald-950/20">
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
+                  <GraduationCap className="w-3.5 h-3.5" /> Official Appointment
+                </span>
+                <span className="text-[11px] font-mono text-slate-400">KFUEIT Campus</span>
+              </div>
+
+              <div
+                onClick={() => setActiveCertificate({
+                  title: "Ambassador of D' Educationist @ KFUEIT",
+                  subtitle: "D' Educationist International Education & Career Guidance",
+                  image: "/deducationist-ambassador.jpg"
+                })}
+                className="relative group/img overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-xl shadow-emerald-950/40 bg-[#06100d] cursor-pointer aspect-[3/4] max-h-72 flex items-center justify-center"
+              >
+                <img
+                  src="/deducationist-ambassador.jpg"
+                  alt="Hanan Irfan joins D' Educationist as Ambassador of KFUEIT RYK"
+                  width={800}
+                  height={1000}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    e.currentTarget.src = '/certificate.jpg';
+                  }}
+                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center">
+                  <ZoomIn className="w-6 h-6 text-emerald-400 animate-bounce" />
+                  <span>D' EDUCATIONIST &times; KFUEIT RYK</span>
+                  <span className="text-white text-xs underline font-sans">Click to View Full Poster</span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
+                  <Award className="w-3.5 h-3.5" />
+                  <span>CAMPUS AMBASSADOR &bull; LEADERSHIP</span>
+                </div>
+                <h4 className="text-xl sm:text-2xl font-bold font-display text-white group-hover:text-emerald-300 transition-colors">
+                  Ambassador of D' Educationist @ KFUEIT
+                </h4>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Empowering university students across the <strong className="text-emerald-300">KFUEIT Rahim Yar Khan</strong> campus with educational awareness seminars, scholarship opportunities, and international study guidance.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span className="text-slate-300 font-semibold">D' Educationist &bull; KFUEIT</span>
+              <button
+                type="button"
+                onClick={() => setActiveCertificate({
+                  title: "Ambassador of D' Educationist @ KFUEIT",
+                  subtitle: "D' Educationist International Education & Career Guidance",
+                  image: "/deducationist-ambassador.jpg"
+                })}
+                className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>VIEW POSTER</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </article>
+
         </div>
+
+        {/* Click-To-View Full-Size Certificate Modal */}
+        <AnimatePresence>
+          {activeCertificate && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setActiveCertificate(null)}
+                className="fixed inset-0 bg-black/85 backdrop-blur-md"
+              />
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                className="relative w-full max-w-4xl bg-[#0a0c14] border border-purple-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-purple-950/60 z-10 max-h-[92vh] overflow-y-auto"
+              >
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={() => setActiveCertificate(null)}
+                  className="absolute top-5 right-5 p-2 rounded-full glass-card text-slate-400 hover:text-white hover:border-purple-500/50 transition-colors"
+                  aria-label="Close certificate modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                <div className="space-y-1 mb-4 pr-10">
+                  <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+                    // FULL SIZE CERTIFICATE VIEW
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+                    {activeCertificate.title}
+                  </h3>
+                  {activeCertificate.subtitle && (
+                    <p className="text-xs font-mono text-slate-400">
+                      {activeCertificate.subtitle}
+                    </p>
+                  )}
+                </div>
+
+                <div className="rounded-2xl overflow-hidden border border-white/10 bg-white p-2 flex items-center justify-center max-h-[70vh]">
+                  <img
+                    src={activeCertificate.image}
+                    alt={activeCertificate.title}
+                    className="max-h-[66vh] w-auto object-contain mx-auto"
+                  />
+                </div>
+
+                <div className="pt-4 flex items-center justify-between gap-4 mt-2">
+                  <span className="text-xs font-mono text-slate-400">
+                    Abdul Hanan Irfan &bull; Portfolio Verified Credential
+                  </span>
+                  <a
+                    href={activeCertificate.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-white text-xs font-mono flex items-center gap-1.5 transition-all"
+                  >
+                    <span>OPEN IMAGE FILE</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </motion.section>
 
       {/* ================= SECTION 3: FEATURED PROJECTS 3D CAROUSEL ================= */}
