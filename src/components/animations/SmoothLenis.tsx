@@ -22,19 +22,20 @@ export const SmoothLenis: React.FC<SmoothLenisProps> = ({ children }) => {
       infinite: false,
     });
 
-    lenis.on('scroll', ScrollTrigger.update);
+    const handleScroll = () => ScrollTrigger.update();
+    lenis.on('scroll', handleScroll);
 
-    gsap.ticker.add((time) => {
+    const tick = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
 
+    gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      lenis.off('scroll', handleScroll);
+      gsap.ticker.remove(tick);
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
     };
   }, []);
 

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PageId } from '../types';
 import { PERSONAL_INFO, AEO_FAQS } from '../data/portfolioData';
-import { Award, GraduationCap, MapPin, Sparkles, ChevronDown, Check, UserCheck, HelpCircle, Building2, Rocket, ArrowUpRight, ShieldCheck, ExternalLink } from 'lucide-react';
-import { CredlyBadgeEmbed } from '../components/CredlyBadgeEmbed';
+import { Award, GraduationCap, MapPin, Sparkles, ChevronDown, Check, HelpCircle, Building2, ArrowUpRight, ShieldCheck, ExternalLink, Cpu } from 'lucide-react';
 
 interface AboutPageProps {
   onNavigate: (page: PageId) => void;
@@ -118,221 +117,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               "{PERSONAL_INFO.personalStatement}"
             </p>
           </div>
-
-          {/* Google AI Fundamentals Certificate & Credly Badge */}
-          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-cyan-500/30 bg-[#07101b] space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-extrabold text-cyan-300 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5" /> GOOGLE AI FUNDAMENTALS
-              </span>
-              <span className="text-[10px] font-mono text-slate-400">15 NOV 2026</span>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 shadow-xl shadow-cyan-950/30 bg-white">
-              <picture className="block w-full">
-                <source srcSet="/images/certificates/google-ai-fundamentals-2026.webp" type="image/webp" />
-                <img
-                  src="/images/certificates/google-ai-fundamentals-2026.webp"
-                  alt="Google AI Fundamentals Certificate issued by Coursera to Abdul Hanan Irfan"
-                  width={3300}
-                  height={2550}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg')) {
-                      target.src = '/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg';
-                    }
-                  }}
-                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500 aspect-[3300/2550]"
-                />
-              </picture>
-              <a
-                href="/images/certificates/google-ai-fundamentals-2026.webp"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
-              >
-                <span>CLICK TO VIEW FULL RESOLUTION</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </div>
-
-            <div>
-              <h3 className="text-base font-bold font-display text-white">Google AI Fundamentals — Coursera</h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Issued to <strong className="text-cyan-300">Abdul Hanan Irfan</strong> (COSC241103038) by <strong className="text-white">Coursera</strong> &amp; <strong className="text-blue-300">Google</strong> on 15 Nov 2026.
-              </p>
-            </div>
-
-            <div className="pt-2 flex flex-col items-center gap-2 border-t border-white/10">
-              <CredlyBadgeEmbed
-                badgeId="af813824-c409-4d88-b95a-5524a680465c"
-                width={150}
-                height={270}
-                host="https://www.credly.com"
-              />
-              <a
-                href="https://www.credly.com/go/TWCMECRu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[11px] font-mono text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
-              >
-                <span>Verify Credential on Credly</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-          </article>
-
-          {/* Official ACM Certificate Highlight */}
-          <div className="glass-card rounded-3xl p-6 border border-purple-500/30 bg-[#090c1a] space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5" /> ACM KFUEIT CERTIFICATE
-              </span>
-              <span className="text-[10px] font-mono text-slate-400">SESSION 2025–26</span>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 shadow-xl shadow-amber-950/30">
-              <picture className="block w-full">
-                <source srcSet="/certificate.webp" type="image/webp" />
-                <img
-                  src="/certificate.webp"
-                  alt="Abdul Hanan Irfan — Web Developer Certificate of Appreciation ACM KFUEIT"
-                  width={900}
-                  height={672}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/certificate.jpg')) {
-                      target.src = '/certificate.jpg';
-                    }
-                  }}
-                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[4/3]"
-                />
-              </picture>
-              <a
-                href="/certificate.webp"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
-              >
-                <span>CLICK TO VIEW FULL RESOLUTION</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </div>
-
-            <div>
-              <h3 className="text-base font-bold font-display text-white">Certificate of Appreciation — Web Developer</h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Presented to <strong className="text-amber-300">Abdul Hanan Irfan</strong> by <strong className="text-cyan-300">ACM KFUEIT</strong> in recognition of valuable contributions as Web Developer (Session 2025–26). Signed by Dr. Asma Nadeem (Supervisor) and Hamza Arshad (President).
-              </p>
-            </div>
-          </div>
-
-          {/* Official Nayi Manzil Web Development Certificate Highlight */}
-          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-purple-500/30 bg-[#090c1a] space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5" /> NAYI MANZIL CERTIFICATE
-              </span>
-              <span className="text-[10px] font-mono text-slate-400">WEB DEVELOPMENT</span>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 shadow-xl shadow-amber-950/30 bg-white">
-              <picture className="block w-full">
-                <source srcSet="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp" type="image/webp" />
-                <img
-                  src="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
-                  alt="Abdul Hanan Irfan's Web Development Certificate awarded by Nayi Manzil."
-                  width={3508}
-                  height={2481}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg')) {
-                      target.src = '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg';
-                    }
-                  }}
-                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500 aspect-[3508/2481]"
-                />
-              </picture>
-              <a
-                href="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open full-resolution Web Development Certificate awarded to Abdul Hanan Irfan by Nayi Manzil"
-                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
-              >
-                <span>CLICK TO VIEW FULL RESOLUTION</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </div>
-
-            <div>
-              <h3 className="text-base font-bold font-display text-white">Web Development Certificate — Nayi Manzil</h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                <strong className="text-amber-300">Abdul Hanan Irfan</strong> successfully completed a <strong className="text-cyan-300">Web Development</strong> program at <strong className="text-purple-300">Nayi Manzil</strong>, earning recognition for his learning and development in web technologies. This achievement represents another milestone in his journey as a web developer and technology enthusiast.
-              </p>
-            </div>
-          </article>
-
-          {/* Official D' Educationist Ambassador Highlight */}
-          <div className="glass-card rounded-3xl p-6 border border-emerald-500/30 bg-[#07130f] space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-extrabold text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
-                <GraduationCap className="w-3.5 h-3.5" /> D' EDUCATIONIST AMBASSADOR
-              </span>
-              <span className="text-[10px] font-mono text-slate-400">KFUEIT RYK</span>
-            </div>
-
-            <div className="relative group overflow-hidden rounded-2xl border border-emerald-500/30 shadow-xl shadow-emerald-950/30">
-              <picture className="block w-full">
-                <source srcSet="/deducationist-ambassador.webp" type="image/webp" />
-                <img
-                  src="/deducationist-ambassador.webp"
-                  alt="Hanan Irfan joins D' Educationist as Ambassador at KFUEIT"
-                  width={800}
-                  height={1000}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/deducationist-ambassador.jpg')) {
-                      target.src = '/deducationist-ambassador.jpg';
-                    }
-                  }}
-                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4]"
-                />
-              </picture>
-              <a
-                href="/deducationist-ambassador.webp"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
-              >
-                <span>CLICK TO VIEW FULL POSTER</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </div>
-
-            <div>
-              <h3 className="text-base font-bold font-display text-white">Ambassador of D' Educationist @ KFUEIT</h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Empowering university students across the KFUEIT Rahim Yar Khan campus with awareness on international study pathways, scholarships, seminars, and academic career guidance.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Right Content Story */}
         <div className="lg:col-span-7 space-y-8">
           <div className="glass-card rounded-3xl p-8 border border-white/10 space-y-6">
-            <h3 className="text-2xl font-bold font-display text-white">THE JOURNEY & VISION</h3>
+            <h3 className="text-2xl font-bold font-display text-white">THE JOURNEY &amp; VISION</h3>
             
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Hanan Irfan's technology journey combines rigorous academic learning with hands-on development, digital product creation, technical SEO, and entrepreneurship.
@@ -365,6 +155,498 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           </div>
         </div>
 
+      </div>
+
+      {/* SECTION 2.5: RECOGNITION, CERTIFICATES & CREDENTIALS GRID */}
+      <div className="space-y-8">
+        <div className="space-y-2">
+          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// CREDENTIALS &amp; HONORS</span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
+            CERTIFICATES &amp; RECOGNITION
+          </h2>
+          <p className="text-slate-300 text-sm sm:text-base max-w-3xl leading-relaxed">
+            Verified academic honors, Google &amp; Coursera AI certifications, web development credentials, and campus leadership appointments.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Dean's Honor Certificate */}
+          <article className="md:col-span-2 lg:col-span-3 glass-card glass-card-hover rounded-3xl p-6 sm:p-8 border border-emerald-500/40 bg-gradient-to-br from-[#07130f] via-[#090b14] to-[#0c0d18]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <div className="lg:col-span-5">
+                <div className="relative group overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-xl shadow-emerald-950/30 bg-white aspect-[3/4] max-h-72 mx-auto flex items-center justify-center">
+                  <picture className="block w-full h-full">
+                    <source srcSet="/images/certificates/deans-honor-certificate-2026.webp" type="image/webp" />
+                    <img
+                      src="/images/certificates/deans-honor-certificate-2026.webp"
+                      alt="Dean's Honor Certificate awarded to Abdul Hanan Irfan by KFUEIT"
+                      width={1086}
+                      height={1448}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.endsWith('/images/certificates/deans-honor-certificate-2026.png')) {
+                          target.src = '/images/certificates/deans-honor-certificate-2026.png';
+                        }
+                      }}
+                      className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </picture>
+                  <a
+                    href="/images/certificates/deans-honor-certificate-2026.webp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+                  >
+                    <span>CLICK TO VIEW FULL RESOLUTION</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-[11px] font-mono font-extrabold text-emerald-300 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" /> LATEST ACHIEVEMENT
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">NOVEMBER 2026</span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xl sm:text-2xl font-bold font-display text-white">Dean's Honor Certificate — KFUEIT</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Received in recognition of achieving a good CGPA in a single semester. Awarded to <strong className="text-emerald-300">Abdul Hanan Irfan</strong> by the <strong className="text-white">Faculty of Information Technology</strong> at Khwaja Fareed University of Engineering and Information Technology (KFUEIT).
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+                  <span className="text-slate-400">KFUEIT &bull; BS Computer Science</span>
+                  <a
+                    href="/images/certificates/deans-honor-certificate-2026.webp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
+                  >
+                    <span>FULL VIEW</span>
+                    <ArrowUpRight className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          {/* Google AI Fundamentals */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-cyan-500/30 bg-[#07101b] flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-cyan-300 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5" /> CREDLY VERIFIED
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">15 NOV 2026</span>
+              </div>
+
+              <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 shadow-xl shadow-cyan-950/30 bg-white aspect-[4/3] flex items-center justify-center">
+                <picture className="block w-full h-full">
+                  <source srcSet="/images/certificates/google-ai-fundamentals-2026.webp" type="image/webp" />
+                  <img
+                    src="/images/certificates/google-ai-fundamentals-2026.webp"
+                    alt="Google AI Fundamentals Certificate issued by Coursera to Abdul Hanan Irfan"
+                    width={3300}
+                    height={2550}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg')) {
+                        target.src = '/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </picture>
+                <a
+                  href="/images/certificates/google-ai-fundamentals-2026.webp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+                >
+                  <span>CLICK TO VIEW FULL RESOLUTION</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[10px] font-mono text-cyan-400">
+                  <Cpu className="w-3.5 h-3.5" />
+                  <span>GOOGLE &bull; COURSERA</span>
+                </div>
+                <h3 className="text-base font-bold font-display text-white">Google AI Fundamentals</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Issued to <strong className="text-cyan-300">Abdul Hanan Irfan</strong> (COSC241103038) by <strong className="text-white">Coursera</strong> &amp; <strong className="text-blue-300">Google</strong> on 15 Nov 2026.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <a
+                href="/images/certificates/google-ai-fundamentals-2026.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>FULL VIEW</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <a
+                href="https://www.credly.com/go/TWCMECRu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>Verify on Credly</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </article>
+
+          {/* Google AI for Writing and Communicating */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-cyan-500/30 bg-[#07101b] flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-cyan-300 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5" /> CREDLY VERIFIED
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">15 NOV 2026</span>
+              </div>
+
+              <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 shadow-xl shadow-cyan-950/30 bg-white aspect-[4/3] flex items-center justify-center">
+                <picture className="block w-full h-full">
+                  <source srcSet="/images/certificates/google-ai-writing-communicating-2026.webp" type="image/webp" />
+                  <img
+                    src="/images/certificates/google-ai-writing-communicating-2026.webp"
+                    alt="Google AI for Writing and Communicating Certificate issued by Coursera to Abdul Hanan Irfan"
+                    width={3300}
+                    height={2550}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/assets/aistudio/GoogleAIforWritingandCommunicating_Badge20261115-21-pheskb_page-0001_9dfedb0c.jpg')) {
+                        target.src = '/assets/aistudio/GoogleAIforWritingandCommunicating_Badge20261115-21-pheskb_page-0001_9dfedb0c.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </picture>
+                <a
+                  href="/images/certificates/google-ai-writing-communicating-2026.webp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+                >
+                  <span>CLICK TO VIEW FULL RESOLUTION</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[10px] font-mono text-cyan-400">
+                  <Cpu className="w-3.5 h-3.5" />
+                  <span>GOOGLE &bull; COURSERA</span>
+                </div>
+                <h3 className="text-base font-bold font-display text-white">Google AI for Writing and Communicating</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Issued to <strong className="text-cyan-300">Abdul Hanan Irfan</strong> (COSC241103038) by <strong className="text-white">Coursera</strong> &amp; <strong className="text-blue-300">Google</strong> on 15 Nov 2026.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <a
+                href="/images/certificates/google-ai-writing-communicating-2026.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>FULL VIEW</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <a
+                href="https://www.credly.com/go/NBK5o3WH"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>Verify on Credly</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </article>
+
+          {/* Google AI for Brainstorming and Planning */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-cyan-500/30 bg-[#07101b] flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-cyan-300 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5" /> CREDLY VERIFIED
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">15 NOV 2026</span>
+              </div>
+
+              <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 shadow-xl shadow-cyan-950/30 bg-white aspect-[4/3] flex items-center justify-center">
+                <picture className="block w-full h-full">
+                  <source srcSet="/images/certificates/google-ai-brainstorming-planning-2026.webp" type="image/webp" />
+                  <img
+                    src="/images/certificates/google-ai-brainstorming-planning-2026.webp"
+                    alt="Google AI for Brainstorming and Planning Certificate issued by Coursera to Abdul Hanan Irfan"
+                    width={3300}
+                    height={2550}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/assets/aistudio/GoogleAIforBrainstormingandPlanning_Badge20261115-21-nn2tzk_page-0001_02066a5f.jpg')) {
+                        target.src = '/assets/aistudio/GoogleAIforBrainstormingandPlanning_Badge20261115-21-nn2tzk_page-0001_02066a5f.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </picture>
+                <a
+                  href="/images/certificates/google-ai-brainstorming-planning-2026.webp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+                >
+                  <span>CLICK TO VIEW FULL RESOLUTION</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[10px] font-mono text-cyan-400">
+                  <Cpu className="w-3.5 h-3.5" />
+                  <span>GOOGLE &bull; COURSERA</span>
+                </div>
+                <h3 className="text-base font-bold font-display text-white">Google AI for Brainstorming and Planning</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Issued to <strong className="text-cyan-300">Abdul Hanan Irfan</strong> (COSC241103038) by <strong className="text-white">Coursera</strong> &amp; <strong className="text-blue-300">Google</strong> on 15 Nov 2026.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <a
+                href="/images/certificates/google-ai-brainstorming-planning-2026.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>FULL VIEW</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+              <a
+                href="https://www.credly.com/go/oBw1opSn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>Verify on Credly</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </article>
+
+          {/* Official ACM Certificate Highlight */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-purple-500/30 bg-[#090c1a] flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5" /> ACM KFUEIT
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">SESSION 2025–26</span>
+              </div>
+
+              <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 shadow-xl shadow-amber-950/30 aspect-[4/3] flex items-center justify-center bg-black/40">
+                <picture className="block w-full h-full">
+                  <source srcSet="/certificate.webp" type="image/webp" />
+                  <img
+                    src="/certificate.webp"
+                    alt="Abdul Hanan Irfan — Web Developer Certificate of Appreciation ACM KFUEIT"
+                    width={900}
+                    height={672}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/certificate.jpg')) {
+                        target.src = '/certificate.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </picture>
+                <a
+                  href="/certificate.webp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+                >
+                  <span>CLICK TO VIEW FULL RESOLUTION</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="space-y-1.5">
+                <h3 className="text-base font-bold font-display text-white">Certificate of Appreciation — Web Developer</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Presented to <strong className="text-amber-300">Abdul Hanan Irfan</strong> by <strong className="text-cyan-300">ACM KFUEIT</strong> in recognition of valuable contributions as Web Developer (Session 2025–26).
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <span className="text-slate-400">Dr. Asma Nadeem &amp; Hamza Arshad</span>
+              <a
+                href="/certificate.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>FULL VIEW</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+          </article>
+
+          {/* Official Nayi Manzil Web Development Certificate Highlight */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-purple-500/30 bg-[#090c1a] flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5" /> NAYI MANZIL
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">WEB DEVELOPMENT</span>
+              </div>
+
+              <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 shadow-xl shadow-amber-950/30 bg-white aspect-[4/3] flex items-center justify-center">
+                <picture className="block w-full h-full">
+                  <source srcSet="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp" type="image/webp" />
+                  <img
+                    src="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                    alt="Abdul Hanan Irfan's Web Development Certificate awarded by Nayi Manzil."
+                    width={3508}
+                    height={2481}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg')) {
+                        target.src = '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </picture>
+                <a
+                  href="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open full-resolution Web Development Certificate awarded to Abdul Hanan Irfan by Nayi Manzil"
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+                >
+                  <span>CLICK TO VIEW FULL RESOLUTION</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="space-y-1.5">
+                <h3 className="text-base font-bold font-display text-white">Web Development Certificate — Nayi Manzil</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  <strong className="text-amber-300">Abdul Hanan Irfan</strong> successfully completed a <strong className="text-cyan-300">Web Development</strong> program at <strong className="text-purple-300">Nayi Manzil</strong>, earning recognition for his skills in modern web technologies.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <span className="text-slate-400">Issuing Org: Nayi Manzil</span>
+              <a
+                href="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>FULL VIEW</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+          </article>
+
+          {/* Official D' Educationist Ambassador Highlight */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-emerald-500/30 bg-[#07130f] flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[11px] font-mono font-extrabold text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
+                  <GraduationCap className="w-3.5 h-3.5" /> AMBASSADOR
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">KFUEIT RYK</span>
+              </div>
+
+              <div className="relative group overflow-hidden rounded-2xl border border-emerald-500/30 shadow-xl shadow-emerald-950/30 aspect-[4/3] flex items-center justify-center bg-[#06100d]">
+                <picture className="block w-full h-full">
+                  <source srcSet="/deducationist-ambassador.webp" type="image/webp" />
+                  <img
+                    src="/deducationist-ambassador.webp"
+                    alt="Hanan Irfan joins D' Educationist as Ambassador at KFUEIT"
+                    width={800}
+                    height={1000}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/deducationist-ambassador.jpg')) {
+                        target.src = '/deducationist-ambassador.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                </picture>
+                <a
+                  href="/deducationist-ambassador.webp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+                >
+                  <span>CLICK TO VIEW FULL POSTER</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="space-y-1.5">
+                <h3 className="text-base font-bold font-display text-white">Ambassador of D' Educationist @ KFUEIT</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Empowering university students across the KFUEIT Rahim Yar Khan campus with awareness on international study pathways, scholarships, seminars, and academic career guidance.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <span className="text-slate-400">D' Educationist &bull; KFUEIT</span>
+              <a
+                href="/deducationist-ambassador.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>FULL VIEW</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
 
       {/* SECTION 3: THE FIVE STAGES OF GROWTH */}

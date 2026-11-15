@@ -63,8 +63,8 @@ export const SportsRoomImpactChart: React.FC = () => {
       </div>
 
       {/* Recharts Bar Chart */}
-      <div className="h-64 sm:h-72 w-full relative z-10">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="h-64 sm:h-72 w-full relative z-10 min-w-0">
+        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={240}>
           <BarChart
             data={SPORTS_ROOM_IMPACT_DATA}
             margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
