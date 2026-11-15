@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PageId, Project } from './types';
 import { Navbar } from './components/Navbar';
@@ -6,25 +6,26 @@ import { Footer } from './components/Footer';
 import { ParticleCanvas } from './components/ParticleCanvas';
 import { ScrollAnimatedBackground } from './components/ScrollAnimatedBackground';
 import { CustomCursor } from './components/CustomCursor';
-import { ProjectModal } from './components/ProjectModal';
 import { PageLoader } from './components/PageLoader';
 import { SmoothLenis } from './components/animations/SmoothLenis';
 import { BackgroundMusicControl } from './components/BackgroundMusicControl';
-import { PWAInstallModal } from './components/PWAInstallModal';
 
-// Pages
+// Eager HomePage for instant first paint; lazy-load secondary routes & heavy modals
 import { HomePage } from './pages/HomePage';
-import { AboutPage } from './pages/AboutPage';
-import { SkillsPage } from './pages/SkillsPage';
-import { ExperiencePage } from './pages/ExperiencePage';
-import { ProjectsPage } from './pages/ProjectsPage';
-import { ServicesPage } from './pages/ServicesPage';
-import { WebDevelopmentPage } from './pages/WebDevelopmentPage';
-import { SeoPage } from './pages/SeoPage';
-import { GraphicDesignPage } from './pages/GraphicDesignPage';
-import { ContactPage } from './pages/ContactPage';
-import { PrivacyPage } from './pages/PrivacyPage';
-import { TermsPage } from './pages/TermsPage';
+
+const ProjectModal = lazy(() => import('./components/ProjectModal').then((m) => ({ default: m.ProjectModal })));
+const PWAInstallModal = lazy(() => import('./components/PWAInstallModal').then((m) => ({ default: m.PWAInstallModal })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage })));
+const SkillsPage = lazy(() => import('./pages/SkillsPage').then((m) => ({ default: m.SkillsPage })));
+const ExperiencePage = lazy(() => import('./pages/ExperiencePage').then((m) => ({ default: m.ExperiencePage })));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage').then((m) => ({ default: m.ProjectsPage })));
+const ServicesPage = lazy(() => import('./pages/ServicesPage').then((m) => ({ default: m.ServicesPage })));
+const WebDevelopmentPage = lazy(() => import('./pages/WebDevelopmentPage').then((m) => ({ default: m.WebDevelopmentPage })));
+const SeoPage = lazy(() => import('./pages/SeoPage').then((m) => ({ default: m.SeoPage })));
+const GraphicDesignPage = lazy(() => import('./pages/GraphicDesignPage').then((m) => ({ default: m.GraphicDesignPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
+const TermsPage = lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })));
 
 function getPageFromPath(path: string): PageId {
   const cleanPath = path.replace(/^\/+|\/+$/g, '').toLowerCase();
@@ -293,7 +294,9 @@ export default function App() {
               exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
             >
-              {renderPage()}
+              <Suspense fallback={<div className="min-h-[60vh]" />}>
+                {renderPage()}
+              </Suspense>
             </motion.div>
           </AnimatePresence>
         </main>
@@ -301,18 +304,22 @@ export default function App() {
         {/* Footer */}
         <Footer onNavigate={handleNavigate} />
 
-        {/* Project Detail Modal */}
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        {/* Project Detail Modal (loaded on demand with Recharts) */}
+        {selectedProject && (
+          <Suspense fallback={null}>
+            <ProjectModal
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          </Suspense>
+        )}
 
         {/* Single Persistent Background Music Audio Element & Floating Control */}
         <audio
           ref={audioRef}
           src="/assets/aistudio/pilot2kid-wallpaper-glow-k-pop-312341_ace7dd72.mp3"
           loop
-          preload="auto"
+          preload="none"
           onPlay={() => setAudioEnabled(true)}
           onPause={() => {
             setAudioEnabled(false);
@@ -336,7 +343,9 @@ export default function App() {
         />
 
         {/* 10-Second PWA Installation Prompt */}
-        <PWAInstallModal />
+        <Suspense fallback={null}>
+          <PWAInstallModal />
+        </Suspense>
       </div>
     </SmoothLenis>
   );

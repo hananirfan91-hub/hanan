@@ -8,6 +8,7 @@ import { SplitTextReveal } from '../components/animations/SplitTextReveal';
 import { Parallax3DCard } from '../components/animations/Parallax3DCard';
 import { HorizontalScrollShowcase } from '../components/animations/HorizontalScrollShowcase';
 import { ImageMaskReveal } from '../components/animations/ImageMaskReveal';
+import { CredlyBadgeEmbed } from '../components/CredlyBadgeEmbed';
 import { ArrowUpRight, Sparkles, Code2, Terminal, ChevronDown, CheckCircle2, Cpu, Globe, Rocket, Layers, ExternalLink, Wrench, ShieldCheck, GraduationCap, Award, BookOpen, Users, Compass, X, ZoomIn } from 'lucide-react';
 
 interface HomePageProps {
@@ -203,7 +204,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col items-start gap-6">
               <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-purple-500/40 shadow-xl shadow-purple-600/30 shrink-0">
                 <img
-                  src="/hanan-irfan.jpg"
+                  src="/avatar.webp"
                   alt="Hanan Irfan Headshot — Web Developer in Rahim Yar Khan"
                   width={144}
                   height={144}
@@ -211,7 +212,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                   decoding="async"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
-                    e.currentTarget.src = '/avatar.jpg';
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/avatar.jpg')) {
+                      target.src = '/avatar.jpg';
+                    }
                   }}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 aspect-square"
                 />
@@ -279,8 +283,113 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
           </p>
         </div>
 
-        {/* 4-Certificate Modern Grid */}
+        {/* 5-Certificate Modern Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+
+          {/* Certificate 0 (Featured Full-Width Grid Card): Google AI Fundamentals + Credly Badge Embed */}
+          <article className="md:col-span-2 glass-card glass-card-hover rounded-3xl p-6 sm:p-8 border border-cyan-500/40 bg-gradient-to-br from-[#07101b] via-[#090b14] to-[#0b1320] relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
+              {/* Left: Certificate Image Preview */}
+              <div className="lg:col-span-5">
+                <div
+                  onClick={() => setActiveCertificate({
+                    title: 'Google AI Fundamentals',
+                    subtitle: 'Issued by Coursera • Verified via Credly (ID: COSC241103038)',
+                    image: '/images/certificates/google-ai-fundamentals-2026.webp'
+                  })}
+                  className="relative group/img overflow-hidden rounded-2xl border-2 border-cyan-500/40 shadow-xl shadow-cyan-950/40 bg-white cursor-pointer aspect-[3300/2550] flex items-center justify-center"
+                >
+                  <picture className="block w-full h-full">
+                    <source srcSet="/images/certificates/google-ai-fundamentals-2026.webp" type="image/webp" />
+                    <img
+                      src="/images/certificates/google-ai-fundamentals-2026.webp"
+                      alt="Google AI Fundamentals Certificate issued by Coursera to Abdul Hanan Irfan"
+                      width={3300}
+                      height={2550}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.endsWith('/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg')) {
+                          target.src = '/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg';
+                        }
+                      }}
+                      className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
+                    />
+                  </picture>
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-cyan-300 font-mono text-xs font-bold p-4 text-center">
+                    <ZoomIn className="w-6 h-6 text-cyan-400 animate-bounce" />
+                    <span>GOOGLE AI FUNDAMENTALS // COURSERA</span>
+                    <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Center: Certificate Metadata & Description */}
+              <div className="lg:col-span-4 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-[11px] font-mono font-extrabold text-cyan-300 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/40 flex items-center gap-1.5 shadow-lg shadow-cyan-950/40">
+                    <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" /> Credly Verified
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400">15 Nov 2026</span>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-[11px] font-mono text-cyan-400">
+                    <Cpu className="w-3.5 h-3.5" />
+                    <span>GOOGLE &bull; COURSERA CERTIFICATION</span>
+                  </div>
+                  <h4 className="text-xl sm:text-3xl font-bold font-display text-white group-hover:text-cyan-300 transition-colors">
+                    Google AI Fundamentals
+                  </h4>
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Awarded to <strong className="text-cyan-300">Abdul Hanan Irfan</strong> (<span className="font-mono text-xs text-slate-200">COSC241103038</span>) by <strong className="text-white">Coursera</strong> and <strong className="text-blue-300">Google</strong>, validating foundational knowledge in artificial intelligence concepts, generative AI workflows, and responsible AI applications.
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
+                  <button
+                    type="button"
+                    onClick={() => setActiveCertificate({
+                      title: 'Google AI Fundamentals',
+                      subtitle: 'Issued by Coursera • Verified via Credly (ID: COSC241103038)',
+                      image: '/images/certificates/google-ai-fundamentals-2026.webp'
+                    })}
+                    className="text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
+                  >
+                    <span>VIEW CERTIFICATE</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
+                  <a
+                    href="https://www.credly.com/go/TWCMECRu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-300 hover:text-white flex items-center gap-1 transition-colors"
+                  >
+                    <span>VERIFY ON CREDLY</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Right: Live Embedded Credly Interactive Badge */}
+              <div className="lg:col-span-3 flex flex-col items-center justify-center p-4 rounded-2xl bg-white/5 border border-cyan-500/25 space-y-2">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-300 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Live Credly Badge
+                </span>
+                <CredlyBadgeEmbed
+                  badgeId="af813824-c409-4d88-b95a-5524a680465c"
+                  width={150}
+                  height={270}
+                  host="https://www.credly.com"
+                />
+              </div>
+            </div>
+          </article>
           
           {/* Certificate 1: Dean's Honor Certificate (FIRST & LATEST ACHIEVEMENT) */}
           <article className="glass-card glass-card-hover rounded-3xl p-6 sm:p-7 border border-emerald-500/40 bg-gradient-to-br from-[#07130f] via-[#090b14] to-[#0c0d18] relative overflow-hidden flex flex-col justify-between group">
@@ -301,25 +410,28 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 onClick={() => setActiveCertificate({
                   title: "Dean's Honor Certificate",
                   subtitle: "Khwaja Fareed University of Engineering and Information Technology (KFUEIT)",
-                  image: "/images/certificates/deans-honor-certificate-2026.png"
+                  image: "/images/certificates/deans-honor-certificate-2026.webp"
                 })}
                 className="relative group/img overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-xl shadow-emerald-950/40 bg-white cursor-pointer aspect-[3/4] max-h-72 flex items-center justify-center"
               >
-                <img
-                  src="/images/certificates/deans-honor-certificate-2026.png"
-                  alt="Dean's Honor Certificate awarded to Abdul Hanan Irfan by KFUEIT"
-                  width={1080}
-                  height={1440}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/deans-honor-certificate-2026.png')) {
-                      target.src = '/deans-honor-certificate-2026.png';
-                    }
-                  }}
-                  className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
-                />
+                <picture className="block w-full h-full">
+                  <source srcSet="/images/certificates/deans-honor-certificate-2026.webp" type="image/webp" />
+                  <img
+                    src="/images/certificates/deans-honor-certificate-2026.webp"
+                    alt="Dean's Honor Certificate awarded to Abdul Hanan Irfan by KFUEIT"
+                    width={1086}
+                    height={1448}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/images/certificates/deans-honor-certificate-2026.png')) {
+                        target.src = '/images/certificates/deans-honor-certificate-2026.png';
+                      }
+                    }}
+                    className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center">
                   <ZoomIn className="w-6 h-6 text-emerald-400 animate-bounce" />
                   <span>DEAN'S HONOR ROLL // SPRING 2026</span>
@@ -350,7 +462,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 onClick={() => setActiveCertificate({
                   title: "Dean's Honor Certificate",
                   subtitle: "Khwaja Fareed University of Engineering and Information Technology (KFUEIT)",
-                  image: "/images/certificates/deans-honor-certificate-2026.png"
+                  image: "/images/certificates/deans-honor-certificate-2026.webp"
                 })}
                 className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
               >
@@ -374,22 +486,28 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 onClick={() => setActiveCertificate({
                   title: "Certificate of Appreciation — Web Developer",
                   subtitle: "ACM KFUEIT Student Chapter",
-                  image: "/certificate.jpg"
+                  image: "/certificate.webp"
                 })}
                 className="relative group/img overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-xl shadow-amber-950/40 bg-black/40 cursor-pointer aspect-[4/3] max-h-72 flex items-center justify-center"
               >
-                <img
-                  src="/certificate.jpg"
-                  alt="ACM KFUEIT Web Developer Certificate — Abdul Hanan Irfan"
-                  width={900}
-                  height={672}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    e.currentTarget.src = '/avatar.jpg';
-                  }}
-                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
-                />
+                <picture className="block w-full h-full">
+                  <source srcSet="/certificate.webp" type="image/webp" />
+                  <img
+                    src="/certificate.webp"
+                    alt="ACM KFUEIT Web Developer Certificate — Abdul Hanan Irfan"
+                    width={900}
+                    height={672}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/certificate.jpg')) {
+                        target.src = '/certificate.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center">
                   <ZoomIn className="w-6 h-6 text-amber-400 animate-bounce" />
                   <span>ACM KFUEIT SESSION 2025–26</span>
@@ -418,7 +536,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 onClick={() => setActiveCertificate({
                   title: "Certificate of Appreciation — Web Developer",
                   subtitle: "ACM KFUEIT Student Chapter",
-                  image: "/certificate.jpg"
+                  image: "/certificate.webp"
                 })}
                 className="text-amber-300 hover:text-white flex items-center gap-1 transition-colors"
               >
@@ -516,22 +634,28 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 onClick={() => setActiveCertificate({
                   title: "Ambassador of D' Educationist @ KFUEIT",
                   subtitle: "D' Educationist International Education & Career Guidance",
-                  image: "/deducationist-ambassador.jpg"
+                  image: "/deducationist-ambassador.webp"
                 })}
                 className="relative group/img overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-xl shadow-emerald-950/40 bg-[#06100d] cursor-pointer aspect-[3/4] max-h-72 flex items-center justify-center"
               >
-                <img
-                  src="/deducationist-ambassador.jpg"
-                  alt="Hanan Irfan joins D' Educationist as Ambassador of KFUEIT RYK"
-                  width={800}
-                  height={1000}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    e.currentTarget.src = '/certificate.jpg';
-                  }}
-                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
-                />
+                <picture className="block w-full h-full">
+                  <source srcSet="/deducationist-ambassador.webp" type="image/webp" />
+                  <img
+                    src="/deducationist-ambassador.webp"
+                    alt="Hanan Irfan joins D' Educationist as Ambassador of KFUEIT RYK"
+                    width={800}
+                    height={1000}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.src.endsWith('/deducationist-ambassador.jpg')) {
+                        target.src = '/deducationist-ambassador.jpg';
+                      }
+                    }}
+                    className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center">
                   <ZoomIn className="w-6 h-6 text-emerald-400 animate-bounce" />
                   <span>D' EDUCATIONIST &times; KFUEIT RYK</span>
@@ -560,7 +684,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 onClick={() => setActiveCertificate({
                   title: "Ambassador of D' Educationist @ KFUEIT",
                   subtitle: "D' Educationist International Education & Career Guidance",
-                  image: "/deducationist-ambassador.jpg"
+                  image: "/deducationist-ambassador.webp"
                 })}
                 className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
               >

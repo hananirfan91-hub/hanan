@@ -30,7 +30,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
 
     const timer = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + 3;
+        const next = Math.min(100, prev + 14);
         const currentMsg = textSequence.find(t => next <= t.p)?.text;
         if (currentMsg) setLoadingText(currentMsg);
 
@@ -40,12 +40,12 @@ export const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
             setIsVisible(false);
             sessionStorage.setItem('hi_loader_shown', 'true');
             if (onComplete) onComplete();
-          }, 400);
+          }, 120);
           return 100;
         }
         return next;
       });
-    }, 30);
+    }, 20);
 
     return () => clearInterval(timer);
   }, [onComplete]);

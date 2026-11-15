@@ -11,7 +11,7 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'favicon.png', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
+        includeAssets: ['favicon.ico', 'favicon-32x32.png', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
         manifest: {
           id: '/',
           name: 'Hanan Irfan — Portfolio & Digital Experience',
@@ -45,9 +45,40 @@ export default defineConfig(() => {
           ],
         },
         workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
+          globPatterns: ['**/*.{js,css,html,ico,svg,woff2}', 'pwa-*.png', 'apple-touch-icon.png', 'favicon-32x32.png', 'abdul-hanan-irfan-developer-workspace-bg.webp'],
+          globIgnores: ['**/assets/aistudio/**', 'favicon.png', 'deans-honor-certificate-2026.png', 'images/certificates/deans-honor-certificate-2026.png', 'certificate.jpg', 'deducationist-ambassador.jpg', 'ambassador.jpg'],
           navigateFallback: '/index.html',
-          maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
+          maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+          runtimeCaching: [
+            {
+              urlPattern: /\.(?:webp|png|jpg|jpeg|svg|gif)$/i,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'portfolio-images-cache',
+                expiration: {
+                  maxEntries: 60,
+                  maxAgeSeconds: 60 * 60 * 24 * 30,
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 15,
+                  maxAgeSeconds: 60 * 60 * 24 * 365,
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+          ],
         },
         devOptions: {
           enabled: true,
@@ -55,6 +86,19 @@ export default defineConfig(() => {
         },
       }),
     ],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-motion': ['motion'],
+            'vendor-icons': ['lucide-react'],
+            'vendor-charts': ['recharts'],
+            'vendor-scroll': ['lenis', 'gsap'],
+          },
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

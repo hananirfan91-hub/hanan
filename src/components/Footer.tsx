@@ -25,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             >
               <div className="w-12 h-12 rounded-xl overflow-hidden border border-purple-500/40 shadow-lg shadow-purple-600/30 shrink-0">
                 <img
-                  src="/hanan-irfan.jpg"
+                  src="/avatar.webp"
                   alt="Hanan Irfan Avatar"
                   width={48}
                   height={48}
@@ -33,7 +33,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   decoding="async"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
-                    e.currentTarget.src = '/avatar.jpg';
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/avatar.jpg')) {
+                      target.src = '/avatar.jpg';
+                    }
                   }}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform aspect-square"
                 />

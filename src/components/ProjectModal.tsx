@@ -101,7 +101,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
-                  const fallback = project.fallbackImage || '/nexapos.jpg';
+                  const fallback = project.fallbackImage || '/nexapos.webp';
                   if (!e.currentTarget.src.endsWith(fallback)) {
                     e.currentTarget.src = fallback;
                   }

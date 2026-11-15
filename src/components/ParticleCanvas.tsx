@@ -60,7 +60,23 @@ export const ParticleCanvas: React.FC = () => {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    let isTabHidden = document.hidden;
+    const handleVisibilityChange = () => {
+      isTabHidden = document.hidden;
+      if (!isTabHidden) {
+        animationFrameId = requestAnimationFrame(render);
+      } else {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     const render = () => {
+      if (isTabHidden) return;
       ctx.clearRect(0, 0, width, height);
 
       // Render and update particles
@@ -123,9 +139,12 @@ export const ParticleCanvas: React.FC = () => {
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    if (!isTabHidden) {
+      render();
+    }
 
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);

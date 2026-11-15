@@ -79,15 +79,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <div className="w-10 h-10 rounded-xl overflow-hidden border border-purple-500/40 shadow-lg shadow-purple-600/30 group-hover:scale-105 transition-all">
               <img
-                src="/hanan-irfan.jpg"
+                src="/avatar.webp"
                 alt="Hanan Irfan Avatar"
                 width={40}
                 height={40}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
-                  e.currentTarget.src = '/avatar.jpg';
+                  const target = e.currentTarget;
+                  if (!target.src.endsWith('/avatar.jpg')) {
+                    target.src = '/avatar.jpg';
+                  }
                 }}
                 className="w-full h-full object-cover aspect-square"
               />

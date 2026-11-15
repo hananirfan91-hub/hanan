@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PageId } from '../types';
 import { PERSONAL_INFO, AEO_FAQS } from '../data/portfolioData';
-import { Award, GraduationCap, MapPin, Sparkles, ChevronDown, Check, UserCheck, HelpCircle, Building2, Rocket, ArrowUpRight } from 'lucide-react';
+import { Award, GraduationCap, MapPin, Sparkles, ChevronDown, Check, UserCheck, HelpCircle, Building2, Rocket, ArrowUpRight, ShieldCheck, ExternalLink } from 'lucide-react';
+import { CredlyBadgeEmbed } from '../components/CredlyBadgeEmbed';
 
 interface AboutPageProps {
   onNavigate: (page: PageId) => void;
@@ -61,7 +62,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           <div className="glass-card rounded-3xl p-6 sm:p-8 border border-purple-500/30 bg-[#0a0c16] text-center space-y-6">
             <div className="relative w-36 h-36 mx-auto rounded-3xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-cyan-500 p-1 shadow-2xl shadow-purple-600/40 overflow-hidden group">
               <img
-                src="/hanan-irfan.jpg"
+                src="/avatar.webp"
                 alt="Hanan Irfan — Full-Stack Developer & SEO Expert in Rahim Yar Khan"
                 width={144}
                 height={144}
@@ -69,7 +70,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                 decoding="async"
                 referrerPolicy="no-referrer"
                 onError={(e) => {
-                  e.currentTarget.src = '/avatar.jpg';
+                  const target = e.currentTarget;
+                  if (!target.src.endsWith('/avatar.jpg')) {
+                    target.src = '/avatar.jpg';
+                  }
                 }}
                 className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500 aspect-square"
               />
@@ -115,6 +119,71 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             </p>
           </div>
 
+          {/* Google AI Fundamentals Certificate & Credly Badge */}
+          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-cyan-500/30 bg-[#07101b] space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono font-extrabold text-cyan-300 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5" /> GOOGLE AI FUNDAMENTALS
+              </span>
+              <span className="text-[10px] font-mono text-slate-400">15 NOV 2026</span>
+            </div>
+
+            <div className="relative group overflow-hidden rounded-2xl border border-cyan-500/30 shadow-xl shadow-cyan-950/30 bg-white">
+              <picture className="block w-full">
+                <source srcSet="/images/certificates/google-ai-fundamentals-2026.webp" type="image/webp" />
+                <img
+                  src="/images/certificates/google-ai-fundamentals-2026.webp"
+                  alt="Google AI Fundamentals Certificate issued by Coursera to Abdul Hanan Irfan"
+                  width={3300}
+                  height={2550}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg')) {
+                      target.src = '/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg';
+                    }
+                  }}
+                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500 aspect-[3300/2550]"
+                />
+              </picture>
+              <a
+                href="/images/certificates/google-ai-fundamentals-2026.webp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
+              >
+                <span>CLICK TO VIEW FULL RESOLUTION</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold font-display text-white">Google AI Fundamentals — Coursera</h3>
+              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                Issued to <strong className="text-cyan-300">Abdul Hanan Irfan</strong> (COSC241103038) by <strong className="text-white">Coursera</strong> &amp; <strong className="text-blue-300">Google</strong> on 15 Nov 2026.
+              </p>
+            </div>
+
+            <div className="pt-2 flex flex-col items-center gap-2 border-t border-white/10">
+              <CredlyBadgeEmbed
+                badgeId="af813824-c409-4d88-b95a-5524a680465c"
+                width={150}
+                height={270}
+                host="https://www.credly.com"
+              />
+              <a
+                href="https://www.credly.com/go/TWCMECRu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] font-mono text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
+              >
+                <span>Verify Credential on Credly</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </article>
+
           {/* Official ACM Certificate Highlight */}
           <div className="glass-card rounded-3xl p-6 border border-purple-500/30 bg-[#090c1a] space-y-4">
             <div className="flex items-center justify-between">
@@ -125,21 +194,27 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             </div>
 
             <div className="relative group overflow-hidden rounded-2xl border border-amber-500/30 shadow-xl shadow-amber-950/30">
-              <img
-                src="/certificate.jpg"
-                alt="Abdul Hanan Irfan — Web Developer Certificate of Appreciation ACM KFUEIT"
-                width={900}
-                height={672}
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  e.currentTarget.src = '/avatar.jpg';
-                }}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[4/3]"
-              />
+              <picture className="block w-full">
+                <source srcSet="/certificate.webp" type="image/webp" />
+                <img
+                  src="/certificate.webp"
+                  alt="Abdul Hanan Irfan — Web Developer Certificate of Appreciation ACM KFUEIT"
+                  width={900}
+                  height={672}
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/certificate.jpg')) {
+                      target.src = '/certificate.jpg';
+                    }
+                  }}
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[4/3]"
+                />
+              </picture>
               <a
-                href="/certificate.jpg"
+                href="/certificate.webp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"
@@ -215,21 +290,27 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             </div>
 
             <div className="relative group overflow-hidden rounded-2xl border border-emerald-500/30 shadow-xl shadow-emerald-950/30">
-              <img
-                src="/deducationist-ambassador.jpg"
-                alt="Hanan Irfan joins D' Educationist as Ambassador at KFUEIT"
-                width={800}
-                height={1000}
-                loading="lazy"
-                decoding="async"
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  e.currentTarget.src = '/certificate.jpg';
-                }}
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4]"
-              />
+              <picture className="block w-full">
+                <source srcSet="/deducationist-ambassador.webp" type="image/webp" />
+                <img
+                  src="/deducationist-ambassador.webp"
+                  alt="Hanan Irfan joins D' Educationist as Ambassador at KFUEIT"
+                  width={800}
+                  height={1000}
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/deducationist-ambassador.jpg')) {
+                      target.src = '/deducationist-ambassador.jpg';
+                    }
+                  }}
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 aspect-[3/4]"
+                />
+              </picture>
               <a
-                href="/deducationist-ambassador.jpg"
+                href="/deducationist-ambassador.webp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-bold"

@@ -54,7 +54,8 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PWA', 'REST APIs', 'Chart.js'],
     status: 'Live SaaS Product',
-    image: '/nexapos.jpg'
+    image: '/nexapos.webp',
+    fallbackImage: '/nexapos.jpg'
   },
   {
     id: 'free-tools-hub',
@@ -115,7 +116,8 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
     status: 'Official Site',
-    image: '/hanan-irfan.jpg'
+    image: '/avatar.webp',
+    fallbackImage: '/avatar.jpg'
   },
   {
     id: 'hi-digital-group',
@@ -153,7 +155,8 @@ export const PROJECTS: Project[] = [
     ],
     technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Community Tools'],
     status: 'Live Community Site',
-    image: '/certificate.jpg'
+    image: '/certificate.webp',
+    fallbackImage: '/certificate.jpg'
   },
   {
     id: 'caesar-2026',
