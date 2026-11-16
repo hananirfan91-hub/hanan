@@ -6,7 +6,7 @@
     ],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.hananirfan.portfolio",
+      "package_name": "com.hananirfan.app",
       "sha256_cert_fingerprints": [
         "1F:72:E4:DB:AA:A1:4B:11:BB:6F:2E:EA:1A:0F:CB:4E:16:6D:2A:70:CA:9C:05:E4:ED:33:18:CC:AD:6E:35:D4"
       ]

@@ -19,7 +19,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
           Privacy Policy
         </h1>
         <p className="text-xs font-mono text-[#94A3B8]">
-          Effective Date: November 16, 2026 &bull; Operator: {PERSONAL_INFO.name} &bull; Portfolio Web App &amp; Android TWA (com.hananirfan.portfolio)
+          Effective Date: November 16, 2026 &bull; Operator: {PERSONAL_INFO.name} &bull; Portfolio Web App &amp; Android TWA (com.hananirfan.app)
         </p>
       </header>
 
@@ -91,7 +91,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
         <section className="space-y-2.5">
           <h2 className="text-lg font-bold font-display text-[#F8FAFC]">5. Android App (TWA / WebView) &amp; Device Permissions</h2>
           <p>
-            When accessed via an Android Trusted Web Activity (<code className="text-xs bg-white/[0.08] text-[#F8FAFC] px-1.5 py-0.5 rounded">com.hananirfan.portfolio</code>) or Android WebView, the web application does not request access to device camera, microphone, contacts, SMS, call logs, background location, or external storage. Network access is used solely to load portfolio content.
+            When accessed via an Android Trusted Web Activity (<code className="text-xs bg-white/[0.08] text-[#F8FAFC] px-1.5 py-0.5 rounded">com.hananirfan.app</code>) or Android WebView, the web application does not request access to device camera, microphone, contacts, SMS, call logs, background location, or external storage. Network access is used solely to load portfolio content.
           </p>
         </section>
 
