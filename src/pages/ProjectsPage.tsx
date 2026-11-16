@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Project, PageId } from '../types';
-import { PROJECTS } from '../data/portfolioData';
-import { SplitTextReveal } from '../components/animations/SplitTextReveal';
-import { ExternalLink, Search, Sparkles, Code2, SearchCheck, Palette, ArrowRight, ArrowUpRight, ShieldCheck, Terminal, Rocket } from 'lucide-react';
+import { PROJECTS, PERSONAL_INFO } from '../data/portfolioData';
+import { SpotlightCard } from '../components/SpotlightCard';
+import { MotionReveal } from '../components/MotionReveal';
+import {
+  ExternalLink,
+  Search,
+  Sparkles,
+  Code2,
+  SearchCheck,
+  Palette,
+  ArrowRight,
+  ArrowUpRight,
+  Layers,
+} from 'lucide-react';
 
 interface ProjectsPageProps {
   onSelectProject: (project: Project) => void;
@@ -14,374 +25,438 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject, onN
   const [selectedFilter, setSelectedFilter] = useState<'ALL' | 'WEB' | 'SAAS' | 'AI' | 'TOOLS' | 'DESIGN'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filterCategories = [
-    { id: 'ALL', label: 'ALL PROJECTS' },
-    { id: 'SAAS', label: 'SAAS & POS' },
-    { id: 'TOOLS', label: 'WEB TOOLS' },
-    { id: 'AI', label: 'AI PLATFORMS' },
-    { id: 'WEB', label: 'WEB APPS' },
-    { id: 'DESIGN', label: 'CREATIVE & DESIGN' }
+  const filterCategories: { id: 'ALL' | 'WEB' | 'SAAS' | 'AI' | 'TOOLS' | 'DESIGN'; label: string }[] = [
+    { id: 'ALL', label: 'All Projects' },
+    { id: 'WEB', label: 'Web Apps & Media' },
+    { id: 'SAAS', label: 'SaaS & POS' },
+    { id: 'TOOLS', label: 'Web Tools' },
+    { id: 'AI', label: 'AI Platforms' },
+    { id: 'DESIGN', label: 'Creative UI' },
   ];
 
   const filteredProjects = PROJECTS.filter((p) => {
     const matchesFilter = selectedFilter === 'ALL' || p.filterCategory === selectedFilter;
+    const query = searchQuery.trim().toLowerCase();
     const matchesSearch =
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.technologies.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      !query ||
+      p.title.toLowerCase().includes(query) ||
+      p.description.toLowerCase().includes(query) ||
+      p.category.toLowerCase().includes(query) ||
+      p.technologies.some((t) => t.toLowerCase().includes(query));
     return matchesFilter && matchesSearch;
   });
 
-  const featuredProject = PROJECTS[0]; // NEXA POS
+  const flagshipProject = PROJECTS.find((p) => p.id === 'the-sports-room') || PROJECTS[0];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
-      
-      {/* SECTION 1: HEADER OVERVIEW */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+      {/* Header Overview */}
       <div className="space-y-4">
-        <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// PORTFOLIO OVERVIEW & HUB</span>
-        <SplitTextReveal
-          text="PROJECTS & DIGITAL WORK"
-          as="h1"
-          className="text-4xl sm:text-7xl font-black font-display text-white tracking-wide text-glow"
-        />
-        <p className="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-          Overview of live software applications, SaaS products, Web Development builds, SEO case studies, and Graphic Design portfolios created by Hanan Irfan.
+        <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider block">
+          Portfolio Work &amp; Case Studies
+        </span>
+        <h1 className="text-4xl sm:text-6xl font-black font-display text-[#F8FAFC] tracking-tight">
+          Projects &amp; Digital Products
+        </h1>
+        <p className="text-[#94A3B8] text-base sm:text-lg max-w-3xl leading-relaxed">
+          Live software applications, sports media platforms, SaaS utilities, AI guides, and search-engineered websites built by {PERSONAL_INFO.name}.
         </p>
 
-        {/* OVERVIEW SERVICES HUB NAVIGATION */}
+        {/* Specialized Practice Hub */}
         {onNavigate && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
             <button
+              type="button"
               onClick={() => onNavigate('web-development')}
-              className="glass-card p-5 rounded-2xl border border-purple-500/30 hover:border-purple-500/80 bg-purple-950/20 text-left transition-all group flex flex-col justify-between"
+              className="surface-card surface-card-hover p-5 rounded-2xl text-left flex flex-col justify-between cursor-pointer group"
             >
-              <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform">
+              <div className="space-y-2.5">
+                <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/15 border border-[#3B82F6]/30 flex items-center justify-center text-[#3B82F6]">
                   <Code2 className="w-5 h-5" />
                 </div>
-                <h2 className="text-lg font-bold font-display text-white group-hover:text-purple-300 transition-colors">
+                <h2 className="text-lg font-bold font-display text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors">
                   Web Development
                 </h2>
-                <p className="text-xs text-slate-300">
-                  Full stack React, Next.js &amp; WordPress web development in Rahim Yar Khan.
+                <p className="text-xs text-[#94A3B8] leading-relaxed">
+                  Full-stack React, Next.js, TypeScript, and WordPress engineering.
                 </p>
               </div>
-              <div className="pt-4 flex items-center gap-1 text-xs font-mono text-purple-400 group-hover:text-white">
-                <span>VIEW WEB DEV PAGE</span> <ArrowRight className="w-3.5 h-3.5" />
+              <div className="pt-4 flex items-center gap-1 text-xs font-mono font-semibold text-[#3B82F6]">
+                <span>View Web Development</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </div>
             </button>
 
             <button
+              type="button"
               onClick={() => onNavigate('seo-expert')}
-              className="glass-card p-5 rounded-2xl border border-cyan-500/30 hover:border-cyan-500/80 bg-cyan-950/20 text-left transition-all group flex flex-col justify-between"
+              className="surface-card surface-card-hover p-5 rounded-2xl text-left flex flex-col justify-between cursor-pointer group"
             >
-              <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 group-hover:scale-110 transition-transform">
+              <div className="space-y-2.5">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
                   <SearchCheck className="w-5 h-5" />
                 </div>
-                <h2 className="text-lg font-bold font-display text-white group-hover:text-cyan-300 transition-colors">
-                  SEO Expert
+                <h2 className="text-lg font-bold font-display text-[#F8FAFC] group-hover:text-emerald-400 transition-colors">
+                  SEO, AEO &amp; GEO
                 </h2>
-                <p className="text-xs text-slate-300">
-                  Local SEO, Google ranking, and technical audit services in RYK.
+                <p className="text-xs text-[#94A3B8] leading-relaxed">
+                  Technical SEO, answer engine structure, keyword clustering, and content strategy.
                 </p>
               </div>
-              <div className="pt-4 flex items-center gap-1 text-xs font-mono text-cyan-400 group-hover:text-white">
-                <span>VIEW SEO PAGE</span> <ArrowRight className="w-3.5 h-3.5" />
+              <div className="pt-4 flex items-center gap-1 text-xs font-mono font-semibold text-emerald-400">
+                <span>View Search Strategy</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </div>
             </button>
 
             <button
+              type="button"
               onClick={() => onNavigate('graphic-design')}
-              className="glass-card p-5 rounded-2xl border border-pink-500/30 hover:border-pink-500/80 bg-pink-950/20 text-left transition-all group flex flex-col justify-between"
+              className="surface-card surface-card-hover p-5 rounded-2xl text-left flex flex-col justify-between cursor-pointer group"
             >
-              <div className="space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-300 group-hover:scale-110 transition-transform">
+              <div className="space-y-2.5">
+                <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/15 border border-[#8B5CF6]/30 flex items-center justify-center text-[#8B5CF6]">
                   <Palette className="w-5 h-5" />
                 </div>
-                <h2 className="text-lg font-bold font-display text-white group-hover:text-pink-300 transition-colors">
-                  Graphic Design
+                <h2 className="text-lg font-bold font-display text-[#F8FAFC] group-hover:text-[#8B5CF6] transition-colors">
+                  UI/UX &amp; Graphic Design
                 </h2>
-                <p className="text-xs text-slate-300">
-                  Logo design, social media posts, and branding kits in Rahim Yar Khan.
+                <p className="text-xs text-[#94A3B8] leading-relaxed">
+                  Clean visual systems, brand assets, and responsive product layouts.
                 </p>
               </div>
-              <div className="pt-4 flex items-center gap-1 text-xs font-mono text-pink-400 group-hover:text-white">
-                <span>VIEW DESIGN PAGE</span> <ArrowRight className="w-3.5 h-3.5" />
+              <div className="pt-4 flex items-center gap-1 text-xs font-mono font-semibold text-[#8B5CF6]">
+                <span>View Design Capabilities</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </div>
             </button>
           </div>
         )}
       </div>
 
-      {/* SECTION 2: FEATURED BANNER PROJECT - NEXA POS */}
-      {featuredProject && (
-        <div
-          onClick={() => onSelectProject(featuredProject)}
-          className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/40 bg-gradient-to-r from-[#0c0d1a] via-[#090b16] to-[#0a0d1d] hover:border-purple-500 transition-all cursor-pointer group relative overflow-hidden"
-        >
+      {/* Flagship Featured Project */}
+      {flagshipProject && (
+        <MotionReveal>
+          <SpotlightCard
+            onClick={() => onSelectProject(flagshipProject)}
+            className="rounded-3xl p-6 sm:p-10 border-[#3B82F6]/30 bg-gradient-to-br from-[#3B82F6]/10 via-white/[0.04] to-[#8B5CF6]/10 group"
+          >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
             <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-extrabold text-purple-300 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40">
-                  FEATURED SAAS — {featuredProject.number}
+              <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#94A3B8]">
+                <span className="font-bold text-[#3B82F6]">
+                  Flagship Venture &bull; {flagshipProject.number}
                 </span>
-                <span className="text-xs font-mono text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                  {featuredProject.category}
-                </span>
+                <span aria-hidden="true">&middot;</span>
+                <span className="text-[#8B5CF6] font-semibold">{flagshipProject.category}</span>
               </div>
 
-              <h2 className="text-3xl sm:text-5xl font-black font-display text-white group-hover:text-purple-300 transition-colors">
-                {featuredProject.title}
+              <h2 className="text-3xl sm:text-5xl font-black font-display text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors">
+                {flagshipProject.title}
               </h2>
 
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                {featuredProject.description}
+              <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed">
+                {flagshipProject.description}
               </p>
 
-              <div className="flex flex-wrap gap-2 pt-2">
-                {featuredProject.technologies.map((tech, idx) => (
-                  <span key={idx} className="text-xs font-mono px-3 py-1 rounded-xl bg-purple-950/50 border border-purple-500/30 text-purple-300">
+              <div className="flex flex-wrap gap-2 pt-1">
+                {flagshipProject.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-xs font-mono px-3 py-1 rounded-lg bg-[#0D1425]/85 border border-white/[0.12] text-[#F8FAFC]"
+                  >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <div className="pt-4 flex items-center gap-3">
-                <button className="px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-display font-bold text-xs tracking-wider shadow-lg shadow-purple-600/30 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4" /> EXPLORE NEXA POS
-                </button>
+              <div className="pt-3 flex flex-wrap items-center gap-3">
+                <span className="px-5 py-2.5 rounded-xl bg-[#3B82F6] text-[#F8FAFC] font-semibold text-xs tracking-wide inline-flex items-center gap-2 shadow-[0_0_24px_rgba(59,130,246,0.22)]">
+                  <Sparkles className="w-4 h-4" /> View Project Details
+                </span>
                 <a
-                  href={featuredProject.url}
+                  href={flagshipProject.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="px-4 py-3 rounded-2xl glass-card text-slate-300 hover:text-white text-xs font-mono flex items-center gap-1.5"
+                  className="px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] hover:border-[#3B82F6]/50 hover:bg-white/[0.09] text-xs font-mono font-semibold inline-flex items-center gap-1.5 transition-colors"
                 >
-                  <ExternalLink className="w-3.5 h-3.5" /> LIVE SITE
+                  <ExternalLink className="w-3.5 h-3.5" /> Visit Live Site
                 </a>
               </div>
             </div>
 
             <div className="lg:col-span-5">
-              <div className="p-6 rounded-2xl bg-[#05060b] border border-white/10 space-y-3 font-mono text-xs">
-                <div className="text-purple-400 font-bold">// KEY MODULES</div>
-                <div className="text-slate-300 space-y-1.5">
-                  <div>• POS Billing & Quick Checkout</div>
-                  <div>• Stock & Inventory Alerts</div>
-                  <div>• Customer Ledger & CRM</div>
-                  <div>• Sales Analytics & Reports</div>
-                  <div>• PWA Offline Resilience</div>
-                </div>
+              <div className="p-6 rounded-2xl bg-[#0D1425]/85 border border-white/[0.12] space-y-3 font-mono text-xs">
+                <div className="text-[#3B82F6] font-bold uppercase tracking-wider">Key Highlights</div>
+                <ul className="text-[#94A3B8] space-y-2">
+                  {flagshipProject.features.slice(0, 5).map((feat) => (
+                    <li key={feat} className="flex items-start gap-2">
+                      <span className="text-[#3B82F6] font-bold">&bull;</span>
+                      <span className="text-[#F8FAFC]/90">{feat}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-
           </div>
-        </div>
+          </SpotlightCard>
+        </MotionReveal>
       )}
 
-      {/* SECTION 3: FREE TOOLS HUB ENGINE BANNER */}
-      <div className="glass-card rounded-3xl p-8 sm:p-12 border border-cyan-500/30 bg-gradient-to-r from-[#060a12] via-[#090d18] to-[#0a0718]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-8 space-y-3">
-            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">// DEPLOYED UTILITY HUB</span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-              FREE TOOLS HUB — BROWSER UTILITIES
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              10+ client-side tools (Word Counter, QR Code Generator, JSON Formatter, Password Generator, Glassmorphism Maker) deployed on Vercel. 100% private, client-side, zero database tracking.
-            </p>
-          </div>
-          <div className="lg:col-span-4 flex justify-start lg:justify-end">
-            <a
-              href="https://freetoolshub.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 hover:bg-cyan-500 hover:text-black font-display font-bold text-xs tracking-wider transition-all flex items-center gap-2"
-            >
-              <span>LAUNCH BROWSER TOOLS</span>
-              <ExternalLink className="w-4 h-4" />
-            </a>
+      {/* Free Tools Hub Banner */}
+      <MotionReveal>
+        <div className="surface-card rounded-3xl p-6 sm:p-10 bg-[#0D1425]/70">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div className="lg:col-span-8 space-y-2.5">
+              <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+                Browser Utility Suite
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+                Free Tools Hub — Client-Side Web Utilities
+              </h2>
+              <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
+                Browser utilities including JSON Formatting, Base64 encoding, Text Case Conversion, Word Counting, and Password Generation that execute directly inside your browser without backend storage.
+              </p>
+            </div>
+            <div className="lg:col-span-4 flex justify-start lg:justify-end">
+              <a
+                href="https://freetoolshub1.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-xs tracking-wide transition-colors inline-flex items-center gap-2 shadow-[0_0_24px_rgba(59,130,246,0.2)]"
+              >
+                <span>Open Free Tools Hub</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </MotionReveal>
 
-      {/* SECTION 4: FILTER AND SEARCH CONTROLS */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 glass-card p-4 rounded-2xl border border-white/10">
-        
-        {/* Category Filters */}
-        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+      {/* Filter & Search Bar */}
+      <MotionReveal>
+        <div className="surface-card rounded-2xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
           {filterCategories.map((f) => (
             <button
               key={f.id}
-              onClick={() => setSelectedFilter(f.id as any)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+              type="button"
+              onClick={() => setSelectedFilter(f.id)}
+              className={`relative px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${
                 selectedFilter === f.id
-                  ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/30'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'text-[#F8FAFC]'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-white/[0.06]'
               }`}
             >
-              {f.label}
+              {selectedFilter === f.id && (
+                <motion.span
+                  layoutId="projects-active-filter"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  className="absolute inset-0 rounded-xl bg-[#3B82F6] shadow-[0_0_20px_rgba(59,130,246,0.28)] -z-10"
+                />
+              )}
+              <span className="relative z-10">{f.label}</span>
             </button>
           ))}
         </div>
 
-        {/* Search Input */}
         <div className="relative w-full md:w-72">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
           <input
             type="text"
-            placeholder="Search projects or tech..."
+            aria-label="Search projects"
+            placeholder="Search projects or stack..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#05060a] border border-white/10 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+            className="w-full bg-[#0D1425]/90 border border-white/[0.12] rounded-xl pl-9 pr-4 py-2 text-xs text-[#F8FAFC] placeholder-[#94A3B8]/70 focus:outline-none focus:border-[#3B82F6]"
           />
         </div>
-
-      </div>
-
-      {/* SECTION 5: 10-PROJECT SHOWCASE GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <AnimatePresence>
-          {filteredProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => onSelectProject(project)}
-              itemScope={project.seoTitle ? true : undefined}
-              itemType={project.seoTitle ? 'https://schema.org/CreativeWork' : undefined}
-              className="group glass-card rounded-3xl p-6 border border-white/10 hover:border-purple-500/50 bg-[#090b14] transition-all cursor-pointer flex flex-col justify-between"
-            >
-              {project.seoTitle && <meta itemProp="name" content={project.seoTitle} />}
-              {project.seoDescription && <meta itemProp="description" content={project.seoDescription} />}
-              {project.seoTitle && <link itemProp="url" href={project.url} />}
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono font-extrabold text-purple-400">
-                    {project.number}
-                  </span>
-                  <span className="text-[11px] font-mono text-cyan-400 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                    {project.category}
-                  </span>
-                </div>
-
-                {project.image && (
-                  <div className={`h-40 rounded-2xl overflow-hidden border border-white/10 mb-4 ${project.preserveAspectRatio ? 'bg-[#041209] flex items-center justify-center' : 'bg-black/40'}`}>
-                    <img
-                      src={project.image}
-                      alt={project.imageAlt || project.title}
-                      title={project.seoTitle || undefined}
-                      width={project.preserveAspectRatio ? 1254 : 600}
-                      height={project.preserveAspectRatio ? 1254 : 338}
-                      loading="lazy"
-                      decoding="async"
-                      referrerPolicy="no-referrer"
-                      onError={(e) => {
-                        const fallback = project.fallbackImage || '/nexapos.webp';
-                        if (!e.currentTarget.src.endsWith(fallback)) {
-                          e.currentTarget.src = fallback;
-                        }
-                      }}
-                      className={
-                        project.preserveAspectRatio
-                          ? 'w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 aspect-square'
-                          : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 aspect-video'
-                      }
-                    />
-                  </div>
-                )}
-
-                <h3 className="text-xl font-bold font-display text-white group-hover:text-purple-300 transition-colors mb-3">
-                  {project.title}
-                </h3>
-
-                <p className="text-slate-300 text-xs leading-relaxed line-clamp-3 mb-6">
-                  {project.description}
-                </p>
-              </div>
-
-              <div>
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-slate-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                  <span className="text-xs font-mono text-purple-400 group-hover:text-white transition-colors">
-                    DETAILS & LIVE DEMO
-                  </span>
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="p-2 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white transition-all"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {/* SECTION 6: ARCHITECTURE STANDARDS */}
-      <div className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/20 bg-[#080a14] space-y-6">
-        <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// SOFTWARE INTEGRITY</span>
-        <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-          PORTFOLIO ARCHITECTURE STANDARDS
-        </h2>
-        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-          All projects are designed with explicit modularity, clean component hierarchy, fast initial load times, responsive breakpoints, and strict TypeScript types.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 font-mono text-xs text-slate-300">
-          <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-            <span className="text-purple-400 font-bold block mb-1">FRONTEND ENGINE</span>
-            <span>React 18+, Vite, Tailwind CSS, Motion/React animations.</span>
-          </div>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-            <span className="text-cyan-400 font-bold block mb-1">DATABASE & AUTH</span>
-            <span>Supabase PostgreSQL, Firebase Firestore & Authentication.</span>
-          </div>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-            <span className="text-emerald-400 font-bold block mb-1">SEO & SPEED</span>
-            <span>SSR / SSG routing, JSON-LD Schema, sub-1s Vercel response times.</span>
-          </div>
         </div>
-      </div>
+      </MotionReveal>
 
-      {/* SECTION 7: CALL TO ACTION */}
-      <div className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center bg-gradient-to-r from-purple-900/30 via-[#0a0c16] to-cyan-900/30 space-y-6">
-        <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-          WANT A CUSTOM WEB APP OR SAAS PLATFORM ENGINEERED?
-        </h2>
-        <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
-          Contact Hanan Irfan for custom SaaS development, web application design, and technical SEO architecture.
-        </p>
-        <div className="pt-2">
-          <a
-            href="mailto:hananirfan91@gmail.com"
-            className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-display font-extrabold text-xs tracking-wider shadow-xl shadow-purple-600/30 hover:scale-105 transition-all inline-flex items-center gap-2"
+      {/* Projects Grid */}
+      <MotionReveal>
+      {filteredProjects.length === 0 ? (
+        <div className="surface-card rounded-3xl p-10 text-center space-y-3">
+          <p className="text-sm font-semibold text-[#F8FAFC]">No projects match your current filter.</p>
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedFilter('ALL');
+              setSearchQuery('');
+            }}
+            className="px-4 py-2 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] text-xs font-semibold cursor-pointer"
           >
-            <span>START A CUSTOM PROJECT</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
+            Reset Filters
+          </button>
         </div>
-      </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence>
+            {filteredProjects.map((project) => (
+              <motion.article
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => onSelectProject(project)}
+                itemScope={project.seoTitle ? true : undefined}
+                itemType={project.seoTitle ? 'https://schema.org/CreativeWork' : undefined}
+                className="group surface-card surface-card-hover rounded-3xl p-6 cursor-pointer flex flex-col justify-between"
+              >
+                {project.seoTitle && <meta itemProp="name" content={project.seoTitle} />}
+                {project.seoDescription && <meta itemProp="description" content={project.seoDescription} />}
+                {project.seoTitle && <link itemProp="url" href={project.url} />}
 
+                <div>
+                  <div className="flex items-center justify-between mb-4 text-xs font-mono">
+                    <span className="font-extrabold text-[#3B82F6]">
+                      {project.number}
+                    </span>
+                    <span className="text-[11px] text-[#94A3B8] truncate max-w-[70%] text-right">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  {project.image && (
+                    <div
+                      className={`h-44 rounded-2xl overflow-hidden border border-white/[0.12] mb-4 ${
+                        project.preserveAspectRatio
+                          ? 'bg-[#0D1425] flex items-center justify-center p-4'
+                          : 'bg-[#0D1425]'
+                      }`}
+                    >
+                      <img
+                        src={project.image}
+                        alt={project.imageAlt || project.title}
+                        title={project.seoTitle || undefined}
+                        width={project.preserveAspectRatio ? 1254 : 600}
+                        height={project.preserveAspectRatio ? 1254 : 338}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          const fallback = project.fallbackImage || '/images/projects/hi-digital-group.svg';
+                          if (!e.currentTarget.src.endsWith(fallback)) {
+                            e.currentTarget.src = fallback;
+                          }
+                        }}
+                        className={
+                          project.preserveAspectRatio
+                            ? 'w-full h-full object-contain group-hover:scale-105 transition-transform duration-300'
+                            : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                        }
+                      />
+                    </div>
+                  )}
+
+                  <h3 className="text-xl font-bold font-display text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors mb-2.5">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-[#94A3B8] text-xs leading-relaxed line-clamp-3 mb-5">
+                    {project.description}
+                  </p>
+                </div>
+
+                <div>
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.1] text-[#94A3B8]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.1]">
+                    <span className="text-xs font-mono font-semibold text-[#3B82F6] group-hover:text-[#F8FAFC] transition-colors">
+                      View Details
+                    </span>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      aria-label={`Open ${project.title} live site`}
+                      className="p-2 rounded-xl bg-white/[0.05] hover:bg-[#3B82F6] text-[#94A3B8] hover:text-[#F8FAFC] border border-white/[0.1] transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
+      </MotionReveal>
+
+      {/* Architecture Standards */}
+      <MotionReveal>
+        <div className="surface-card rounded-3xl p-7 sm:p-10 space-y-6">
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+            <Layers className="w-4 h-4" /> Engineering Principles
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+            Architecture &amp; Quality Approach
+          </h2>
+          <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed max-w-4xl">
+            Every project is built around modular TypeScript components, mobile-first layouts, clean asset loading, and semantic markup for reliable performance across browsers and mobile webviews.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs text-[#94A3B8]">
+            <div className="p-4 rounded-2xl bg-[#0D1425]/80 border border-white/[0.1] space-y-1">
+              <span className="text-[#3B82F6] font-bold block">Frontend Engineering</span>
+              <span>React, Next.js, TypeScript, Tailwind CSS, and accessible navigation.</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-[#0D1425]/80 border border-white/[0.1] space-y-1">
+              <span className="text-emerald-400 font-bold block">Data &amp; Auth</span>
+              <span>Supabase PostgreSQL, Firebase Firestore, and validated REST workflows.</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-[#0D1425]/80 border border-white/[0.1] space-y-1">
+              <span className="text-[#8B5CF6] font-bold block">Search &amp; Speed</span>
+              <span>Semantic HTML, JSON-LD Schema, AEO/GEO structuring, and fast loading.</span>
+            </div>
+          </div>
+        </div>
+      </MotionReveal>
+
+      {/* Call to Action */}
+      <MotionReveal delay={0.05}>
+        <div className="surface-card rounded-3xl p-8 sm:p-12 border-[#3B82F6]/30 text-center space-y-5 bg-gradient-to-br from-[#3B82F6]/10 via-white/[0.04] to-[#8B5CF6]/10">
+          <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-[#F8FAFC]">
+            Have a Web App, AI Feature, or SEO Project in Mind?
+          </h2>
+          <p className="text-xs sm:text-sm text-[#94A3B8] max-w-xl mx-auto leading-relaxed">
+            Connect with {PERSONAL_INFO.name} to discuss custom web development, AI workflows, or technical search optimization.
+          </p>
+          <div className="pt-1">
+            {onNavigate ? (
+              <button
+                type="button"
+                onClick={() => onNavigate('contact')}
+                className="px-7 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <span>Start a Conversation</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            ) : (
+              <a
+                href={`mailto:${PERSONAL_INFO.email}`}
+                className="px-7 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-sm inline-flex items-center gap-2 transition-colors"
+              >
+                <span>Start a Conversation</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            )}
+          </div>
+        </div>
+      </MotionReveal>
     </div>
   );
 };

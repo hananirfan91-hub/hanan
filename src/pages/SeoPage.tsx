@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { PageId } from '../types';
-import { SplitTextReveal } from '../components/animations/SplitTextReveal';
-import { Search, TrendingUp, Target, BarChart3, CheckCircle2, ArrowRight, Sparkles, Shield, Zap } from 'lucide-react';
+import { PERSONAL_INFO } from '../data/portfolioData';
+import {
+  Search,
+  TrendingUp,
+  Target,
+  BarChart3,
+  CheckCircle2,
+  ArrowRight,
+  Sparkles,
+  Shield,
+  Zap,
+  Mail,
+} from 'lucide-react';
 
 interface SeoPageProps {
   onNavigate: (page: PageId) => void;
@@ -14,153 +25,170 @@ export const SeoPage: React.FC<SeoPageProps> = ({ onNavigate }) => {
   const handleAuditSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!auditDomain.trim()) return;
-    setAuditMessage(`Initial technical check initiated for ${auditDomain}. Hanan Irfan will review your site strategy! Redirecting to contact page...`);
-    setTimeout(() => {
-      onNavigate('contact');
-    }, 2000);
+    setAuditMessage(
+      `Ready: share ${auditDomain.trim()} via ${PERSONAL_INFO.email} or X (@hananirfan91) so Hanan Irfan can prepare a technical SEO, AEO & GEO review.`
+    );
   };
 
   const seoCapabilities = [
     {
-      title: 'Local SEO Expert in Rahim Yar Khan',
-      desc: 'Google Business Profile setup, local citation building, and geo-targeted keywords to rank your local shop or service business #1 in Rahim Yar Khan search results.',
-      icon: Target
+      title: 'Technical SEO Architecture',
+      desc: 'XML sitemaps, robots.txt rules, canonical URLs, Core Web Vitals optimization, and clean crawl indexing.',
+      icon: Zap,
     },
     {
-      title: 'Technical SEO Expert in RYK',
-      desc: 'Schema markup implementation, XML sitemaps, robots.txt configuration, Core Web Vitals optimization, and crawl error fixes for seamless search indexing.',
-      icon: Zap
+      title: 'Answer Engine Optimization (AEO)',
+      desc: 'Direct-answer section formatting, FAQ structuring, and clear entity signals designed for answer engines.',
+      icon: Target,
     },
     {
-      title: 'Google Ranking Expert in Rahim Yar Khan',
-      desc: 'On-page SEO optimization including targeted H1/H2 keyword placement, high-converting meta descriptions, canonical URLs, and internal linking structures.',
-      icon: TrendingUp
+      title: 'Generative Engine Optimization (GEO)',
+      desc: 'Structured Schema.org graphs, verifiable facts, and citation-ready authority signals for AI search discovery.',
+      icon: TrendingUp,
     },
     {
-      title: 'SEO Consultant in Rahim Yar Khan',
-      desc: 'In-depth SEO audits, competitor analysis, keyword research, and actionable roadmap reports designed to dominate search engine results pages (SERPs).',
-      icon: Search
+      title: 'Keyword Research & Clustering',
+      desc: 'Search intent mapping, semantic topic clusters, and structured internal linking plans across content pillars.',
+      icon: Search,
     },
     {
-      title: 'Website SEO Expert in RYK',
-      desc: 'Combining technical site speed engineering with content strategy to turn organic search traffic into active paying customers.',
-      icon: BarChart3
+      title: 'Content Strategy',
+      desc: 'Editorial topic planning, readable heading hierarchy (H1–H3), and helpful content designed for real readers.',
+      icon: BarChart3,
     },
     {
-      title: 'Local SEO Specialist in RYK',
-      desc: 'Building local domain authority through localized backlinks, Google Maps pack optimization, and customer review strategy for RYK businesses.',
-      icon: Shield
-    }
+      title: 'Local SEO & Search Console',
+      desc: 'Google Business Profile accuracy, regional metadata for Rahim Yar Khan & global markets, and index diagnostics.',
+      icon: Shield,
+    },
   ];
+
+  const encodedSubject = encodeURIComponent(
+    auditDomain.trim()
+      ? `SEO / AEO / GEO Review Request: ${auditDomain.trim()}`
+      : 'SEO / AEO / GEO Consultation Request'
+  );
+  const encodedBody = encodeURIComponent(
+    auditDomain.trim()
+      ? `Hi Hanan,\n\nI would like to request a technical SEO, AEO, and GEO review for: ${auditDomain.trim()}\n\nGoals & timeline:\n`
+      : `Hi Hanan,\n\nI would like to discuss SEO, AEO, and GEO strategy.\n`
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-      
-      {/* HEADER SECTION */}
+      {/* Header */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">// SPECIALIZED SERVICE</span>
-          <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono border border-cyan-500/30">
-            SEARCH ENGINE OPTIMIZATION
+        <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#94A3B8]">
+          <span className="font-semibold text-emerald-400 uppercase tracking-wider">
+            Search, Answer &amp; Generative Optimization
           </span>
+          <span aria-hidden="true">&middot;</span>
+          <span>SEO &bull; AEO &bull; GEO</span>
         </div>
 
-        <SplitTextReveal
-          text="SEO Expert in Rahim Yar Khan & Local SEO Specialist in RYK"
-          as="h1"
-          className="text-3xl sm:text-6xl font-black font-display text-white tracking-wide text-glow leading-tight"
-        />
+        <h1 className="text-3xl sm:text-6xl font-black font-display text-[#F8FAFC] tracking-tight leading-tight">
+          SEO, AEO &amp; GEO Strategy
+        </h1>
 
-        <p className="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-          Need a trusted <strong>SEO Expert in Rahim Yar Khan</strong> or <strong>SEO Specialist in RYK</strong>? Hanan Irfan provides top-tier <strong>SEO Services in Rahim Yar Khan</strong> and <strong>SEO Services in RYK</strong> to increase organic traffic, climb Google rankings, and dominate local search.
+        <p className="text-[#94A3B8] text-base sm:text-lg max-w-3xl leading-relaxed">
+          {PERSONAL_INFO.name} provides Technical SEO, Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), keyword research &amp; clustering, and content strategy from {PERSONAL_INFO.location}.
         </p>
 
         <div className="pt-2 flex flex-wrap gap-3">
           <button
+            type="button"
             onClick={() => onNavigate('contact')}
-            className="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-display font-bold text-xs tracking-wider shadow-xl shadow-cyan-600/30 flex items-center gap-2"
+            className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-[#F8FAFC] font-semibold text-xs tracking-wide transition-colors inline-flex items-center gap-2 cursor-pointer"
           >
-            <Sparkles className="w-4 h-4" /> HIRE SEO EXPERT IN RYK
+            <Sparkles className="w-4 h-4" /> Request SEO Consultation
           </button>
           <a
-            href="#free-seo-audit"
-            className="px-6 py-3 rounded-2xl glass-card text-slate-300 hover:text-white border border-white/10 hover:border-cyan-500/40 text-xs font-mono flex items-center gap-2"
+            href="#seo-audit-intake"
+            className="px-6 py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-[#F8FAFC] border border-white/[0.12] text-xs font-mono font-semibold inline-flex items-center gap-2 transition-colors"
           >
-            GET FREE SEO AUDIT <ArrowRight className="w-4 h-4" />
+            Request Site Review <ArrowRight className="w-4 h-4" />
           </a>
         </div>
       </div>
 
-      {/* OVERVIEW SECTION */}
-      <section className="glass-card rounded-3xl p-8 sm:p-12 border border-cyan-500/30 bg-gradient-to-br from-[#0a1120] via-[#070b16] to-[#0b1629] space-y-6">
-        <h2 className="text-2xl sm:text-4xl font-bold font-display text-white">
-          SEO Specialist in Rahim Yar Khan — Google Ranking &amp; Technical SEO
+      {/* Overview */}
+      <section className="surface-card rounded-3xl p-7 sm:p-10 space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+          Built for Search Engines and Modern Answer Engines
         </h2>
-        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-          As a dedicated <strong>SEO Specialist in Rahim Yar Khan</strong> and <strong>Technical SEO Expert in RYK</strong>, I help local enterprises, online stores, and global SaaS products capture organic search share. My data-driven <strong>SEO Optimization Services in RYK</strong> ensure sustainable search engine growth without black-hat risks.
+        <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed max-w-4xl">
+          Sustainable search visibility depends on clean engineering, accurate structured metadata, and genuinely helpful content — not shortcuts. Every engagement focuses on verifiable technical improvements and clear editorial architecture.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-2">
           {[
-            'Local SEO Expert in Rahim Yar Khan Google Map Pack',
-            'Technical SEO Expert in RYK Speed & Indexing',
-            'SEO Optimization Services in RYK Keyword Targeting',
-            'Google Ranking Expert in Rahim Yar Khan Strategy',
-            'Local SEO Services in Rahim Yar Khan Citations',
-            'Website SEO Expert in RYK Conversion Rate Optimization'
-          ].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-xs font-medium">
-              <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+            'Technical SEO Audits & Crawl Health',
+            'Answer Engine Optimization (AEO) Formatting',
+            'Generative Engine Optimization (GEO) Entity Markup',
+            'Keyword Research & Semantic Topic Clustering',
+            'Content Strategy & Internal Linking Maps',
+            'Google Search Console Index Diagnostics',
+          ].map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-3 p-3.5 rounded-xl bg-[#0D1425]/80 border border-white/[0.1] text-[#F8FAFC]/90 text-xs font-medium"
+            >
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>{item}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CAPABILITIES GRID */}
+      {/* Capabilities Grid */}
       <section className="space-y-8">
         <div className="space-y-2">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// SEO SERVICE MODULES</span>
-          <h2 className="text-2xl sm:text-4xl font-bold font-display text-white">
-            SEO Services in Rahim Yar Khan &amp; SEO Services in RYK
+          <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+            Optimization Pillars
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-[#F8FAFC]">
+            Core Search &amp; Content Disciplines
           </h2>
-          <p className="text-slate-400 text-sm">
-            End-to-end search engine optimization provided by <strong>Freelance SEO Expert in Rahim Yar Khan</strong>.
+          <p className="text-[#94A3B8] text-sm">
+            Practical search engineering applied across independent ventures and client sites.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {seoCapabilities.map((item, idx) => {
+          {seoCapabilities.map((item) => {
             const Icon = item.icon;
             return (
               <div
-                key={idx}
-                className="glass-card rounded-2xl p-6 border border-white/10 hover:border-cyan-500/50 hover:bg-white/[0.03] transition-all space-y-4 group"
+                key={item.title}
+                className="surface-card surface-card-hover rounded-2xl p-6 space-y-4 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300 group-hover:scale-110 transition-transform">
-                  <Icon className="w-6 h-6" />
+                <div className="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
+                  <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold font-display text-white group-hover:text-cyan-300 transition-colors">
+                <h3 className="text-lg font-bold font-display text-[#F8FAFC] group-hover:text-emerald-400 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-slate-300 text-xs leading-relaxed">
-                  {item.desc}
-                </p>
+                <p className="text-[#94A3B8] text-xs leading-relaxed">{item.desc}</p>
               </div>
             );
           })}
         </div>
       </section>
 
-      {/* INTERACTIVE FREE SEO AUDIT TOOL */}
-      <section id="free-seo-audit" className="glass-card rounded-3xl p-8 sm:p-12 border border-cyan-500/30 bg-black/40 space-y-6">
+      {/* Audit Intake Section */}
+      <section
+        id="seo-audit-intake"
+        className="surface-card rounded-3xl p-7 sm:p-10 space-y-5"
+      >
         <div className="space-y-2">
-          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">// FREE WEBSITE SEO AUDIT</span>
-          <h2 className="text-2xl sm:text-4xl font-bold font-display text-white">
-            Request an Instant SEO Audit by Freelance SEO Expert in RYK
+          <span className="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">
+            Site Review Brief
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+            Prepare a Technical SEO, AEO &amp; GEO Review
           </h2>
-          <p className="text-slate-300 text-xs sm:text-sm max-w-2xl">
-            Enter your website URL below to request a detailed technical SEO analysis from <strong>Freelance SEO Expert in RYK</strong> Hanan Irfan.
+          <p className="text-[#94A3B8] text-xs sm:text-sm max-w-2xl">
+            Enter your website URL below to generate a pre-filled email draft or jump to direct contact channels.
           </p>
         </div>
 
@@ -168,54 +196,73 @@ export const SeoPage: React.FC<SeoPageProps> = ({ onNavigate }) => {
           <input
             type="url"
             required
+            aria-label="Website URL"
             placeholder="https://yourwebsite.com"
             value={auditDomain}
             onChange={(e) => setAuditDomain(e.target.value)}
-            className="flex-1 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-xs sm:text-sm"
+            className="flex-1 px-4 py-3 rounded-xl bg-[#0D1425]/90 border border-white/[0.12] text-[#F8FAFC] placeholder-[#94A3B8]/70 focus:outline-none focus:border-emerald-400 text-xs sm:text-sm"
           />
           <button
             type="submit"
-            className="px-6 py-3.5 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-display font-bold text-xs tracking-wider shadow-lg shadow-cyan-600/30 transition-all shrink-0 flex items-center justify-center gap-2"
+            className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-[#F8FAFC] font-semibold text-xs tracking-wide transition-colors shrink-0 inline-flex items-center justify-center gap-2 cursor-pointer"
           >
-            RUN SEO CHECK <Search className="w-4 h-4" />
+            Prepare Brief <Search className="w-4 h-4" />
           </button>
         </form>
 
         {auditMessage && (
-          <p className="text-xs font-mono text-cyan-300 bg-cyan-950/40 border border-cyan-500/30 p-3 rounded-xl max-w-2xl">
-            {auditMessage}
-          </p>
+          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-400/30 max-w-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <p className="text-xs font-mono text-emerald-300 leading-relaxed">{auditMessage}</p>
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href={`mailto:${PERSONAL_INFO.email}?subject=${encodedSubject}&body=${encodedBody}`}
+                className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-[#F8FAFC] text-xs font-semibold inline-flex items-center gap-1.5"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>Send Email</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => onNavigate('contact')}
+                className="px-4 py-2 rounded-lg bg-white/[0.08] hover:bg-white/[0.14] border border-white/[0.12] text-[#F8FAFC] text-xs font-semibold cursor-pointer"
+              >
+                Contact Channels
+              </button>
+            </div>
+          </div>
         )}
       </section>
 
-      {/* FREELANCE SEO SECTION */}
+      {/* Bottom Summary CTA */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div className="space-y-6">
-          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">// WHY HIRE HANAN IRFAN FOR SEO</span>
-          <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-            Freelance SEO Expert in Rahim Yar Khan &amp; Local SEO Services
+        <div className="space-y-4">
+          <span className="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">
+            Why Engineering + SEO Matters
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+            Code-Level Search &amp; Content Alignment
           </h3>
-          <p className="text-slate-300 text-sm leading-relaxed">
-            As a certified <strong>SEO Consultant in Rahim Yar Khan</strong>, I don't just increase traffic — I focus on getting high-intent local customers to your website. Combining <strong>Local SEO Services in Rahim Yar Khan</strong> with technical optimizations gives your brand a permanent digital advantage.
+          <p className="text-[#94A3B8] text-sm leading-relaxed">
+            Combining full-stack frontend development with technical SEO, keyword clustering, AEO, and GEO eliminates the gap between recommendations and actual implementation.
           </p>
         </div>
 
-        <div className="glass-card rounded-3xl p-8 border border-white/10 space-y-4">
-          <h3 className="text-xl font-bold font-display text-white">
-            Ready to Rank #1 on Google in Rahim Yar Khan?
+        <div className="surface-card rounded-3xl p-8 space-y-4 border-emerald-400/30 bg-gradient-to-br from-emerald-500/10 via-white/[0.04] to-[#3B82F6]/10">
+          <h3 className="text-xl font-bold font-display text-[#F8FAFC]">
+            Ready to Strengthen Your Search Visibility?
           </h3>
-          <p className="text-slate-400 text-xs leading-relaxed">
-            Connect directly with <strong>SEO Expert in Rahim Yar Khan</strong> Hanan Irfan for customized monthly SEO growth strategies.
+          <p className="text-[#94A3B8] text-xs sm:text-sm leading-relaxed">
+            Connect directly with {PERSONAL_INFO.name} via email or X to review site architecture, structured metadata, and content priorities.
           </p>
           <button
+            type="button"
             onClick={() => onNavigate('contact')}
-            className="w-full py-3.5 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-display font-bold text-xs tracking-wider shadow-lg shadow-cyan-600/30 transition-all flex items-center justify-center gap-2"
+            className="w-full py-3.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-xs tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer"
           >
-            CONTACT SEO EXPERT NOW <ArrowRight className="w-4 h-4" />
+            Contact Hanan Irfan <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </section>
-
     </div>
   );
 };

@@ -12,6 +12,16 @@ interface ProjectModalProps {
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  useEffect(() => {
     if (!project?.seoTitle && !project?.seoDescription) return;
 
     const prevTitle = document.title;
@@ -40,57 +50,60 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-        {/* Backdrop */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/80 backdrop-blur-md"
+          className="fixed inset-0 bg-[#040712]/75 backdrop-blur-md"
         />
 
-        {/* Modal Window */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          initial={{ opacity: 0, scale: 0.97, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-4xl bg-[#0a0c14] border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-purple-950/50 z-10 max-h-[90vh] overflow-y-auto"
+          exit={{ opacity: 0, scale: 0.97, y: 16 }}
+          transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+          className="relative w-full max-w-4xl bg-[#0D1425]/92 backdrop-blur-2xl border border-white/[0.14] rounded-3xl p-6 sm:p-8 shadow-[0_24px_60px_rgba(4,8,20,0.85),0_0_32px_rgba(59,130,246,0.16)] z-10 max-h-[90vh] overflow-y-auto text-[#F8FAFC]"
         >
-          {/* Close Button */}
           <button
+            type="button"
             onClick={onClose}
-            className="absolute top-6 right-6 p-2 rounded-full glass-card text-slate-400 hover:text-white hover:border-purple-500/50 transition-colors"
+            aria-label="Close project details"
+            className="absolute top-5 right-5 p-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-[#94A3B8] hover:bg-white/[0.12] hover:text-[#F8FAFC] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
 
-          {/* Header */}
-          <div className="flex items-center gap-3 mb-2">
-            <span className="text-sm font-mono text-purple-400 font-extrabold px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
-              PROJECT {project.number}
-            </span>
-            <span className="text-xs font-mono text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-              {project.category}
-            </span>
-            <span className="text-xs text-emerald-400 font-mono flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
-              {project.status}
-            </span>
+          <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#94A3B8] mb-3 pr-10">
+            <span className="text-[#3B82F6] font-bold">Project {project.number}</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>{project.category}</span>
+            <span aria-hidden="true">&middot;</span>
+            <span className="text-[#8B5CF6] font-semibold">{project.status}</span>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-white tracking-wide mb-4">
+          <h2 id="project-modal-title" className="text-2xl sm:text-4xl font-extrabold font-display text-[#F8FAFC] tracking-tight mb-3">
             {project.title}
           </h2>
 
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+          <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed mb-6">
             {project.description}
           </p>
 
-          {/* Project Banner Image */}
           {project.image && (
-            <div className={`mb-6 rounded-2xl overflow-hidden border border-white/10 ${project.preserveAspectRatio ? 'max-h-80 sm:max-h-96 bg-[#041209] flex items-center justify-center' : 'max-h-64 sm:max-h-80 bg-black/40'}`}>
+            <div
+              className={`mb-6 rounded-2xl overflow-hidden border border-white/[0.12] ${
+                project.preserveAspectRatio
+                  ? 'max-h-80 sm:max-h-96 bg-[#080D1B] flex items-center justify-center p-4'
+                  : 'max-h-64 sm:max-h-80 bg-[#080D1B]'
+              }`}
+            >
               <img
                 src={project.image}
                 alt={project.imageAlt || project.title}
@@ -108,57 +121,52 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 }}
                 className={
                   project.preserveAspectRatio
-                    ? 'w-full max-h-80 sm:max-h-96 object-contain aspect-square'
+                    ? 'w-full max-h-72 sm:max-h-88 object-contain aspect-square'
                     : 'w-full h-full object-cover aspect-video'
                 }
               />
             </div>
           )}
 
-          {/* Live Button CTA */}
           <div className="mb-8">
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-display font-bold text-sm shadow-xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-sm shadow-[0_0_24px_rgba(59,130,246,0.28)] transition-colors"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>VISIT LIVE DEMO SITE ({project.url.replace('https://', '').replace('/', '')})</span>
+              <span>Visit Live Project ({project.url.replace(/^https?:\/\//, '').replace(/\/$/, '')})</span>
             </a>
           </div>
 
-          {/* If Free Tools Hub, show the live embedded tool playground */}
           {isFreeToolsHub && <InteractiveToolsEngine />}
 
-          {/* Project Impact Section for The Sports Room with Recharts Bar Chart */}
           {isTheSportsRoom && <SportsRoomImpactChart />}
 
-          {/* Key Features */}
           <div className="mb-8">
-            <h3 className="text-xs font-mono uppercase tracking-widest text-purple-400 mb-4 flex items-center gap-2">
-              <Sparkles className="w-4 h-4" /> KEY FEATURES & HIGHLIGHTS
+            <h3 className="text-xs font-mono uppercase tracking-wider text-[#F8FAFC] font-bold mb-4 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#3B82F6]" /> Key Features &amp; Highlights
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {project.features.map((feat, i) => (
-                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
-                  <CheckCircle2 className="w-4 h-4 text-purple-400 mt-0.5 shrink-0" />
-                  <span className="text-xs text-slate-200">{feat}</span>
+                <div key={i} className="flex items-start gap-2.5 p-3.5 rounded-xl bg-white/[0.04] border border-white/[0.1]">
+                  <CheckCircle2 className="w-4 h-4 text-[#3B82F6] mt-0.5 shrink-0" />
+                  <span className="text-xs text-[#94A3B8] leading-relaxed">{feat}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Technologies */}
           <div>
-            <h3 className="text-xs font-mono uppercase tracking-widest text-purple-400 mb-3 flex items-center gap-2">
-              <Layers className="w-4 h-4" /> TECH STACK & TOOLS
+            <h3 className="text-xs font-mono uppercase tracking-wider text-[#F8FAFC] font-bold mb-3 flex items-center gap-2">
+              <Layers className="w-4 h-4 text-[#8B5CF6]" /> Stack &amp; Capabilities
             </h3>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, i) => (
                 <span
                   key={i}
-                  className="px-3 py-1.5 rounded-xl bg-purple-950/40 border border-purple-500/30 text-purple-300 font-mono text-xs"
+                  className="px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.1] text-[#94A3B8] font-mono text-xs font-medium"
                 >
                   {tech}
                 </span>

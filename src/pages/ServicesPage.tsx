@@ -1,10 +1,23 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { PageId } from '../types';
-import { SERVICES } from '../data/portfolioData';
-import { SplitTextReveal } from '../components/animations/SplitTextReveal';
-import { Parallax3DCard } from '../components/animations/Parallax3DCard';
-import { Check, Sparkles, ArrowUpRight, Layout, Code, Globe, Search, Palette, Zap, Cpu, ShieldCheck, Clock, Terminal, Rocket } from 'lucide-react';
+import { SERVICES, PERSONAL_INFO } from '../data/portfolioData';
+import { MotionReveal } from '../components/MotionReveal';
+import {
+  Check,
+  Sparkles,
+  ArrowUpRight,
+  Layout,
+  Code,
+  Globe,
+  Search,
+  Palette,
+  Cpu,
+  ShieldCheck,
+  Clock,
+  Zap,
+  Rocket,
+} from 'lucide-react';
 
 interface ServicesPageProps {
   onNavigate: (page: PageId) => void;
@@ -13,129 +26,165 @@ interface ServicesPageProps {
 export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Layout': return <Layout className="w-6 h-6 text-purple-400" />;
-      case 'Code': return <Code className="w-6 h-6 text-cyan-400" />;
-      case 'Globe': return <Globe className="w-6 h-6 text-indigo-400" />;
-      case 'Search': return <Search className="w-6 h-6 text-amber-400" />;
-      case 'Palette': return <Palette className="w-6 h-6 text-pink-400" />;
-      case 'Zap': return <Zap className="w-6 h-6 text-emerald-400" />;
-      case 'Cpu': return <Cpu className="w-6 h-6 text-sky-400" />;
-      default: return <Sparkles className="w-6 h-6 text-purple-400" />;
+      case 'Cpu':
+        return <Cpu className="w-6 h-6 text-[#3B82F6]" />;
+      case 'Code':
+        return <Code className="w-6 h-6 text-[#8B5CF6]" />;
+      case 'Search':
+        return <Search className="w-6 h-6 text-emerald-400" />;
+      case 'Layout':
+        return <Layout className="w-6 h-6 text-[#3B82F6]" />;
+      case 'Globe':
+        return <Globe className="w-6 h-6 text-amber-400" />;
+      case 'Palette':
+        return <Palette className="w-6 h-6 text-pink-400" />;
+      default:
+        return <Sparkles className="w-6 h-6 text-[#3B82F6]" />;
     }
   };
 
   const serviceWorkflow = [
-    { step: '01', title: 'DISCOVER & AUDIT', desc: 'Understanding project goals, target user intent, wireframes, and technical specifications.' },
-    { step: '02', title: 'ARCHITECT & DESIGN', desc: 'Designing high-contrast UI/UX layouts, database schemas, and API end-points.' },
-    { step: '03', title: 'DEVELOP & INTEGRATE', desc: 'Writing clean TypeScript, React/Next.js components, database models, and animations.' },
-    { step: '04', title: 'SEO & SPEED AUDIT', desc: 'Optimizing Core Web Vitals, Schema.org markup, meta tags, and mobile responsiveness.' },
-    { step: '05', title: 'DEPLOY & LAUNCH', desc: 'Deploying production builds to Vercel/Netlify with SSL, CI/CD, and custom domain mapping.' }
+    {
+      step: '01',
+      title: 'Discover & Audit',
+      desc: 'Clarifying goals, user needs, search intent, and technical requirements before writing code.',
+    },
+    {
+      step: '02',
+      title: 'Architect & Design',
+      desc: 'Structuring responsive UI layouts, data schemas, and clean navigation flows.',
+    },
+    {
+      step: '03',
+      title: 'Build & Integrate',
+      desc: 'Implementing modular TypeScript, React/Next.js components, and backend or AI workflows.',
+    },
+    {
+      step: '04',
+      title: 'SEO & Quality Check',
+      desc: 'Checking semantic HTML, Schema.org metadata, accessibility contrast, and mobile layout behavior.',
+    },
+    {
+      step: '05',
+      title: 'Deploy & Handover',
+      desc: 'Shipping production builds to Vercel or cloud hosting with clear documentation and clean repositories.',
+    },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
-      
-      {/* SECTION 1: HEADER */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+      {/* Header */}
       <div className="space-y-4">
-        <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// DIGITAL SOLUTIONS</span>
-        <SplitTextReveal
-          text="TECHNICAL SERVICES"
-          as="h1"
-          className="text-4xl sm:text-7xl font-black font-display text-white tracking-wide text-glow"
-        />
-        <p className="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-          Comprehensive full-stack development, technical SEO, digital product design, and AI integrations engineered for performance, indexing, and user engagement in Rahim Yar Khan (RYK) and worldwide.
+        <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider block">
+          Consulting &amp; Engineering Services
+        </span>
+        <h1 className="text-4xl sm:text-6xl font-black font-display text-[#F8FAFC] tracking-tight">
+          Services &amp; Capabilities
+        </h1>
+        <p className="text-[#94A3B8] text-base sm:text-lg max-w-3xl leading-relaxed">
+          AI development, full-stack web engineering, technical SEO, AEO, GEO, keyword clustering, and content strategy for organizations in {PERSONAL_INFO.location} and worldwide.
         </p>
 
-        {/* Quick Nav Hub */}
+        {/* Specialized Practice Pages */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
           <button
+            type="button"
             onClick={() => onNavigate('web-development')}
-            className="p-4 rounded-2xl glass-card border border-purple-500/30 hover:border-purple-500 bg-purple-950/20 text-left transition-all flex items-center justify-between group"
+            className="p-5 rounded-2xl surface-card surface-card-hover text-left flex items-center justify-between group cursor-pointer"
           >
             <div>
-              <span className="text-[10px] font-mono text-purple-400 block uppercase">SPECIALIZED PAGE</span>
-              <span className="text-sm font-bold font-display text-white group-hover:text-purple-300">Web Development Services</span>
+              <span className="text-[11px] font-mono text-[#3B82F6] font-semibold block uppercase">
+                Specialty
+              </span>
+              <span className="text-base font-bold font-display text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors">
+                Web Development
+              </span>
             </div>
-            <ArrowUpRight className="w-4 h-4 text-purple-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-4 h-4 text-[#3B82F6] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>
 
           <button
+            type="button"
             onClick={() => onNavigate('seo-expert')}
-            className="p-4 rounded-2xl glass-card border border-cyan-500/30 hover:border-cyan-500 bg-cyan-950/20 text-left transition-all flex items-center justify-between group"
+            className="p-5 rounded-2xl surface-card surface-card-hover text-left flex items-center justify-between group cursor-pointer"
           >
             <div>
-              <span className="text-[10px] font-mono text-cyan-400 block uppercase">SPECIALIZED PAGE</span>
-              <span className="text-sm font-bold font-display text-white group-hover:text-cyan-300">SEO Expert Services</span>
+              <span className="text-[11px] font-mono text-emerald-400 font-semibold block uppercase">
+                Specialty
+              </span>
+              <span className="text-base font-bold font-display text-[#F8FAFC] group-hover:text-emerald-400 transition-colors">
+                SEO, AEO &amp; GEO
+              </span>
             </div>
-            <ArrowUpRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>
 
           <button
+            type="button"
             onClick={() => onNavigate('graphic-design')}
-            className="p-4 rounded-2xl glass-card border border-pink-500/30 hover:border-pink-500 bg-pink-950/20 text-left transition-all flex items-center justify-between group"
+            className="p-5 rounded-2xl surface-card surface-card-hover text-left flex items-center justify-between group cursor-pointer"
           >
             <div>
-              <span className="text-[10px] font-mono text-pink-400 block uppercase">SPECIALIZED PAGE</span>
-              <span className="text-sm font-bold font-display text-white group-hover:text-pink-300">Graphic Design Services</span>
+              <span className="text-[11px] font-mono text-[#8B5CF6] font-semibold block uppercase">
+                Specialty
+              </span>
+              <span className="text-base font-bold font-display text-[#F8FAFC] group-hover:text-[#8B5CF6] transition-colors">
+                UI/UX &amp; Graphic Design
+              </span>
             </div>
-            <ArrowUpRight className="w-4 h-4 text-pink-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-4 h-4 text-[#8B5CF6] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>
         </div>
       </div>
 
-      {/* SECTION 2: SERVICES GRID (7 DETAILED SERVICES) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Services Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {SERVICES.map((service) => (
           <motion.div
             key={service.id}
-            whileHover={{ y: -6 }}
-            className="group glass-card rounded-3xl p-8 border border-white/10 hover:border-purple-500/40 bg-[#090b14] transition-all flex flex-col justify-between"
+            whileHover={{ y: -4 }}
+            className="group surface-card surface-card-hover rounded-3xl p-7 flex flex-col justify-between transition-all"
           >
-            <div className="space-y-6">
-              
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="space-y-5">
+              <div className="flex items-center justify-between border-b border-white/[0.1] pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-2xl bg-purple-500/10 border border-purple-500/20">
+                  <div className="p-2.5 rounded-xl bg-[#0D1425]/85 border border-white/[0.12]">
                     {getServiceIcon(service.iconName)}
                   </div>
-                  <span className="text-xs font-mono text-purple-400 font-extrabold">
-                    SERVICE {service.number}
+                  <span className="text-xs font-mono text-[#3B82F6] font-bold">
+                    Service {service.number}
                   </span>
                 </div>
               </div>
 
-              <h2 className="text-2xl font-extrabold font-display text-white group-hover:text-purple-300 transition-colors">
+              <h2 className="text-xl sm:text-2xl font-extrabold font-display text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors">
                 {service.title}
               </h2>
 
-              <p className="text-slate-300 text-sm leading-relaxed">
-                {service.fullDesc}
-              </p>
+              <p className="text-[#94A3B8] text-sm leading-relaxed">{service.fullDesc}</p>
 
-              {/* Deliverables Checklist */}
-              <div className="space-y-2 pt-2">
-                <span className="text-xs font-mono text-purple-400 uppercase tracking-wider block">
-                  // DELIVERABLES & FEATURES
+              <div className="space-y-2 pt-1">
+                <span className="text-xs font-mono font-semibold text-[#94A3B8] uppercase tracking-wider block">
+                  Scope &amp; Deliverables
                 </span>
                 <div className="space-y-2">
-                  {service.deliverables.map((deliv, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                      <Check className="w-3.5 h-3.5 text-purple-400 mt-0.5 shrink-0" />
+                  {service.deliverables.map((deliv) => (
+                    <div key={deliv} className="flex items-start gap-2 text-xs text-[#F8FAFC]/90">
+                      <Check className="w-4 h-4 text-[#3B82F6] mt-0.5 shrink-0" />
                       <span>{deliv}</span>
                     </div>
                   ))}
                 </div>
               </div>
-
             </div>
 
-            <div className="pt-8 border-t border-white/10 mt-8">
+            <div className="pt-6 border-t border-white/[0.1] mt-6">
               <button
+                type="button"
                 onClick={() => onNavigate('contact')}
-                className="w-full py-3 rounded-2xl bg-purple-600/20 hover:bg-purple-600 border border-purple-500/40 text-purple-200 hover:text-white font-display font-bold text-xs tracking-wider transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-xs tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>REQUEST THIS SERVICE</span>
+                <span>Inquire About This Service</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
@@ -143,81 +192,89 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
         ))}
       </div>
 
-      {/* SECTION 3: 5-STEP WORKFLOW METHODOLOGY */}
-      <div className="space-y-8">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// PROCESS & EXECUTION</span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
-            5-STAGE SERVICE WORKFLOW
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400">
-            How Hanan transforms client ideas into live, high-performing digital applications.
-          </p>
-        </div>
+      {/* 5-Step Workflow */}
+      <MotionReveal>
+        <div className="space-y-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+              Delivery Process
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-display text-[#F8FAFC]">
+              5-Stage Delivery Workflow
+            </h2>
+            <p className="text-xs sm:text-sm text-[#94A3B8]">
+              A structured engineering process from initial discovery to production launch.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {serviceWorkflow.map((wf, idx) => (
-            <div key={idx} className="glass-card rounded-2xl p-5 border border-white/10 space-y-3 bg-[#080a14]">
-              <span className="text-xs font-mono font-bold text-purple-400 px-2.5 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/20">
-                STEP {wf.step}
-              </span>
-              <h3 className="text-sm font-bold font-display text-white">{wf.title}</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">{wf.desc}</p>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {serviceWorkflow.map((wf, idx) => (
+              <MotionReveal key={wf.step} delay={idx * 0.05} yOffset={12}>
+                <div className="surface-card surface-card-hover spotlight-surface rounded-2xl p-5 space-y-2.5 h-full">
+                  <span className="text-xs font-mono font-bold text-[#3B82F6] block">
+                    Step {wf.step}
+                  </span>
+                  <h3 className="text-sm font-bold font-display text-[#F8FAFC]">{wf.title}</h3>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">{wf.desc}</p>
+                </div>
+              </MotionReveal>
+            ))}
+          </div>
+        </div>
+      </MotionReveal>
+
+      {/* Engineering Standards */}
+      <div className="surface-card rounded-3xl p-7 sm:p-10 space-y-6">
+        <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+          Working Standards
+        </span>
+        <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+          How Collaborations Are Structured
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-[#0D1425]/80 border border-white/[0.1] space-y-2">
+            <ShieldCheck className="w-6 h-6 text-[#3B82F6]" />
+            <h3 className="text-lg font-bold font-display text-[#F8FAFC]">Full Code Ownership</h3>
+            <p className="text-xs text-[#94A3B8] leading-relaxed">
+              You receive full source repository access, clear setup notes, and deployment ownership with zero lock-in.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl bg-[#0D1425]/80 border border-white/[0.1] space-y-2">
+            <Clock className="w-6 h-6 text-emerald-400" />
+            <h3 className="text-lg font-bold font-display text-[#F8FAFC]">Clear Milestones</h3>
+            <p className="text-xs text-[#94A3B8] leading-relaxed">
+              Regular progress updates, transparent scope checkpoints, and structured browser testing across devices.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl bg-[#0D1425]/80 border border-white/[0.1] space-y-2">
+            <Zap className="w-6 h-6 text-[#8B5CF6]" />
+            <h3 className="text-lg font-bold font-display text-[#F8FAFC]">Performance &amp; Accessibility</h3>
+            <p className="text-xs text-[#94A3B8] leading-relaxed">
+              Mobile-first layout engineering, optimized asset formats, semantic HTML, and accessible keyboard navigation.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* SECTION 4: SERVICE SLA & QUALITY GUARANTEES */}
-      <div className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/20 bg-gradient-to-r from-[#070912] via-[#090b16] to-[#0c0a1b] space-y-6">
-        <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// QUALITY STANDARDS</span>
-        <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-          WHY CLIENTS TRUST HANAN IRFAN
+      {/* CTA */}
+      <div className="surface-card rounded-3xl p-8 sm:p-12 border-[#3B82F6]/30 text-center space-y-5 bg-gradient-to-br from-[#3B82F6]/10 via-white/[0.04] to-[#8B5CF6]/10">
+        <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-[#F8FAFC]">
+          Ready to Discuss Your Project Scope?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-            <ShieldCheck className="w-6 h-6 text-purple-400" />
-            <h3 className="text-lg font-bold font-display text-white">100% Code Ownership</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Full access to clean GitHub repositories, documentation, and deployment guides without lock-in.
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-            <Clock className="w-6 h-6 text-cyan-400" />
-            <h3 className="text-lg font-bold font-display text-white">Rapid SLA & Milestones</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Transparent project updates, clear delivery schedules, and continuous testing cycles.
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-            <Zap className="w-6 h-6 text-emerald-400" />
-            <h3 className="text-lg font-bold font-display text-white">Core Web Vitals Guarantee</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Every delivered web application is optimized for Google PageSpeed 90+ performance.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* SECTION 5: CALL TO ACTION */}
-      <div className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 text-center bg-gradient-to-r from-purple-900/30 via-[#0a0c16] to-indigo-900/30 space-y-6">
-        <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-          READY TO START YOUR SERVICE ENGAGEMENT?
-        </h2>
-        <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
-          Send Hanan details about your project, website, or SaaS requirements to receive a customized scope & proposal.
+        <p className="text-xs sm:text-sm text-[#94A3B8] max-w-xl mx-auto leading-relaxed">
+          Share your goals, timeline, and requirements via direct contact channels to start a focused conversation.
         </p>
-        <div className="pt-2">
+        <div className="pt-1">
           <button
+            type="button"
             onClick={() => onNavigate('contact')}
-            className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-display font-extrabold text-xs tracking-wider shadow-xl shadow-purple-600/30 hover:scale-105 transition-all inline-flex items-center gap-2"
+            className="px-7 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
           >
             <Rocket className="w-4 h-4" />
-            <span>REQUEST A CUSTOM QUOTE</span>
+            <span>View Contact Channels</span>
           </button>
         </div>
       </div>
-
     </div>
   );
 };

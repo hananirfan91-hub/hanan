@@ -1,8 +1,8 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
-import {VitePWA} from 'vite-plugin-pwa';
+import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(() => {
   return {
@@ -11,18 +11,27 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'favicon-32x32.png', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
+        includeAssets: [
+          'favicon.ico',
+          'favicon-32x32.png',
+          'apple-touch-icon.png',
+          'pwa-192x192.png',
+          'pwa-512x512.png',
+          'pwa-maskable-512x512.png',
+        ],
         manifest: {
           id: '/',
-          name: 'Hanan Irfan — Portfolio & Digital Experience',
+          name: 'Hanan Irfan Portfolio',
           short_name: 'Hanan Irfan',
-          description: 'Hanan Irfan is a professional full-stack web developer, SEO expert, and digital creator in Rahim Yar Khan, Pakistan.',
-          theme_color: '#07080c',
-          background_color: '#07080c',
+          description:
+            'Portfolio of Hanan Irfan — Multidisciplinary Developer, SEO Specialist & Entrepreneur from Rahim Yar Khan, Pakistan.',
+          theme_color: '#080D1B',
+          background_color: '#080D1B',
           display: 'standalone',
           start_url: '/',
           scope: '/',
           orientation: 'portrait-primary',
+          categories: ['portfolio', 'technology', 'business'],
           icons: [
             {
               src: '/pwa-192x192.png',
@@ -45,9 +54,25 @@ export default defineConfig(() => {
           ],
         },
         workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,svg,woff2}', 'pwa-*.png', 'apple-touch-icon.png', 'favicon-32x32.png', 'abdul-hanan-irfan-developer-workspace-bg.webp'],
-          globIgnores: ['**/assets/aistudio/**', 'favicon.png', 'deans-honor-certificate-2026.png', 'images/certificates/deans-honor-certificate-2026.png', 'certificate.jpg', 'deducationist-ambassador.jpg', 'ambassador.jpg'],
+          globPatterns: [
+            '**/*.{js,css,html,ico,svg,woff2}',
+            'pwa-*.png',
+            'apple-touch-icon.png',
+            'favicon-32x32.png',
+            'avatar.webp',
+          ],
+          globIgnores: [
+            '**/assets/aistudio/**',
+            '**/.well-known/**',
+            'favicon.png',
+            'deans-honor-certificate-2026.png',
+            'images/certificates/deans-honor-certificate-2026.png',
+            'certificate.jpg',
+            'deducationist-ambassador.jpg',
+            'ambassador.jpg',
+          ],
           navigateFallback: '/index.html',
+          navigateFallbackDenylist: [/^\/\.well-known\//, /^\/sitemap\.xml$/, /^\/robots\.txt$/],
           maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
           runtimeCaching: [
             {
@@ -87,6 +112,7 @@ export default defineConfig(() => {
       }),
     ],
     build: {
+      target: ['es2020', 'chrome88'],
       rollupOptions: {
         output: {
           manualChunks: {
@@ -105,10 +131,7 @@ export default defineConfig(() => {
       },
     },
     server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
-      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
   };

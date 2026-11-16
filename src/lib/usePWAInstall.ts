@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { isAndroidWebView } from './safeStorage';
 
 export interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -9,18 +10,17 @@ export function usePWAInstall() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
+  const [isWebView, setIsWebView] = useState(false);
 
   useEffect(() => {
-    // Detect standalone mode (already installed)
     const isStandalone =
       window.matchMedia('(display-mode: standalone)').matches ||
       (window.navigator as unknown as { standalone?: boolean }).standalone === true;
     setIsInstalled(isStandalone);
 
-    // Detect iOS devices
     const userAgent = window.navigator.userAgent.toLowerCase();
-    const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
-    setIsIOS(isIOSDevice);
+    setIsIOS(/iphone|ipad|ipod/.test(userAgent));
+    setIsWebView(isAndroidWebView());
 
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
@@ -52,7 +52,7 @@ export function usePWAInstall() {
         return true;
       }
     } catch {
-      // Ignore user cancellation or prompt errors
+      // Ignore cancellation or unsupported prompt errors
     }
     return false;
   };
@@ -61,6 +61,7 @@ export function usePWAInstall() {
     isInstallable: !!deferredPrompt,
     isInstalled,
     isIOS,
+    isWebView,
     install,
     deferredPrompt,
   };

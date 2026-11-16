@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Project } from '../types';
-import { Sparkles, ExternalLink, ChevronLeft, ChevronRight, ArrowUpRight, MoveHorizontal } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight, ArrowUpRight, MoveHorizontal } from 'lucide-react';
 
 interface Project3DCarouselProps {
   projects: Project[];
@@ -16,13 +16,12 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState(380);
 
-  // Measure card width dynamically for touch & desktop responsiveness
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setCardWidth(window.innerWidth * 0.82);
+        setCardWidth(Math.min(340, window.innerWidth * 0.84));
       } else {
-        setCardWidth(420);
+        setCardWidth(410);
       }
     };
     handleResize();
@@ -38,7 +37,7 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
     setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
   };
 
-  const handleDragEnd = (_: any, info: { offset: { x: number }; velocity: { x: number } }) => {
+  const handleDragEnd = (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
     const threshold = 50;
     if (info.offset.x < -threshold || info.velocity.x < -300) {
       nextSlide();
@@ -48,34 +47,32 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
   };
 
   return (
-    <div className="relative py-8 overflow-hidden select-none" ref={containerRef}>
-      {/* Background Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
-
-      {/* Header controls & drag indicator */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+    <div className="relative py-4 overflow-hidden select-none" ref={containerRef}>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-mono font-extrabold text-purple-400 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
-            3D CAROUSEL — {activeIndex + 1} OF {projects.length}
+          <span className="text-xs font-mono font-bold text-[#3B82F6]">
+            Project {activeIndex + 1} of {projects.length}
           </span>
-          <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-cyan-400">
-            <MoveHorizontal className="w-3.5 h-3.5 animate-pulse" />
-            <span>DRAG OR SWIPE</span>
+          <span aria-hidden="true" className="hidden sm:inline text-[#94A3B8]/50">&middot;</span>
+          <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-[#94A3B8]">
+            <MoveHorizontal className="w-3.5 h-3.5 text-[#3B82F6]" />
+            <span>Drag, swipe, or tap card to explore</span>
           </div>
         </div>
 
-        {/* Carousel Navigation Buttons */}
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={prevSlide}
-            className="p-3 rounded-2xl glass-card border border-white/10 text-slate-300 hover:text-white hover:border-purple-500/50 hover:bg-purple-600/20 transition-all focus:outline-none active:scale-95"
+            className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#3B82F6]/50 transition-colors cursor-pointer"
             aria-label="Previous Project"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
+            type="button"
             onClick={nextSlide}
-            className="p-3 rounded-2xl glass-card border border-white/10 text-slate-300 hover:text-white hover:border-purple-500/50 hover:bg-purple-600/20 transition-all focus:outline-none active:scale-95"
+            className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#3B82F6]/50 transition-colors cursor-pointer"
             aria-label="Next Project"
           >
             <ChevronRight className="w-5 h-5" />
@@ -83,13 +80,12 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
         </div>
       </div>
 
-      {/* 3D Perspective Stage */}
-      <div className="perspective-1200 py-6 min-h-[460px] flex items-center justify-center relative">
+      <div className="perspective-1200 py-4 min-h-[430px] flex items-center justify-center relative">
         <motion.div
           className="flex items-center gap-6 cursor-grab active:cursor-grabbing touch-pan-y"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.2}
+          dragElastic={0.18}
           onDragEnd={handleDragEnd}
           animate={{
             x: -activeIndex * (cardWidth + 24),
@@ -107,11 +103,10 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
             const distance = index - activeIndex;
             const isCenter = distance === 0;
 
-            // Calculate subtle 3D transforms based on offset distance
-            const rotateY = Math.max(-25, Math.min(25, distance * -12));
-            const scale = isCenter ? 1 : Math.max(0.85, 1 - Math.abs(distance) * 0.08);
-            const opacity = isCenter ? 1 : Math.max(0.5, 1 - Math.abs(distance) * 0.3);
-            const translateZ = isCenter ? 40 : -Math.abs(distance) * 60;
+            const rotateY = Math.max(-20, Math.min(20, distance * -10));
+            const scale = isCenter ? 1 : Math.max(0.88, 1 - Math.abs(distance) * 0.06);
+            const opacity = isCenter ? 1 : Math.max(0.55, 1 - Math.abs(distance) * 0.25);
+            const translateZ = isCenter ? 32 : -Math.abs(distance) * 48;
 
             return (
               <motion.div
@@ -140,27 +135,30 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                 }}
                 itemScope={project.seoTitle ? true : undefined}
                 itemType={project.seoTitle ? 'https://schema.org/CreativeWork' : undefined}
-                className={`shrink-0 glass-card rounded-3xl p-6 sm:p-8 border transition-colors duration-300 ${
+                className={`shrink-0 rounded-3xl p-6 border backdrop-blur-xl transition-all duration-300 ${
                   isCenter
-                    ? 'border-purple-500/60 bg-[#0c0f1e] shadow-2xl shadow-purple-950/50'
-                    : 'border-white/10 bg-[#080a14] hover:border-purple-500/30'
+                    ? 'bg-white/[0.06] border-[#3B82F6]/45 shadow-[0_20px_48px_rgba(4,8,20,0.8),0_0_32px_rgba(59,130,246,0.18)]'
+                    : 'bg-white/[0.04] border-white/[0.12] hover:border-[#3B82F6]/35'
                 }`}
               >
                 {project.seoTitle && <meta itemProp="name" content={project.seoTitle} />}
                 {project.seoDescription && <meta itemProp="description" content={project.seoDescription} />}
                 {project.seoTitle && <link itemProp="url" href={project.url} />}
+
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-purple-400 font-extrabold px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20">
-                      PROJECT {project.number}
-                    </span>
-                    <span className="text-xs font-mono text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                      {project.category}
-                    </span>
+                  <div className="flex items-center justify-between gap-2 text-xs font-mono">
+                    <span className="text-[#3B82F6] font-bold">Project {project.number}</span>
+                    <span className="text-[#94A3B8] truncate">{project.category}</span>
                   </div>
 
                   {project.image && (
-                    <div className={`h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/10 relative group/img ${project.preserveAspectRatio ? 'bg-[#041209] flex items-center justify-center' : ''}`}>
+                    <div
+                      className={`h-40 rounded-2xl overflow-hidden border border-white/[0.12] relative group/img ${
+                        project.preserveAspectRatio
+                          ? 'bg-[#080D1B] flex items-center justify-center p-3'
+                          : 'bg-[#080D1B]'
+                      }`}
+                    >
                       <img
                         src={project.image}
                         alt={project.imageAlt || project.title}
@@ -185,19 +183,19 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                     </div>
                   )}
 
-                  <h3 className="text-2xl font-bold font-display text-white hover:text-purple-300 transition-colors">
+                  <h3 className="text-xl font-bold font-display text-[#F8FAFC] hover:text-[#3B82F6] transition-colors">
                     {project.title}
                   </h3>
 
-                  <p className="text-slate-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">
+                  <p className="text-[#94A3B8] text-xs sm:text-sm line-clamp-3 leading-relaxed">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {(project.id === 'the-sports-room' ? project.technologies : project.technologies.slice(0, 4)).map((tech, idx) => (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {project.technologies.slice(0, 4).map((tech, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-purple-950/40 border border-purple-500/20 text-purple-300"
+                        className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.1] text-[#94A3B8]"
                       >
                         {tech}
                       </span>
@@ -205,16 +203,17 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-white/10 flex items-center justify-between gap-3 mt-6">
+                <div className="pt-5 border-t border-white/[0.1] flex items-center justify-between gap-3 mt-5">
                   <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectProject(project);
                     }}
-                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold font-display flex items-center gap-2 transition-all shadow-md shadow-purple-600/30"
+                    className="px-4 py-2 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>EXPLORE DETAILS</span>
+                    <span>Explore Details</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
 
                   <a
@@ -222,8 +221,8 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="p-2.5 rounded-xl glass-card text-slate-300 hover:text-white transition-colors"
-                    aria-label="View live project"
+                    className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#94A3B8] hover:text-[#3B82F6] hover:border-[#3B82F6]/45 transition-colors"
+                    aria-label={`Open ${project.title} live site`}
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -234,18 +233,16 @@ export const Project3DCarousel: React.FC<Project3DCarouselProps> = ({
         </motion.div>
       </div>
 
-      {/* Pagination Dots Indicator */}
       <div className="flex items-center justify-center gap-2 mt-4">
-        {projects.map((_, idx) => (
+        {projects.map((p, idx) => (
           <button
-            key={idx}
+            type="button"
+            key={p.id}
             onClick={() => setActiveIndex(idx)}
-            className={`h-2.5 rounded-full transition-all duration-300 ${
-              activeIndex === idx
-                ? 'w-10 bg-purple-400 shadow-md shadow-purple-500/50'
-                : 'w-2.5 bg-white/20 hover:bg-white/40'
+            className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+              activeIndex === idx ? 'w-8 bg-[#3B82F6]' : 'w-2 bg-white/[0.2] hover:bg-white/[0.35]'
             }`}
-            aria-label={`Go to slide ${idx + 1}`}
+            aria-label={`Go to project ${idx + 1}: ${p.title}`}
           />
         ))}
       </div>

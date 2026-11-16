@@ -2,237 +2,56 @@ import { Project, SkillCategory, ExperienceItem, ServiceItem, FAQItem } from '..
 
 export const PERSONAL_INFO = {
   name: 'Hanan Irfan',
+  fullName: 'Abdul Hanan Irfan',
   primaryBrand: 'HANAN',
-  title: 'Full-Stack Software Developer, Web Developer & Digital Creator',
+  title: 'Multidisciplinary Developer, SEO Specialist & Entrepreneur',
   roles: [
-    "D' Educationist Ambassador @ KFUEIT",
-    'Full-Stack Developer',
-    'Web Developer & Designer',
-    'SEO & Web Performance Specialist',
-    'SaaS & Digital Product Creator',
-    'Graphic Designer & AI Enthusiast'
+    'Founder & AI Developer — The Sports Room',
+    'ACM KFUEIT Development Team Head',
+    "Ambassador of D'Educationist @ KFUEIT",
+    'Full-Stack & Frontend Web Developer',
+    'SEO, AEO & GEO Specialist',
+    'Digital Product Builder & Consultant',
   ],
-  age: 18,
-  location: 'Rahim Yar Khan, Punjab, Pakistan',
+  location: 'Rahim Yar Khan, Pakistan',
   education: {
-    degree: 'Bachelor of Science in Computer Science (BSCS)',
+    degree: 'BS Computer Science',
     institution: 'Khwaja Fareed University of Engineering and Information Technology (KFUEIT)',
-    stage: 'Undergraduate Computer Science Student'
+    semester: '5th Semester',
+    cgpa: '3.65',
+    stage: 'BS Computer Science (5th Semester • CGPA 3.65)',
   },
   email: 'hananirfan91@gmail.com',
+  portfolioUrl: 'https://hanan56.vercel.app',
   socials: {
-    instagram: { name: 'Instagram', handle: 'hananirfan2026', url: 'https://instagram.com/hananirfan2026' },
-    tiktok: { name: 'TikTok', handle: '@pathan_x_babarian565', url: 'https://tiktok.com/@pathan_x_babarian565' },
+    linkedin: { name: 'LinkedIn', handle: 'in/hananirfan', url: 'https://linkedin.com/in/hananirfan' },
+    x: { name: 'X', handle: '@hananirfan91', url: 'https://x.com/hananirfan91' },
+    instagram: { name: 'Instagram', handle: '@hananirfan2026', url: 'https://instagram.com/hananirfan2026' },
     facebook: { name: 'Facebook', handle: 'HananIrfan001', url: 'https://facebook.com/HananIrfan001' },
-    youtube: { name: 'YouTube', handle: 'Ancient Mystery', url: 'https://youtube.com' },
-    linkedin: { name: 'LinkedIn', handle: 'Hanan Irfan', url: 'https://www.linkedin.com/in/hananirfan/' }
+    tiktok: { name: 'TikTok', handle: '@pathan_x_babarian565', url: 'https://tiktok.com/@pathan_x_babarian565' },
   },
-  bioSummary: 'Hanan Irfan is an 18-year-old multidisciplinary full-stack software developer, entrepreneur, SEO specialist, graphic designer, and AI enthusiast based in Rahim Yar Khan, Punjab, Pakistan. He builds modern web experiences, SaaS applications, and practical digital tools at the intersection of technology, design, and innovation.',
-  personalStatement: 'I believe the best digital products are built where technology meets creativity, usability, and real-world problem solving.'
+  professionalAreas: [
+    'AI Development',
+    'Frontend Development',
+    'Full-Stack Development',
+    'Search Engine Optimization (SEO)',
+    'Answer Engine Optimization (AEO)',
+    'Generative Engine Optimization (GEO)',
+    'Technical SEO',
+    'Keyword Research & Clustering',
+    'Content Strategy',
+    'Web Application Development',
+  ],
+  bioSummary:
+    "Hanan Irfan is a Multidisciplinary Developer, SEO Specialist & Entrepreneur based in Rahim Yar Khan, Pakistan, currently in the 5th Semester of BS Computer Science at KFUEIT with a 3.65 CGPA. He serves as Founder and AI Developer of The Sports Room, ACM KFUEIT Development Team Head, and Ambassador of D'Educationist, building AI-powered applications, full-stack web software, and search-engineered platforms.",
+  personalStatement:
+    'Meaningful digital products live at the intersection of solid engineering, clear search visibility, and practical real-world usefulness.',
 };
 
 export const PROJECTS: Project[] = [
   {
-    id: 'nexa-pos',
-    number: '01',
-    title: 'NEXA POS SYSTEM',
-    url: 'https://nexapossystem.vercel.app/',
-    category: 'SaaS',
-    filterCategory: 'SAAS',
-    featured: true,
-    description: 'NEXA POS System is a modern business management and point-of-sale concept designed to help businesses manage inventory, billing, customers, ledgers, sales history, reports, and operational insights from one digital platform.',
-    features: [
-      'POS billing & fast checkout',
-      'Inventory management with stock alerts',
-      'Customer ledger & accounts tracking',
-      'Customer CRM & contact management',
-      'Loyalty scoring engine',
-      'Sales history & analytics reports',
-      'Admin role management',
-      'PWA support & offline resilience',
-      'Secure authentication & subscription tiers'
-    ],
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PWA', 'REST APIs', 'Chart.js'],
-    status: 'Live SaaS Product',
-    image: '/nexapos.webp',
-    fallbackImage: '/nexapos.jpg'
-  },
-  {
-    id: 'free-tools-hub',
-    number: '02',
-    title: 'FREE TOOLS HUB',
-    url: 'https://freetoolshub1.vercel.app/',
-    category: 'Web Tools',
-    filterCategory: 'TOOLS',
-    featured: true,
-    description: 'Free Tools Hub is a collection of practical browser-based utilities designed to simplify everyday digital tasks through a fast, accessible, and privacy-focused web interface.',
-    features: [
-      'JSON Formatter & Validator',
-      'Base64 Encoder / Decoder',
-      'Image Compressor & Image Resizer',
-      'Text Case Converter & Word Counter',
-      'URL Encoder / Decoder',
-      'Password Generator & UUID Generator',
-      'Color Picker & Palette Generator',
-      'Resume Builder & Document Converters'
-    ],
-    technologies: ['React', 'JavaScript', 'Tailwind CSS', 'Client-side Processing', 'Canvas API'],
-    status: 'Live Web Utility',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 'ai-tool-guide',
-    number: '03',
-    title: 'AI TOOL GUIDE',
-    url: 'https://aitoolguide.vercel.app/',
-    category: 'AI',
-    filterCategory: 'AI',
-    featured: true,
-    description: 'AI Tool Guide is a technology-focused platform designed to help users explore, categorize, and understand useful AI tools and emerging artificial intelligence technologies.',
-    features: [
-      'Curated directory of AI platforms',
-      'Categorized search by AI use-case',
-      'Prompt guides & workflow tutorials',
-      'Feature comparison tables'
-    ],
-    technologies: ['React', 'Next.js', 'Tailwind CSS', 'AI APIs', 'Search Filters'],
-    status: 'Live Platform',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 'hanan-portfolio',
-    number: '04',
-    title: 'HANAN IRFAN PORTFOLIO',
-    url: 'https://hanan56.vercel.app/',
-    category: 'Portfolio',
-    filterCategory: 'WEB',
-    featured: false,
-    description: 'The personal portfolio platform of Hanan Irfan, showcasing full-stack development skills, projects, technology interests, SEO capabilities, and digital work.',
-    features: [
-      'Cinematic interactive hero',
-      'Full multi-page navigation',
-      'AEO & GEO search optimization',
-      'Custom motion design system'
-    ],
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite'],
-    status: 'Official Site',
-    image: '/avatar.webp',
-    fallbackImage: '/avatar.jpg'
-  },
-  {
-    id: 'hi-digital-group',
-    number: '05',
-    title: 'HI DIGITAL GROUP',
-    url: 'https://hidigitalgroup.vercel.app/',
-    category: 'Agency',
-    filterCategory: 'WEB',
-    featured: true,
-    description: 'HI Digital Group represents a digital services vision focused on web development, graphic design, technical SEO, video editing, and content-related digital solutions.',
-    features: [
-      'Digital service showcase',
-      'Interactive project scope calculator',
-      'Client inquiry management',
-      'Agency portfolio highlights'
-    ],
-    technologies: ['React', 'Tailwind CSS', 'SEO Optimization', 'Framer Motion'],
-    status: 'Live Agency Hub',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 'acm-kfueit',
-    number: '06',
-    title: 'ACM KFUEIT',
-    url: 'https://acm-kfueit.vercel.app/',
-    category: 'Education',
-    filterCategory: 'WEB',
-    featured: false,
-    description: 'A technology-focused web project created around the ACM KFUEIT community and its digital presence at Khwaja Fareed University of Engineering and IT.',
-    features: [
-      'Community event announcements',
-      'Member showcase & registration',
-      'Tech workshop archives',
-      'Responsive university portal'
-    ],
-    technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Community Tools'],
-    status: 'Live Community Site',
-    image: '/certificate.webp',
-    fallbackImage: '/certificate.jpg'
-  },
-  {
-    id: 'caesar-2026',
-    number: '07',
-    title: 'CAESAR 2026',
-    url: 'https://caesar2026.vercel.app/',
-    category: 'Web Project',
-    filterCategory: 'DESIGN',
-    featured: false,
-    description: 'A modern web project developed and deployed as part of Hanan Irfan\'s growing collection of experimental and practical digital experiences.',
-    features: [
-      'Interactive UI concepts',
-      'Futuristic dark mode design',
-      'Smooth micro-animations'
-    ],
-    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Vercel Deployment'],
-    status: 'Live Concept Project',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 'garden-layout-tips',
-    number: '08',
-    title: 'GARDEN LAYOUT TIPS',
-    url: 'https://gardenlayouttips.vercel.app/',
-    category: 'Content',
-    filterCategory: 'WEB',
-    featured: false,
-    description: 'A specialized web experience focused on garden layout ideas, landscape planning, SEO-optimized structure, and visual design inspiration.',
-    features: [
-      'SEO-optimized article layouts',
-      'Interactive visual planner concepts',
-      'Fast loading speed & Core Web Vitals focus'
-    ],
-    technologies: ['React', 'Technical SEO', 'Tailwind CSS', 'Content Structure'],
-    status: 'Live Web Experience',
-    image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 'punch-monkey',
-    number: '09',
-    title: 'PUNCH MONKEY',
-    url: 'https://punchmonkey.vercel.app/',
-    category: 'Creative Web Project',
-    filterCategory: 'DESIGN',
-    featured: false,
-    description: 'A creative web experience developed as part of Hanan Irfan\'s experimental digital project portfolio featuring interactive canvas interactions.',
-    features: [
-      'Interactive click/touch physics',
-      'Sound effect integration',
-      'Playful canvas rendering'
-    ],
-    technologies: ['HTML5 Canvas', 'JavaScript', 'CSS Animations'],
-    status: 'Live Experimental Project',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 'ai-course-hanan',
-    number: '10',
-    title: 'AI COURSE BY HANAN IRFAN',
-    url: 'https://aicoursebyhananirfan.vercel.app/',
-    category: 'AI',
-    filterCategory: 'AI',
-    featured: false,
-    description: 'An AI-focused educational project built around learning and exploring artificial intelligence concepts, prompt engineering, and modern tool stacks.',
-    features: [
-      'Structured AI curriculum layout',
-      'Interactive code & prompt samples',
-      'Student resource downloads'
-    ],
-    technologies: ['React', 'Tailwind CSS', 'Markdown Reader', 'AI Integration'],
-    status: 'Live Educational Resource',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1000&q=80'
-  },
-  {
     id: 'the-sports-room',
-    number: '11',
+    number: '01',
     title: 'The Sports Room',
     url: 'https://thesportsroom.online',
     category: 'Web Development & SEO',
@@ -242,337 +61,590 @@ export const PROJECTS: Project[] = [
     coFounders: 'Hanan Irfan and Urwah Farooq',
     organization: 'HI Digital Group',
     location: 'Rahim Yar Khan, Pakistan',
-    description: 'The Sports Room is an independent digital sports media and analytics platform co-founded by Hanan Irfan and Urwah Farooq, operated by HI Digital Group. It delivers real-time sports news, live match coverage, tactical breakdowns, cricket telemetry, daily sports quizzes, and monthly fan leaderboards across cricket, football, basketball, and other sports.',
+    description:
+      'Independent digital sports media and analytics platform co-founded by Hanan Irfan and Urwah Farooq (2026–present) under HI Digital Group. Built with AI-assisted workflows, technical SEO, and structured content delivery for live match coverage, cricket telemetry, tactical breakdowns, daily quizzes, and fan leaderboards.',
     features: [
-      'Independent Digital Sports Media and Analytics Platform',
-      'Co-founded by Hanan Irfan and Urwah Farooq',
-      'Operated by HI Digital Group — Rahim Yar Khan, Pakistan',
+      'Founder & AI Developer (2026–present), co-founded with Urwah Farooq',
+      'Operated under HI Digital Group — Rahim Yar Khan, Pakistan',
       'Real-time sports news, live match coverage & tactical breakdowns',
       'Cricket telemetry, daily sports quizzes & monthly fan leaderboards',
-      'Multi-sport coverage across cricket, football, basketball & other sports'
+      'Technical SEO, AEO & GEO schema structure for search discovery',
+      'Multi-sport coverage across cricket, football, basketball & more',
     ],
-    technologies: [
-      'Web Development',
-      'SEO',
-      'Technical SEO',
-      'Sports Analytics',
-      'Digital Media'
-    ],
+    technologies: ['AI Development', 'Web Development', 'Technical SEO', 'AEO & GEO', 'Sports Analytics'],
     status: 'Live Platform',
     image: '/the-sports-room.webp',
-    fallbackImage: '/assets/aistudio/ChatGPT_Image_Sep_21__2026__11_29_50_AM_41851869.png',
+    fallbackImage: '/images/projects/hi-digital-group.svg',
     imageAlt: 'The Sports Room sports media and analytics platform co-founded by Hanan Irfan.',
     preserveAspectRatio: true,
     seoTitle: 'The Sports Room — Web Development & SEO Project by Hanan Irfan',
-    seoDescription: 'The Sports Room is an independent sports media and analytics platform co-founded by Hanan Irfan, featuring real-time sports news, match coverage, analytics, and interactive fan experiences.'
-  }
+    seoDescription:
+      'The Sports Room is an independent sports media and analytics platform co-founded by Hanan Irfan, featuring real-time sports news, match coverage, analytics, and interactive fan experiences.',
+  },
+  {
+    id: 'nexa-pos',
+    number: '02',
+    title: 'NEXA POS SYSTEM',
+    url: 'https://nexapossystem.vercel.app/',
+    category: 'SaaS',
+    filterCategory: 'SAAS',
+    featured: true,
+    description:
+      'Modern point-of-sale and business management web application built to streamline retail billing, stock inventory alerts, customer ledgers, CRM tracking, role permissions, and sales reporting in one responsive interface.',
+    features: [
+      'POS billing & quick invoice checkout',
+      'Inventory tracking with low-stock alerts',
+      'Customer ledger & accounts receivable management',
+      'Customer CRM & loyalty scoring workflow',
+      'Sales history & interactive analytics reports',
+      'Role-based access & PWA offline resilience',
+    ],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PWA', 'REST APIs', 'Charts'],
+    status: 'Live SaaS Product',
+    image: '/nexapos.webp',
+    fallbackImage: '/nexapos.jpg',
+    imageAlt: 'NEXA POS System full-stack web application preview.',
+  },
+  {
+    id: 'acm-kfueit',
+    number: '03',
+    title: 'ACM KFUEIT',
+    url: 'https://acm-kfueit.vercel.app/',
+    category: 'Education',
+    filterCategory: 'WEB',
+    featured: true,
+    description:
+      'Official community web platform developed for the ACM KFUEIT Student Chapter at Khwaja Fareed University of Engineering and Information Technology, supporting announcements, developer showcases, and campus technical events.',
+    features: [
+      'Community event announcements & schedules',
+      'Member spotlight & registration workflows',
+      'Technical workshop archives & resources',
+      'Mobile-first responsive university portal',
+    ],
+    technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Community Architecture'],
+    status: 'Live Community Site',
+    image: '/certificate.webp',
+    fallbackImage: '/certificate.jpg',
+    imageAlt: 'ACM KFUEIT web platform and appreciation recognition.',
+  },
+  {
+    id: 'free-tools-hub',
+    number: '04',
+    title: 'FREE TOOLS HUB',
+    url: 'https://freetoolshub1.vercel.app/',
+    category: 'Web Tools',
+    filterCategory: 'TOOLS',
+    featured: true,
+    description:
+      'Browser-based developer and productivity utilities suite engineered for instant client-side processing with zero server data retention — featuring JSON formatting, Base64 encoding, text utilities, and password generation.',
+    features: [
+      'JSON Formatter & Validator',
+      'Base64 Encoder / Decoder',
+      'Image Compressor & Resizer utilities',
+      'Text Case Converter & Word Counter',
+      'Password & UUID Generator',
+      'Color Picker & Palette helpers',
+    ],
+    technologies: ['React', 'JavaScript', 'Tailwind CSS', 'Client-Side Processing', 'Canvas API'],
+    status: 'Live Web Utility',
+    image: '/images/projects/free-tools-hub.svg',
+    imageAlt: 'Free Tools Hub client-side developer utilities interface preview.',
+  },
+  {
+    id: 'ai-tool-guide',
+    number: '05',
+    title: 'AI TOOL GUIDE',
+    url: 'https://aitoolguide.vercel.app/',
+    category: 'AI',
+    filterCategory: 'AI',
+    featured: true,
+    description:
+      'Technology discovery platform structured to help creators, students, and developers explore, compare, and apply practical AI platforms across coding, research, writing, and productivity.',
+    features: [
+      'Curated directory of AI platforms',
+      'Categorized search by workflow & use-case',
+      'Prompt workflow guides & tutorials',
+      'Structured comparison views',
+    ],
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'AI Workflows', 'Search Filtering'],
+    status: 'Live Platform',
+    image: '/images/projects/ai-tool-guide.svg',
+    imageAlt: 'AI Tool Guide curated AI platforms interface preview.',
+  },
+  {
+    id: 'hi-digital-group',
+    number: '06',
+    title: 'HI DIGITAL GROUP',
+    url: 'https://hidigitalgroup.vercel.app/',
+    category: 'Agency',
+    filterCategory: 'WEB',
+    featured: false,
+    description:
+      'Digital consulting and engineering hub showcasing full-stack web development, technical SEO, AEO & GEO strategy, keyword clustering, and visual brand systems for organizations.',
+    features: [
+      'Digital engineering & consulting showcase',
+      'Interactive project scope estimation',
+      'Client inquiry management',
+      'Service & capability highlights',
+    ],
+    technologies: ['React', 'Tailwind CSS', 'Technical SEO', 'Motion UI'],
+    status: 'Live Agency Hub',
+    image: '/images/projects/hi-digital-group.svg',
+    imageAlt: 'HI Digital Group engineering and search consulting portal preview.',
+  },
+  {
+    id: 'hanan-portfolio',
+    number: '07',
+    title: 'HANAN IRFAN PORTFOLIO',
+    url: 'https://hanan56.vercel.app/',
+    category: 'Portfolio',
+    filterCategory: 'WEB',
+    featured: false,
+    description:
+      'Official multi-page portfolio web app and PWA built with React, TypeScript, and Tailwind CSS — engineered with Schema.org JSON-LD, AEO/GEO structure, offline resilience, and Android TWA compatibility.',
+    features: [
+      'Multi-page SPA routing with legal & trust pages',
+      'AEO, GEO & Schema.org structured data',
+      'Progressive Web App & Android TWA readiness',
+      'Interactive verified credentials gallery',
+    ],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'PWA', 'Vite'],
+    status: 'Official Site',
+    image: '/avatar.webp',
+    fallbackImage: '/avatar.jpg',
+    imageAlt: 'Hanan Irfan official portfolio avatar and site.',
+  },
+  {
+    id: 'caesar-2026',
+    number: '08',
+    title: 'CAESAR 2026',
+    url: 'https://caesar2026.vercel.app/',
+    category: 'Web Project',
+    filterCategory: 'DESIGN',
+    featured: false,
+    description:
+      'Focused frontend layout and interactive web UI concept built to explore clean typography hierarchy, responsive CSS architectures, and lightweight client interactions.',
+    features: [
+      'Interactive frontend UI layouts',
+      'Responsive CSS grid system',
+      'Lightweight micro-interactions',
+    ],
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Vercel'],
+    status: 'Live Concept Project',
+    image: '/images/projects/caesar-2026.svg',
+    imageAlt: 'Caesar 2026 web concept preview.',
+  },
+  {
+    id: 'garden-layout-tips',
+    number: '09',
+    title: 'GARDEN LAYOUT TIPS',
+    url: 'https://gardenlayouttips.vercel.app/',
+    category: 'Content',
+    filterCategory: 'WEB',
+    featured: false,
+    description:
+      'Search-engineered content platform centered on garden zoning, landscape design ideas, structured headings, and fast Core Web Vitals performance.',
+    features: [
+      'SEO-structured informational articles',
+      'Keyword-clustered topic architecture',
+      'Lightweight page load & accessibility',
+    ],
+    technologies: ['React', 'Technical SEO', 'Content Strategy', 'Tailwind CSS'],
+    status: 'Live Web Experience',
+    image: '/images/projects/garden-layout-tips.svg',
+    imageAlt: 'Garden Layout Tips SEO content site preview.',
+  },
+  {
+    id: 'punch-monkey',
+    number: '10',
+    title: 'PUNCH MONKEY',
+    url: 'https://punchmonkey.vercel.app/',
+    category: 'Creative Web Project',
+    filterCategory: 'DESIGN',
+    featured: false,
+    description:
+      'Experimental HTML5 Canvas web interaction built to practice responsive pointer/touch physics, frame scheduling, and playful client-side feedback.',
+    features: [
+      'Touch and pointer interaction physics',
+      'Lightweight audio feedback hooks',
+      '2D Canvas rendering loop',
+    ],
+    technologies: ['HTML5 Canvas', 'JavaScript', 'CSS Animations'],
+    status: 'Live Experimental Project',
+    image: '/images/projects/punch-monkey.svg',
+    imageAlt: 'Punch Monkey HTML5 Canvas experiment preview.',
+  },
+  {
+    id: 'ai-course-hanan',
+    number: '11',
+    title: 'AI COURSE BY HANAN IRFAN',
+    url: 'https://aicoursebyhananirfan.vercel.app/',
+    category: 'AI',
+    filterCategory: 'AI',
+    featured: false,
+    description:
+      'Educational web project organizing foundational artificial intelligence topics, structured prompt engineering patterns, and modern AI development concepts for learners.',
+    features: [
+      'Structured AI learning modules',
+      'Prompt engineering examples',
+      'Accessible typography & study notes',
+    ],
+    technologies: ['React', 'Tailwind CSS', 'Markdown Content', 'AI Education'],
+    status: 'Live Educational Resource',
+    image: '/images/projects/ai-course-hanan.svg',
+    imageAlt: 'AI Course by Hanan Irfan educational site preview.',
+  },
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
+    id: 'ai',
+    name: 'AI DEVELOPMENT',
+    skills: [
+      {
+        name: 'AI Application Development',
+        level: 92,
+        description: 'Designing AI-assisted web workflows, prompt pipelines, and intelligent content/search interfaces.',
+        highlight: true,
+      },
+      {
+        name: 'Prompt Engineering & Workflows',
+        level: 94,
+        description: 'Structured prompting for app building, research synthesis, content workflows, and data analysis.',
+        highlight: true,
+      },
+      {
+        name: 'Answer & Generative Engine Optimization',
+        level: 93,
+        description: 'Structuring entities, schemas, and factual answers for AI search citations and answer engines.',
+        highlight: true,
+      },
+      {
+        name: 'Python & Automation Scripting',
+        level: 86,
+        description: 'Scripting data processing pipelines, SEO analysis checks, and AI integration backends.',
+      },
+    ],
+  },
+  {
     id: 'dev',
-    name: 'DEVELOPMENT',
+    name: 'FRONTEND & FULL-STACK',
     skills: [
-      { name: 'HTML5 / CSS3', level: 98, description: 'Semantic structure, flexbox, CSS grid, keyframe animations & accessibility.', highlight: true },
-      { name: 'JavaScript (ES6+)', level: 95, description: 'Asynchronous JS, promises, DOM manipulation, ES modules & performance.', highlight: true },
-      { name: 'React.js', level: 94, description: 'Functional components, hooks, custom state engines, context API & Vite.', highlight: true },
-      { name: 'Next.js', level: 90, description: 'Server-side rendering, static generation, API routes, App Router & caching.', highlight: true },
-      { name: 'Frontend Architecture', level: 92, description: 'Responsive web design, modular component design, mobile-first layouts.' },
-      { name: 'Full-Stack Integration', level: 88, description: 'End-to-end full stack architecture connecting APIs, state & databases.' }
-    ]
-  },
-  {
-    id: 'prog',
-    name: 'PROGRAMMING',
-    skills: [
-      { name: 'C++', level: 88, description: 'Object-oriented programming, data structures, algorithms & memory management.' },
-      { name: 'Java', level: 85, description: 'Class hierarchies, OOP principles, application logic & backend fundamentals.' },
-      { name: 'Python', level: 86, description: 'Scripting, data manipulation, automation & AI/ML integration concepts.' },
-      { name: 'SQL', level: 90, description: 'Relational queries, database normalization, indexing & joins.' }
-    ]
-  },
-  {
-    id: 'backend',
-    name: 'BACKEND & DATABASE',
-    skills: [
-      { name: 'Supabase', level: 88, description: 'PostgreSQL database hosting, authentication, real-time subscriptions & row security.', highlight: true },
-      { name: 'Firebase', level: 86, description: 'Firestore database, Firebase Auth, storage & cloud functions.' },
-      { name: 'REST APIs', level: 92, description: 'API route design, JSON payloads, HTTP headers & rate-limiting.' },
-      { name: 'Authentication', level: 90, description: 'JWT tokens, OAuth integration, session state management & security.' },
-      { name: 'Database Design', level: 88, description: 'Entity relationship design, schema validation & data optimization.' }
-    ]
-  },
-  {
-    id: 'cms',
-    name: 'CMS & WEB',
-    skills: [
-      { name: 'WordPress', level: 94, description: 'Theme customization, plugin setup, custom post types & headless setups.', highlight: true },
-      { name: 'Astra Theme', level: 92, description: 'Custom Astra building, speed optimization & layout styling.' },
-      { name: 'Website Optimization', level: 95, description: 'Core Web Vitals tuning, caching strategies, image compression & asset minification.' }
-    ]
+      {
+        name: 'Frontend Development (React & Next.js)',
+        level: 95,
+        description: 'Modular React.js & Next.js SPAs/SSR apps with TypeScript, hooks, and responsive design.',
+        highlight: true,
+      },
+      {
+        name: 'Full-Stack Web Application Dev',
+        level: 90,
+        description: 'End-to-end engineering spanning UI systems, REST APIs, database modeling, and cloud deployment.',
+        highlight: true,
+      },
+      {
+        name: 'HTML5, CSS3 & Tailwind CSS',
+        level: 97,
+        description: 'Accessible semantic HTML, responsive CSS Grid/Flexbox, and scalable Tailwind design tokens.',
+        highlight: true,
+      },
+      {
+        name: 'JavaScript (ES6+) & TypeScript',
+        level: 94,
+        description: 'Type-safe frontend & API engineering, async data flows, and modular state architecture.',
+      },
+    ],
   },
   {
     id: 'seo',
-    name: 'SEO & ANALYTICS',
+    name: 'SEO, AEO, GEO & CONTENT',
     skills: [
-      { name: 'Technical SEO', level: 96, description: 'Crawlability, indexing, canonical URLs, robots.txt & XML sitemaps.', highlight: true },
-      { name: 'On-Page SEO', level: 95, description: 'Keyword strategy, heading structures, meta descriptions & content organization.', highlight: true },
-      { name: 'Google Search Console', level: 92, description: 'Search performance monitoring, index inspection & coverage audits.' },
-      { name: 'Google Analytics (GA4)', level: 88, description: 'Event tracking, user journey analytics & conversion metrics.' },
-      { name: 'Structured Data (Schema.org)', level: 94, description: 'JSON-LD schema for Person, WebSite, Product & Organization.' }
-    ]
+      {
+        name: 'Search Engine Optimization (SEO)',
+        level: 96,
+        description: 'End-to-end organic search architecture, on-page structure, internal linking, and site health.',
+        highlight: true,
+      },
+      {
+        name: 'Answer Engine Optimization (AEO)',
+        level: 94,
+        description: 'FAQ structuring, direct-answer formatting, and entity clarity for zero-click & voice/AI answers.',
+        highlight: true,
+      },
+      {
+        name: 'Generative Engine Optimization (GEO)',
+        level: 93,
+        description: 'Citation-ready content signals, Schema.org Person/Organization graphs, and authoritative sourcing.',
+        highlight: true,
+      },
+      {
+        name: 'Technical SEO',
+        level: 96,
+        description: 'Crawlability, canonical URLs, robots.txt, XML sitemaps, JSON-LD, and Core Web Vitals optimization.',
+      },
+      {
+        name: 'Keyword Research & Clustering',
+        level: 92,
+        description: 'Search intent mapping, semantic topic clusters, and competitive gap analysis.',
+      },
+      {
+        name: 'Content Strategy',
+        level: 91,
+        description: 'Editorial topic pillars, information architecture, and reader-first digital publishing.',
+      },
+    ],
   },
   {
-    id: 'design',
-    name: 'DESIGN',
+    id: 'backend',
+    name: 'PROGRAMMING & DATABASES',
     skills: [
-      { name: 'Graphic Design', level: 90, description: 'Visual branding, typography pairing, contrast, layout hierarchy & banners.' },
-      { name: 'UI/UX Design', level: 88, description: 'User flows, wireframing, component libraries & interactive prototype design.' },
-      { name: 'Canva Pro', level: 95, description: 'Speed social media graphics, thumbnails & brand assets.' },
-      { name: 'Adobe Photoshop', level: 85, description: 'Photo editing, image manipulation & poster design.' },
-      { name: 'CorelDRAW', level: 82, description: 'Vector graphics, printing assets & logo layout.' }
-    ]
+      {
+        name: 'C++, Java & SQL',
+        level: 88,
+        description: 'Object-oriented design, data structures, algorithms, relational schema design, and indexing.',
+      },
+      {
+        name: 'Firebase & Supabase',
+        level: 88,
+        description: 'Firestore, Firebase Auth, PostgreSQL hosting, row-level security, and REST integrations.',
+        highlight: true,
+      },
+      {
+        name: 'WordPress & CMS Performance',
+        level: 92,
+        description: 'Custom Astra layouts, speed optimization, caching setup, and clean publishing workflows.',
+      },
+    ],
   },
   {
     id: 'tools',
-    name: 'TOOLS & PLATFORMS',
+    name: 'DESIGN & PLATFORMS',
     skills: [
-      { name: 'GitHub / Git', level: 92, description: 'Version control, branch management, pull requests & code collaboration.' },
-      { name: 'Vercel / Netlify', level: 95, description: 'Edge deployment, continuous integration, domain routing & environment variables.' },
-      { name: 'XAMPP / Local Server', level: 88, description: 'Local PHP/MySQL development environment configuration.' },
-      { name: 'Cisco Packet Tracer', level: 80, description: 'Network topology simulation & routing protocols.' },
-      { name: 'CrypTool', level: 78, description: 'Cryptographic algorithm analysis & security concepts.' }
-    ]
-  }
+      {
+        name: 'UI/UX & Graphic Design',
+        level: 89,
+        description: 'Mobile-first wireframing, typography systems, visual hierarchy, Figma/Canva/Photoshop assets.',
+      },
+      {
+        name: 'Git, GitHub & Vercel',
+        level: 94,
+        description: 'Version control workflows, CI/CD previews, custom domain DNS, and PWA edge hosting.',
+      },
+      {
+        name: 'Google Search Console',
+        level: 93,
+        description: 'Index coverage diagnostics, structured data validation, and search query performance tracking.',
+      },
+    ],
+  },
 ];
 
 export const EXPERIENCE_ITEMS: ExperienceItem[] = [
   {
+    id: 'exp-sports-room',
+    period: '2026 — PRESENT',
+    title: 'Founder & AI Developer — The Sports Room',
+    category: 'ENTREPRENEURSHIP & AI DEVELOPMENT',
+    organization: 'The Sports Room (HI Digital Group)',
+    description:
+      'Co-founded The Sports Room (with Urwah Farooq) as an independent digital sports media and analytics platform, leading product architecture, AI-assisted content & telemetry workflows, and technical SEO / AEO / GEO optimization.',
+    highlights: [
+      'Architecting platform web application and AI-powered sports workflow modules',
+      'Implementing structured Schema.org, technical SEO, keyword clustering, and content strategy',
+      'Operating live digital media publishing across cricket, football, and multi-sport analytics',
+    ],
+    technologies: ['AI Development', 'Full-Stack Web', 'Technical SEO', 'AEO & GEO', 'Content Strategy'],
+  },
+  {
+    id: 'exp-acm-head',
+    period: '2025 — PRESENT',
+    title: 'Development Team Head — ACM KFUEIT',
+    category: 'TECHNICAL LEADERSHIP',
+    organization: 'ACM Student Chapter — KFUEIT',
+    description:
+      'Leading web development initiatives for the ACM KFUEIT community at Khwaja Fareed University of Engineering and Information Technology, mentoring fellow CS peers and building official chapter web tools.',
+    highlights: [
+      'Directed development and deployment of the ACM KFUEIT community web portal',
+      'Recognized with Official Certificate of Appreciation for Web Developer contributions (Session 2025–26)',
+      'Collaborated with student teams on campus technical workshops and project showcases',
+    ],
+    technologies: ['Team Leadership', 'React', 'Web Engineering', 'UI Architecture'],
+  },
+  {
     id: 'exp-ambassador',
     period: '2025 — PRESENT',
-    title: "Campus Ambassador — D' Educationist",
-    category: 'LEADERSHIP & STUDENT ENGAGEMENT',
-    organization: "D' Educationist @ KFUEIT Rahim Yar Khan",
-    description: "Serving as the official Ambassador of D' Educationist at Khwaja Fareed University of Engineering and Information Technology (KFUEIT), actively bridging students with global study pathways, career development sessions, and international higher education opportunities.",
+    title: "Ambassador of D'Educationist @ KFUEIT",
+    category: 'CAMPUS LEADERSHIP & OUTREACH',
+    organization: "D'Educationist — Rahim Yar Khan",
+    description:
+      "Serving as official Campus Ambassador of D'Educationist at KFUEIT, connecting university students with higher education pathways, scholarship resources, and career readiness initiatives.",
     highlights: [
-      'Representing D\' Educationist across KFUEIT student community in Rahim Yar Khan',
-      'Guiding university students on international study programs and scholarships',
-      'Organizing educational awareness seminars and interactive student guidance sessions',
-      'Fostering community engagement, youth leadership, and academic counseling'
+      "Representing D'Educationist across the KFUEIT student body in Rahim Yar Khan",
+      'Supporting student outreach, seminars, and academic guidance initiatives',
+      'Building community engagement across university networks',
     ],
-    technologies: ['Student Leadership', 'Career Counseling', 'Public Speaking', 'Event Organizing', 'Networking']
+    technologies: ['Student Leadership', 'Career Outreach', 'Public Communication', 'Community Building'],
   },
   {
-    id: 'exp-1',
-    period: '2024 — PRESENT',
-    title: 'Full-Stack Software Developer & Digital Creator',
-    category: 'SOFTWARE DEVELOPMENT',
-    organization: 'Independent & Founder of HI Digital',
-    description: 'Architecting and deploying full-stack web applications, SaaS platforms (NEXA POS System), interactive web utilities (Free Tools Hub), and SEO-driven digital products using React, Next.js, and modern cloud stacks.',
-    highlights: [
-      'Built and launched NEXA POS System SaaS with full offline inventory & ledger management',
-      'Developed Free Tools Hub featuring 12+ client-side developer utilities',
-      'Deployed over 10 live web applications on Vercel with high Core Web Vitals scores',
-      'Implemented advanced technical SEO strategies yielding top search indexing performance'
-    ],
-    technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Vercel', 'REST APIs']
-  },
-  {
-    id: 'exp-2',
+    id: 'exp-consulting',
     period: '2023 — PRESENT',
-    title: 'BS Computer Science Undergraduate Student',
-    category: 'ACADEMIC GROWTH',
+    title: 'Full-Stack Developer, SEO Specialist & Digital Consultant',
+    category: 'SOFTWARE & SEARCH CONSULTING',
+    organization: 'HI Digital Group & Independent Projects',
+    description:
+      'Designing and shipping full-stack web applications, SaaS tools (NEXA POS System, Free Tools Hub, AI Tool Guide), and technical SEO/AEO/GEO consulting for local and remote digital projects.',
+    highlights: [
+      'Engineered NEXA POS System with inventory alerts, customer ledgers, and PWA offline support',
+      'Built Free Tools Hub and AI Tool Guide for privacy-focused client-side workflows',
+      'Delivered technical SEO, keyword clustering, and content strategy improvements',
+    ],
+    technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase', 'Supabase', 'SEO/AEO/GEO'],
+  },
+  {
+    id: 'exp-education',
+    period: '2024 — PRESENT',
+    title: 'BS Computer Science — 5th Semester (CGPA: 3.65)',
+    category: 'ACADEMIC EXCELLENCE',
     organization: 'Khwaja Fareed University of Engineering and Information Technology (KFUEIT)',
-    description: 'Pursuing a Bachelor of Science in Computer Science in Rahim Yar Khan. Mastering data structures, object-oriented programming, database management systems, network engineering, and algorithms.',
+    description:
+      "Pursuing a Bachelor of Science in Computer Science in Rahim Yar Khan (currently 5th Semester, CGPA 3.65). Awarded the Faculty of IT Dean's Honor Certificate for single-semester academic distinction.",
     highlights: [
-      'Active participant in university ACM tech community projects',
-      'Created the ACM KFUEIT community web presence (acm-kfueit.vercel.app)',
-      'Completed coursework in C++, Java, Python, SQL, and Networking'
+      "Awarded Dean's Honor Roll Certificate (Spring 2026) from Faculty of Information Technology, KFUEIT",
+      'Completed Google AI Professional Certificate (8-course specialization on Coursera)',
+      'Core coursework across OOP (C++, Java), Data Structures, Databases (SQL), and AI',
     ],
-    technologies: ['C++', 'Java', 'Python', 'SQL', 'Data Structures', 'Networking']
+    technologies: ['C++', 'Java', 'Python', 'SQL', 'Data Structures', 'Algorithms'],
   },
-  {
-    id: 'exp-3',
-    period: '2022 — PRESENT',
-    title: 'Technical SEO & Web Specialist',
-    category: 'SEO & OPTIMIZATION',
-    organization: 'Client Projects & Self-Owned Websites',
-    description: 'Specializing in technical website audits, crawlability optimization, schema markup implementation, speed enhancements, and search visibility for business platforms and content sites.',
-    highlights: [
-      'Structured XML sitemaps, canonical tags, and JSON-LD schema across multiple domains',
-      'Optimized WordPress websites with custom Astra theme code & speed plugins',
-      'Achieved 95+ Google Lighthouse scores across desktop & mobile performance'
-    ],
-    technologies: ['Technical SEO', 'Google Search Console', 'Google Analytics', 'WordPress', 'Schema.org']
-  },
-  {
-    id: 'exp-4',
-    period: '2022 — PRESENT',
-    title: 'Digital Entrepreneur & Graphic Designer',
-    category: 'ENTREPRENEURSHIP & DESIGN',
-    organization: 'HI Digital Group',
-    description: 'Founded HI Digital Group to offer web development, UI/UX design, SEO services, graphic design, and content digital solutions for growing regional and international clients.',
-    highlights: [
-      'Designed visual identities, social assets, logos, and UI prototypes',
-      'Managed client project lifecycles from concept to live production deployment'
-    ],
-    technologies: ['Graphic Design', 'UI/UX Design', 'Canva', 'Photoshop', 'Client Relations']
-  }
 ];
 
 export const SERVICES: ServiceItem[] = [
   {
-    id: 'web-dev',
+    id: 'ai-dev',
     number: '01',
-    title: 'WEB DEVELOPMENT',
-    shortDesc: 'Modern, responsive, ultra-fast websites built with React, Next.js, and clean Tailwind CSS styling.',
-    fullDesc: 'I create modern, high-performance websites tailored to your brand identity. Every site is crafted with responsive layouts, fluid animations, mobile-first precision, and clean semantic architecture that loads instantly.',
-    iconName: 'Layout',
+    title: 'AI DEVELOPMENT & WORKFLOWS',
+    shortDesc: 'Practical AI integrations, intelligent search features, and AI-assisted web products built for real utility.',
+    fullDesc:
+      'Design and build modern AI-powered web features, structured prompt pipelines, curated AI directories, and automated content or data workflows tailored to your product requirements.',
+    iconName: 'Cpu',
     deliverables: [
-      'Custom React / Next.js implementation',
-      'Responsive design across mobile, tablet & desktop',
-      'Framer Motion smooth scroll & interactive UI',
-      'Clean semantic code with zero bloat',
-      'Fast loading speed & optimized Core Web Vitals'
-    ]
+      'AI-powered web feature architecture',
+      'Prompt engineering & workflow automation',
+      'Custom directory & educational AI interfaces',
+      'Privacy-aware API & client integration',
+    ],
   },
   {
     id: 'full-stack',
     number: '02',
-    title: 'FULL-STACK DEVELOPMENT',
-    shortDesc: 'End-to-end digital products with frontend state, backend APIs, databases, authentication, and cloud deployment.',
-    fullDesc: 'From database schema design to interactive client interfaces, I build complete full-stack web applications. Whether you need a SaaS platform, a custom dashboard, or a multi-user web app, I handle the entire engineering pipeline.',
+    title: 'FULL-STACK & WEB APP DEVELOPMENT',
+    shortDesc: 'End-to-end React, Next.js, TypeScript, Firebase, and Supabase applications built mobile-first.',
+    fullDesc:
+      'From clean UI components to database design and cloud deployment, I build responsive, maintainable web applications and SaaS MVPs designed for fast loading and everyday reliability.',
     iconName: 'Code',
     deliverables: [
-      'Frontend React/TypeScript UI architecture',
-      'Backend REST API endpoints & serverless routes',
-      'Database integration (Supabase, Firebase, SQL)',
-      'User authentication & role-based permissions',
-      'Automated deployment on Vercel or cloud containers'
-    ]
+      'React, Next.js & TypeScript frontend architecture',
+      'REST APIs, Firebase / Supabase database integration',
+      'Authentication & role-based workflows',
+      'PWA offline capability & responsive layout testing',
+    ],
+  },
+  {
+    id: 'seo-aeo-geo',
+    number: '03',
+    title: 'SEO, AEO & GEO OPTIMIZATION',
+    shortDesc: 'Technical SEO, Answer Engine Optimization, Generative Engine Optimization, keyword clustering, and content strategy.',
+    fullDesc:
+      'Improve discoverability across traditional search engines and modern AI answer engines through technical audits, Schema.org structured data, semantic keyword clustering, and clear content strategy.',
+    iconName: 'Search',
+    deliverables: [
+      'Technical SEO audit, canonicals, sitemaps & Core Web Vitals',
+      'AEO & GEO structured Schema.org (JSON-LD) implementation',
+      'Keyword research, topic clustering & search intent mapping',
+      'Content strategy & Google Search Console diagnostics',
+    ],
+  },
+  {
+    id: 'web-dev',
+    number: '04',
+    title: 'FRONTEND & PORTFOLIO ARCHITECTURE',
+    shortDesc: 'Fast, accessible, mobile-first web interfaces with clean design systems and cross-device polish.',
+    fullDesc:
+      'Modern responsive websites crafted with Tailwind CSS, clean typographic hierarchy, accessible contrast, and smooth navigation tuned for both desktop browsers and mobile web/TWA apps.',
+    iconName: 'Layout',
+    deliverables: [
+      'Mobile-first responsive layout engineering',
+      'Semantic HTML5 & WCAG accessibility alignment',
+      'Clean component system & lightweight motion',
+      'Production deployment on Vercel or cloud hosting',
+    ],
   },
   {
     id: 'wordpress',
-    number: '03',
-    title: 'WORDPRESS DEVELOPMENT',
-    shortDesc: 'Professional WordPress websites, theme customization, Astra setup, and speed optimization.',
-    fullDesc: 'Custom WordPress development designed for businesses, blogs, and service providers. I specialize in lightweight setups using the Astra theme, custom styling, essential security setups, and rapid load speed.',
+    number: '05',
+    title: 'WORDPRESS & CMS SOLUTIONS',
+    shortDesc: 'Lightweight WordPress builds, theme customization, and page-speed optimization.',
+    fullDesc:
+      'Structured WordPress websites tailored for content publishers and local businesses using clean themes, SEO-ready permalink hierarchy, and practical speed tuning.',
     iconName: 'Globe',
     deliverables: [
-      'Custom WordPress installation & setup',
-      'Astra theme customization & responsive tweaks',
-      'Plugin setup, security hardening & backups',
-      'Content management training & documentation'
-    ]
-  },
-  {
-    id: 'seo-services',
-    number: '04',
-    title: 'SEO & TECHNICAL OPTIMIZATION',
-    shortDesc: 'Technical SEO, on-page optimization, site architecture, indexing, metadata, and search visibility.',
-    fullDesc: 'Ensure your website ranks prominently on Google and AI search engines. I implement rigorous technical SEO, clean URL structures, canonical tags, JSON-LD structured data schema, XML sitemaps, and Core Web Vitals speed tuning.',
-    iconName: 'Search',
-    deliverables: [
-      'Complete technical SEO audit & fix plan',
-      'JSON-LD schema markup (Person, WebSite, Product)',
-      'Google Search Console & Analytics integration',
-      'Canonical tags, robots.txt & XML sitemap setup',
-      'Speed optimization & image compression'
-    ]
+      'WordPress & Astra theme setup & styling',
+      'On-page SEO structure & schema readiness',
+      'Asset optimization & caching configuration',
+      'Editorial training & handover notes',
+    ],
   },
   {
     id: 'ui-ux',
-    number: '05',
-    title: 'UI/UX & GRAPHIC DESIGN',
-    shortDesc: 'Modern user interfaces, graphic assets, brand logos, thumbnails, and visual prototypes.',
-    fullDesc: 'Combining visual aesthetics with functional usability. I design clean UI layouts, brand identities, promotional banners, social graphics, and interactive prototypes that elevate your digital presence.',
+    number: '06',
+    title: 'UI/UX & VISUAL DESIGN',
+    shortDesc: 'Clean product interfaces, wireframes, brand marks, and social media visual systems.',
+    fullDesc:
+      'Human-centered visual design combining legible typography, structured whitespace, and consistent brand assets across web products and social channels.',
     iconName: 'Palette',
     deliverables: [
-      'UI/UX layout design & wireframes',
-      'Brand logos, social media banners & thumbnails',
-      'Design systems, typography & color palettes',
-      'High-resolution vector assets'
-    ]
+      'UI/UX wireframes & clean design systems',
+      'Brand visual assets & social graphics',
+      'Consistent typography & color contrast',
+      'Responsive component prototypes',
+    ],
   },
-  {
-    id: 'digital-product',
-    number: '06',
-    title: 'DIGITAL PRODUCT DEVELOPMENT',
-    shortDesc: 'Building practical web tools, SaaS platforms, browser utilities, and product prototypes.',
-    fullDesc: 'Have an idea for a web app or SaaS tool? I translate raw product ideas into live functional web platforms like NEXA POS System and Free Tools Hub, complete with billing, tools, and user analytics.',
-    iconName: 'Zap',
-    deliverables: [
-      'Product architecture & MVP development',
-      'Custom tool & utility widget development',
-      'Subscription model & ledger integrations',
-      'User workflow optimization'
-    ]
-  },
-  {
-    id: 'ai-tech',
-    number: '07',
-    title: 'AI & EMERGING TECH INTEGRATION',
-    shortDesc: 'Integrating modern AI capabilities, intelligent chat/search, and automation into digital web apps.',
-    fullDesc: 'Leverage artificial intelligence to enhance your application. I integrate modern Gemini APIs, automated content processing, intelligent search, and AI-powered recommendations directly into custom web interfaces.',
-    iconName: 'Cpu',
-    deliverables: [
-      'Gemini API & AI model integrations',
-      'AI tool directory & course platform setups',
-      'Automated content synthesis workflows',
-      'Smart search & prompt guidance features'
-    ]
-  }
 ];
 
 export const AEO_FAQS: FAQItem[] = [
   {
     question: 'Who is Hanan Irfan?',
-    answer: 'Hanan Irfan is an 18-year-old multidisciplinary full-stack software developer, entrepreneur, SEO specialist, graphic designer, and AI enthusiast based in Rahim Yar Khan, Punjab, Pakistan. He is currently pursuing a BS in Computer Science at KFUEIT while building modern digital products and web applications.',
-    category: 'General'
+    answer:
+      "Hanan Irfan is a Multidisciplinary Developer, SEO Specialist & Entrepreneur from Rahim Yar Khan, Pakistan. He is a 5th Semester BS Computer Science student at KFUEIT (CGPA 3.65), Founder & AI Developer of The Sports Room, ACM KFUEIT Development Team Head, and Ambassador of D'Educationist.",
+    category: 'General',
   },
   {
-    question: 'What does Hanan Irfan do?',
-    answer: 'Hanan Irfan builds full-stack web applications, SaaS platforms, custom WordPress sites, and digital utilities. He also provides technical SEO optimization, UI/UX graphic design, and AI integration services for businesses and digital platforms.',
-    category: 'General'
+    question: 'What is Hanan Irfan studying?',
+    answer:
+      'Hanan Irfan is pursuing a Bachelor of Science in Computer Science (BSCS) at Khwaja Fareed University of Engineering and Information Technology (KFUEIT) in Rahim Yar Khan, currently in his 5th Semester with a 3.65 CGPA and a Spring 2026 Dean’s Honor Certificate.',
+    category: 'Education',
   },
   {
-    question: 'Where is Hanan Irfan based?',
-    answer: 'Hanan Irfan is based in Rahim Yar Khan, Punjab, Pakistan, where he studies Computer Science at Khwaja Fareed University of Engineering and Information Technology (KFUEIT) and works globally on digital development projects.',
-    category: 'Contact'
+    question: 'What are Hanan Irfan’s core professional areas?',
+    answer:
+      'His core areas span AI Development, Frontend Development, Full-Stack Web Application Development, Search Engine Optimization (SEO), Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), Technical SEO, Keyword Research & Clustering, and Content Strategy.',
+    category: 'Development',
   },
   {
-    question: 'What technologies does Hanan Irfan use?',
-    answer: 'Hanan Irfan works extensively with React, Next.js, JavaScript (ES6+), TypeScript, Tailwind CSS, HTML5, CSS3, C++, Java, Python, SQL, Supabase, Firebase, REST APIs, WordPress, Google Search Console, and Canva/Photoshop.',
-    category: 'Development'
+    question: 'What leadership roles and projects is Hanan Irfan known for?',
+    answer:
+      "Hanan Irfan is Founder and AI Developer of The Sports Room (co-founded with Urwah Farooq, 2026–present), Development Team Head at ACM KFUEIT, and Campus Ambassador of D'Educationist. His deployed software products include The Sports Room, NEXA POS System, Free Tools Hub, AI Tool Guide, and HI Digital Group.",
+    category: 'Development',
   },
   {
-    question: 'What projects has Hanan Irfan built?',
-    answer: 'Hanan Irfan has built prominent web projects including NEXA POS System (a business management SaaS), Free Tools Hub (a web tools platform), AI Tool Guide, HI Digital Group agency hub, ACM KFUEIT community portal, AI Course platform, and several specialized web experiences.',
-    category: 'Development'
+    question: 'How does Hanan Irfan approach SEO, AEO, and GEO?',
+    answer:
+      'He combines technical crawlability, Schema.org structured data, Core Web Vitals performance, keyword clustering, and clear answer-first content strategy so websites perform well in both traditional search engines and AI answer engines.',
+    category: 'SEO',
   },
   {
-    question: 'Is Hanan Irfan a full-stack developer?',
-    answer: 'Yes, Hanan Irfan is a full-stack developer skilled in frontend component design with React and Tailwind CSS, as well as backend logic, database management with Supabase/Firebase/SQL, REST APIs, authentication, and cloud deployment.',
-    category: 'Development'
+    question: 'How can I contact Hanan Irfan?',
+    answer:
+      'You can reach Hanan Irfan directly via email at hananirfan91@gmail.com, on the Contact page at https://hanan56.vercel.app/contact, or on X (@hananirfan91), LinkedIn (linkedin.com/in/hananirfan), and Instagram (@hananirfan2026).',
+    category: 'Contact',
   },
-  {
-    question: 'Does Hanan Irfan provide web development services?',
-    answer: 'Yes, Hanan Irfan provides custom web development, full-stack application development, WordPress customization, speed optimization, and digital product building through his portfolio and HI Digital Group.',
-    category: 'General'
-  },
-  {
-    question: 'Does Hanan Irfan work with SEO?',
-    answer: 'Yes, Hanan Irfan is a technical SEO specialist who optimizes websites for search engine crawlability, structured data schema (JSON-LD), canonical links, XML sitemaps, Core Web Vitals speed, and on-page keyword rankings.',
-    category: 'SEO'
-  },
-  {
-    question: "What is Hanan Irfan's educational background?",
-    answer: 'Hanan Irfan is currently an undergraduate Computer Science student pursuing a Bachelor of Science in Computer Science (BSCS) at Khwaja Fareed University of Engineering and Information Technology (KFUEIT) in Rahim Yar Khan, Pakistan.',
-    category: 'Education'
-  },
-  {
-    question: 'How can someone contact Hanan Irfan?',
-    answer: 'You can contact Hanan Irfan directly via email at hananirfan91@gmail.com, or through his social channels on LinkedIn (hananirfan), Instagram (hananirfan2026), Facebook (HananIrfan001), or by submitting the contact form on his official portfolio website.',
-    category: 'Contact'
-  }
 ];

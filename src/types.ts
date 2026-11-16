@@ -1,11 +1,36 @@
-export type PageId = 'home' | 'about' | 'skills' | 'experience' | 'projects' | 'services' | 'web-development' | 'seo-expert' | 'graphic-design' | 'contact' | 'privacy' | 'terms';
+export type PageId =
+  | 'home'
+  | 'about'
+  | 'skills'
+  | 'experience'
+  | 'projects'
+  | 'services'
+  | 'web-development'
+  | 'seo-expert'
+  | 'graphic-design'
+  | 'contact'
+  | 'privacy-policy'
+  | 'terms-and-conditions'
+  | 'disclaimer'
+  | 'privacy'
+  | 'terms';
 
 export interface Project {
   id: string;
   number: string;
   title: string;
   url: string;
-  category: 'SaaS' | 'Web Tools' | 'AI' | 'Portfolio' | 'Agency' | 'Education' | 'Web Project' | 'Content' | 'Creative Web Project' | 'Web Development & SEO';
+  category:
+    | 'SaaS'
+    | 'Web Tools'
+    | 'AI'
+    | 'Portfolio'
+    | 'Agency'
+    | 'Education'
+    | 'Web Project'
+    | 'Content'
+    | 'Creative Web Project'
+    | 'Web Development & SEO';
   filterCategory: 'WEB' | 'SAAS' | 'AI' | 'TOOLS' | 'DESIGN';
   description: string;
   featured?: boolean;
@@ -29,7 +54,7 @@ export interface SkillCategory {
   name: string;
   skills: {
     name: string;
-    level: number; // 1-100
+    level: number;
     description: string;
     highlight?: boolean;
   }[];

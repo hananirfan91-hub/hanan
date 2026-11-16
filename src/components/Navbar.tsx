@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PageId } from '../types';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import { Menu, X, Volume2, VolumeX, Sparkles, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   currentPage: PageId;
@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentPage,
   onNavigate,
   audioEnabled,
-  toggleAudio
+  toggleAudio,
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -23,64 +23,56 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-
+      setScrolled(window.scrollY > 20);
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
         setScrollProgress((window.scrollY / totalScroll) * 100);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navItems: { id: PageId; label: string }[] = [
-    { id: 'home', label: 'HOME' },
-    { id: 'about', label: 'ABOUT' },
-    { id: 'projects', label: 'PROJECTS' },
-    { id: 'web-development', label: 'WEB DEV' },
-    { id: 'seo-expert', label: 'SEO' },
-    { id: 'graphic-design', label: 'DESIGN' },
-    { id: 'services', label: 'SERVICES' },
-    { id: 'contact', label: 'CONTACT' }
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'services', label: 'Services' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   const handleNavClick = (page: PageId) => {
     onNavigate(page);
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-300 ${
           scrolled
-            ? 'bg-[#07080c]/85 backdrop-blur-xl border-b border-white/10 py-3 shadow-2xl shadow-purple-950/20'
-            : 'bg-transparent py-5'
+            ? 'bg-[#080D1B]/88 backdrop-blur-xl border-b border-white/[0.12] py-3 shadow-[0_8px_32px_rgba(4,8,20,0.65)]'
+            : 'bg-[#080D1B]/65 backdrop-blur-lg border-b border-white/[0.08] py-4'
         }`}
       >
-        {/* Scroll Progress Bar Indicator */}
         <div
-          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-purple-500 via-indigo-400 to-cyan-400 transition-all duration-150"
+          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           <button
+            type="button"
             onClick={() => handleNavClick('home')}
-            className="group text-left focus:outline-none flex items-center gap-3"
+            className="group text-left flex items-center gap-3 shrink-0 cursor-pointer"
             id="nav-brand-logo"
           >
-            <div className="w-10 h-10 rounded-xl overflow-hidden border border-purple-500/40 shadow-lg shadow-purple-600/30 group-hover:scale-105 transition-all">
+            <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/[0.16] group-hover:border-[#3B82F6] transition-colors shrink-0 bg-[#0D1425]">
               <img
                 src="/avatar.webp"
-                alt="Hanan Irfan Avatar"
+                alt="Hanan Irfan portrait"
                 width={40}
                 height={40}
                 loading="eager"
@@ -96,140 +88,170 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
             <div>
-              <span className="font-display font-black text-2xl tracking-wider text-white group-hover:text-purple-400 transition-colors block leading-none text-glow">
-                {PERSONAL_INFO.primaryBrand}
+              <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors block leading-none whitespace-nowrap">
+                {PERSONAL_INFO.name}
               </span>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 group-hover:text-purple-300 transition-colors">
-                Hanan Irfan
+              <span className="text-[11px] font-mono text-[#94A3B8] block mt-0.5 whitespace-nowrap">
+                Developer &amp; SEO Specialist
               </span>
             </div>
           </button>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-1.5 glass-card rounded-full px-4 py-1.5 border border-white/10">
+          <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => {
               const isActive = currentPage === item.id;
               return (
                 <button
+                  type="button"
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
                   id={`nav-link-${item.id}`}
-                  className={`relative px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all duration-300 ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`relative px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                     isActive
-                      ? 'text-white'
-                      : 'text-slate-400 hover:text-slate-100 hover:bg-white/5'
+                      ? 'text-[#F8FAFC]'
+                      : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-white/[0.06]'
                   }`}
                 >
                   {isActive && (
-                    <motion.div
-                      layoutId="activeNavIndicator"
-                      className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full z-[-1] shadow-lg shadow-purple-600/40"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    <motion.span
+                      layoutId="navbar-active-tab"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      className="absolute inset-0 rounded-xl bg-[#3B82F6] shadow-[0_0_20px_rgba(59,130,246,0.35)] -z-10"
                     />
                   )}
-                  {item.label}
+                  <span className="relative z-10">{item.label}</span>
                 </button>
               );
             })}
           </nav>
 
-          {/* Right Action Controls */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Audio Toggle */}
-            <button
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.94 }}
               onClick={toggleAudio}
-              className="p-2.5 rounded-xl glass-card border border-white/10 text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all text-xs flex items-center gap-1.5"
-              title={audioEnabled ? 'Mute Ambient Audio' : 'Enable Ambient Sound'}
+              className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#3B82F6]/50 transition-colors cursor-pointer"
+              title={audioEnabled ? 'Mute background music' : 'Play background music'}
+              aria-label={audioEnabled ? 'Mute background music' : 'Play background music'}
               id="btn-audio-toggle"
             >
               {audioEnabled ? (
-                <>
-                  <Volume2 className="w-4 h-4 text-purple-400 animate-pulse" />
-                  <span className="text-[10px] font-mono text-purple-300 hidden md:inline">AUDIO ON</span>
-                </>
+                <Volume2 className="w-4 h-4 text-[#3B82F6]" />
               ) : (
-                <>
-                  <VolumeX className="w-4 h-4 text-slate-400" />
-                  <span className="text-[10px] font-mono text-slate-500 hidden md:inline">SOUND</span>
-                </>
+                <VolumeX className="w-4 h-4 text-[#94A3B8]" />
               )}
-            </button>
+            </motion.button>
 
-            {/* Let's Work Together CTA */}
-            <button
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => handleNavClick('contact')}
               id="btn-nav-contact"
-              className="relative group overflow-hidden rounded-xl px-5 py-2.5 text-xs font-extrabold tracking-wider bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white shadow-xl shadow-purple-600/25 hover:shadow-purple-600/40 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-1.5"
+              className="rounded-xl px-4 py-2.5 text-xs font-bold bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] shadow-[0_0_24px_rgba(59,130,246,0.28)] transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>LET'S WORK TOGETHER</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </button>
+              <span>Connect</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </motion.button>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 lg:hidden">
             <button
+              type="button"
               onClick={toggleAudio}
-              className="p-2 rounded-lg glass-card text-slate-300"
+              aria-label={audioEnabled ? 'Mute background music' : 'Play background music'}
+              className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] cursor-pointer"
             >
-              {audioEnabled ? <Volume2 className="w-4 h-4 text-purple-400" /> : <VolumeX className="w-4 h-4" />}
+              {audioEnabled ? <Volume2 className="w-4 h-4 text-[#3B82F6]" /> : <VolumeX className="w-4 h-4 text-[#94A3B8]" />}
             </button>
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               id="btn-mobile-menu-toggle"
-              className="p-2.5 rounded-xl glass-card border border-white/10 text-white hover:text-purple-400 transition-colors"
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
+              className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] hover:bg-white/[0.1] transition-colors cursor-pointer"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Fullscreen Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#07080c]/98 backdrop-blur-2xl flex flex-col justify-between p-6 pt-28 lg:hidden"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[#080D1B]/95 backdrop-blur-2xl pt-24 pb-8 px-6 flex flex-col justify-between overflow-y-auto lg:hidden"
           >
-            <div className="flex flex-col gap-3">
-              <span className="text-xs font-mono text-purple-400 tracking-widest uppercase mb-2">
-                // NAVIGATION MENU
-              </span>
-              {navItems.map((item, idx) => {
-                const isActive = currentPage === item.id;
-                return (
-                  <motion.button
-                    key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                    onClick={() => handleNavClick(item.id)}
-                    className={`text-left text-2xl font-display font-black tracking-wider py-2 transition-all flex items-center justify-between border-b border-white/5 ${
-                      isActive ? 'text-purple-400 pl-3 border-purple-500/40' : 'text-slate-300 hover:text-white'
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    <span className="text-xs font-mono text-slate-500">0{idx + 1}</span>
-                  </motion.button>
-                );
-              })}
+            <div className="space-y-6">
+              <div>
+                <p className="text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] mb-3">
+                  Navigation
+                </p>
+                <div className="flex flex-col divide-y divide-white/[0.08]">
+                  {navItems.map((item) => {
+                    const isActive = currentPage === item.id;
+                    return (
+                      <button
+                        type="button"
+                        key={item.id}
+                        onClick={() => handleNavClick(item.id)}
+                        className={`text-left text-lg font-display font-bold py-3.5 transition-colors flex items-center justify-between cursor-pointer ${
+                          isActive ? 'text-[#3B82F6]' : 'text-[#F8FAFC] hover:text-[#3B82F6]'
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        <ArrowUpRight className="w-4 h-4 text-[#94A3B8]" />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] mb-2">
+                  Specialties &amp; Legal
+                </p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  {(
+                    [
+                      { id: 'web-development', label: 'Web Development' },
+                      { id: 'seo-expert', label: 'SEO & AEO' },
+                      { id: 'graphic-design', label: 'UI & Design' },
+                      { id: 'privacy-policy', label: 'Privacy Policy' },
+                      { id: 'terms-and-conditions', label: 'Terms' },
+                      { id: 'disclaimer', label: 'Disclaimer' },
+                    ] as { id: PageId; label: string }[]
+                  ).map((sub) => (
+                    <button
+                      type="button"
+                      key={sub.id}
+                      onClick={() => handleNavClick(sub.id)}
+                      className="text-left px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] font-medium hover:border-[#3B82F6]/50 transition-colors cursor-pointer"
+                    >
+                      {sub.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <div className="mt-8 space-y-4">
+            <div className="pt-6 border-t border-white/[0.1] space-y-3">
               <button
+                type="button"
                 onClick={() => handleNavClick('contact')}
-                className="w-full py-4 rounded-xl font-display font-extrabold text-sm tracking-wider bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-xl shadow-purple-600/30 flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl font-bold text-sm bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] transition-colors cursor-pointer"
               >
-                <Sparkles className="w-4 h-4" /> START A PROJECT
+                Get Contact Channels
               </button>
-              <div className="text-center text-xs text-slate-400 font-mono">
-                Rahim Yar Khan, Punjab, Pakistan
-              </div>
+              <p className="text-center text-xs text-[#94A3B8] font-mono">
+                {PERSONAL_INFO.location} &bull; {PERSONAL_INFO.education.semester}
+              </p>
             </div>
           </motion.div>
         )}

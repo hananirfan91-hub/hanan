@@ -1,7 +1,22 @@
 {
+  "headers": [
+    {
+      "source": "/.well-known/assetlinks.json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!\\.well-known/|assets/|images/|manifest\\.webmanifest|sw\\.js|sitemap\\.xml|robots\\.txt|.*\\.).*)",
       "destination": "/index.html"
     }
   ]

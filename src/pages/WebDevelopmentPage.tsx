@@ -1,7 +1,17 @@
 import React from 'react';
 import { PageId } from '../types';
-import { SplitTextReveal } from '../components/animations/SplitTextReveal';
-import { Code2, Globe, Cpu, Layout, CheckCircle2, ArrowRight, Sparkles, Server, Zap } from 'lucide-react';
+import { PERSONAL_INFO } from '../data/portfolioData';
+import {
+  Code2,
+  Globe,
+  Cpu,
+  Layout,
+  CheckCircle2,
+  ArrowRight,
+  Sparkles,
+  Server,
+  Zap,
+} from 'lucide-react';
 
 interface WebDevelopmentPageProps {
   onNavigate: (page: PageId) => void;
@@ -10,179 +20,190 @@ interface WebDevelopmentPageProps {
 export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({ onNavigate }) => {
   const capabilities = [
     {
-      title: 'Full Stack Developer in Rahim Yar Khan',
-      desc: 'Complete end-to-end web architectures built using React, Next.js, Node.js, and TypeScript. Robust backend APIs and modern interfaces for businesses in RYK.',
-      icon: Code2
+      title: 'Full-Stack Web Engineering',
+      desc: 'End-to-end web architectures built with React, Next.js, TypeScript, REST APIs, Firebase, and Supabase PostgreSQL.',
+      icon: Code2,
     },
     {
-      title: 'Front End Developer in RYK',
-      desc: 'Pixel-perfect, high-performance UI engineering with Tailwind CSS and Framer Motion. Lightning fast page loads with clean component structures.',
-      icon: Layout
+      title: 'Frontend UI Engineering',
+      desc: 'Responsive, high-contrast user interfaces with Tailwind CSS, clean component composition, and accessible navigation.',
+      icon: Layout,
     },
     {
-      title: 'Backend Developer in Rahim Yar Khan',
-      desc: 'Secure server-side API integration, REST services, database architecture, and authentication systems designed for scalable client operations.',
-      icon: Server
+      title: 'Backend & Data Integrations',
+      desc: 'Structured database schemas, validation workflows, and role-based application access tailored to practical needs.',
+      icon: Server,
     },
     {
-      title: 'React Developer in Rahim Yar Khan',
-      desc: 'Interactive Single Page Applications (SPAs) and dynamic web platforms engineered with modular React components and state management.',
-      icon: Cpu
+      title: 'React & TypeScript SPAs',
+      desc: 'Maintainable single-page applications and multi-view dashboards engineered with strict TypeScript contracts.',
+      icon: Cpu,
     },
     {
-      title: 'WordPress Website Developer in RYK',
-      desc: 'Custom WordPress theme customization, WooCommerce online stores, speed optimization, and CMS management for local business growth.',
-      icon: Globe
+      title: 'WordPress & CMS Performance',
+      desc: 'Custom Astra layouts, clean permalink hierarchy, asset compression, and practical publishing workflows.',
+      icon: Globe,
     },
     {
-      title: 'Responsive Website Developer in RYK',
-      desc: 'Mobile-first design principles ensuring flawless rendering across mobile, tablet, laptop, and desktop viewports.',
-      icon: Zap
-    }
+      title: 'Mobile-First & PWA Readiness',
+      desc: 'Responsive layouts tested across phones, tablets, and desktops with offline-resilient PWA support.',
+      icon: Zap,
+    },
   ];
 
   const featuresList = [
-    'Custom React & Next.js Web App Development',
-    'WordPress Developer in Rahim Yar Khan Solutions',
-    'Speed & Performance Optimization (100/100 Lighthouse)',
-    'E-Commerce & Payment Gateway Integration',
-    'Responsive Website Developer in RYK Mobile Compatibility',
-    'Clean Code & SEO-Friendly Semantic HTML'
+    'Custom React, Next.js & TypeScript web applications',
+    'WordPress & lightweight CMS implementations',
+    'Core Web Vitals & bundle size optimization',
+    'Database modeling with Supabase & Firebase',
+    'Mobile-first responsive layouts & TWA compatibility',
+    'Semantic HTML5 & Schema.org structured metadata',
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-      
-      {/* HEADER SECTION */}
+      {/* Header */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// SPECIALIZED SERVICE</span>
-          <span className="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-mono border border-purple-500/30">
-            RAHIM YAR KHAN (RYK)
+        <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#94A3B8]">
+          <span className="font-semibold text-[#3B82F6] uppercase tracking-wider">
+            Web Development Practice
           </span>
+          <span aria-hidden="true">&middot;</span>
+          <span>{PERSONAL_INFO.location}</span>
         </div>
 
-        <SplitTextReveal
-          text="Web Development Services in Rahim Yar Khan"
-          as="h1"
-          className="text-3xl sm:text-6xl font-black font-display text-white tracking-wide text-glow leading-tight"
-        />
+        <h1 className="text-3xl sm:text-6xl font-black font-display text-[#F8FAFC] tracking-tight leading-tight">
+          Full-Stack &amp; Frontend Web Development
+        </h1>
 
-        <p className="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed">
-          Looking for a <strong>Web Developer in Rahim Yar Khan</strong> or <strong>Web Developer in RYK</strong>? Hanan Irfan provides custom <strong>Website Development Services in RYK</strong>, building fast, modern, and SEO-optimized web applications for local and international clients.
+        <p className="text-[#94A3B8] text-base sm:text-lg max-w-3xl leading-relaxed">
+          {PERSONAL_INFO.name} designs and builds fast, accessible, search-ready web applications using React, Next.js, TypeScript, Tailwind CSS, and WordPress for clients in Rahim Yar Khan and globally.
         </p>
 
         <div className="pt-2 flex flex-wrap gap-3">
           <button
+            type="button"
             onClick={() => onNavigate('contact')}
-            className="px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-display font-bold text-xs tracking-wider shadow-xl shadow-purple-600/30 flex items-center gap-2"
+            className="px-6 py-3 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-xs tracking-wide transition-colors inline-flex items-center gap-2 cursor-pointer"
           >
-            <Sparkles className="w-4 h-4" /> HIRE WEB DEVELOPER IN RYK
+            <Sparkles className="w-4 h-4" /> Discuss a Web Project
           </button>
           <button
+            type="button"
             onClick={() => onNavigate('projects')}
-            className="px-6 py-3 rounded-2xl glass-card text-slate-300 hover:text-white border border-white/10 hover:border-purple-500/40 text-xs font-mono flex items-center gap-2"
+            className="px-6 py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-[#F8FAFC] border border-white/[0.12] text-xs font-mono font-semibold inline-flex items-center gap-2 cursor-pointer transition-colors"
           >
-            VIEW WEB PROJECTS <ArrowRight className="w-4 h-4" />
+            View Live Projects <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* OVERVIEW SECTION */}
-      <section className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/30 bg-gradient-to-br from-[#0c0e1e] via-[#080a18] to-[#0d1024] space-y-6">
-        <h2 className="text-2xl sm:text-4xl font-bold font-display text-white">
-          Professional Web Developer in RYK &amp; Rahim Yar Khan
+      {/* Overview */}
+      <section className="surface-card rounded-3xl p-7 sm:p-10 space-y-6">
+        <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+          Practical Engineering from Architecture to Deployment
         </h2>
-        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-          As a premier <strong>Website Developer in Rahim Yar Khan</strong> and experienced <strong>Full Stack Developer in RYK</strong>, I specialize in crafting bespoke digital experiences that drive real business results. Whether you need a corporate business website, a SaaS web platform, or a responsive WooCommerce store, my <strong>Website Development in Rahim Yar Khan</strong> guarantees maximum speed, security, and top search engine rankings.
+        <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed max-w-4xl">
+          Whether building an independent SaaS tool, an editorial platform like The Sports Room, or a responsive business website, every build prioritizes clean code maintainability, mobile ergonomics, and strong search visibility.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-          {featuresList.map((feat, i) => (
-            <div key={i} className="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-xs font-medium">
-              <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-2">
+          {featuresList.map((feat) => (
+            <div
+              key={feat}
+              className="flex items-center gap-3 p-3.5 rounded-xl bg-[#0D1425]/80 border border-white/[0.1] text-[#F8FAFC]/90 text-xs font-medium"
+            >
+              <CheckCircle2 className="w-4 h-4 text-[#3B82F6] shrink-0" />
               <span>{feat}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CAPABILITIES & SERVICES GRID */}
+      {/* Capabilities Grid */}
       <section className="space-y-8">
         <div className="space-y-2">
-          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">// CORE SPECIALIZATIONS</span>
-          <h2 className="text-2xl sm:text-4xl font-bold font-display text-white">
-            Website Development Services in RYK
+          <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+            Core Specializations
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-[#F8FAFC]">
+            Web Engineering Capabilities
           </h2>
-          <p className="text-slate-400 text-sm">
-            Comprehensive development packages delivered by a <strong>Freelance Web Developer in Rahim Yar Khan</strong>.
+          <p className="text-[#94A3B8] text-sm">
+            Modern development stack tailored to clean performance and reliable scaling.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {capabilities.map((item, idx) => {
+          {capabilities.map((item) => {
             const Icon = item.icon;
             return (
               <div
-                key={idx}
-                className="glass-card rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 hover:bg-white/[0.03] transition-all space-y-4 group"
+                key={item.title}
+                className="surface-card surface-card-hover rounded-2xl p-6 space-y-4 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform">
-                  <Icon className="w-6 h-6" />
+                <div className="w-11 h-11 rounded-xl bg-[#3B82F6]/15 border border-[#3B82F6]/30 flex items-center justify-center text-[#3B82F6]">
+                  <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold font-display text-white group-hover:text-purple-300 transition-colors">
+                <h3 className="text-lg font-bold font-display text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-slate-300 text-xs leading-relaxed">
-                  {item.desc}
-                </p>
+                <p className="text-[#94A3B8] text-xs leading-relaxed">{item.desc}</p>
               </div>
             );
           })}
         </div>
       </section>
 
-      {/* DETAILED SERVICE BREAKDOWN */}
+      {/* Collaboration Card */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div className="space-y-6">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// WHY WORK WITH HANAN IRFAN</span>
-          <h2 className="text-2xl sm:text-4xl font-bold font-display text-white">
-            Freelance Web Developer in RYK
+        <div className="space-y-5">
+          <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+            Working Together
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+            Direct Engineering &amp; Clear Communication
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-            Working as a <strong>Freelance Web Developer in Rahim Yar Khan</strong>, I handle every phase of website development personally — from initial wireframing to production deployment and technical support. Every site built by a <strong>Professional Web Developer in RYK</strong> includes:
+          <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed">
+            Every project is handled personally from initial wireframing to deployment and post-launch checks:
           </p>
-          <ul className="space-y-3 text-xs sm:text-sm text-slate-300">
+          <ul className="space-y-3 text-xs sm:text-sm text-[#94A3B8]">
             <li className="flex items-start gap-3">
-              <span className="w-2 h-2 rounded-full bg-purple-400 mt-2 shrink-0" />
-              <span><strong>React Developer in Rahim Yar Khan:</strong> Built with cutting-edge UI frameworks for modern interactive web applications.</span>
+              <span className="w-2 h-2 rounded-full bg-[#3B82F6] mt-2 shrink-0" />
+              <span>
+                <strong className="text-[#F8FAFC]">React &amp; Next.js:</strong> Component-driven architectures designed for responsive speed and maintainability.
+              </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 mt-2 shrink-0" />
-              <span><strong>WordPress Developer in Rahim Yar Khan:</strong> User-friendly content management systems tailored for client independence.</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 mt-2 shrink-0" />
+              <span>
+                <strong className="text-[#F8FAFC]">WordPress &amp; CMS:</strong> Clean theme setups structured for straightforward editorial updates.
+              </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-2 h-2 rounded-full bg-indigo-400 mt-2 shrink-0" />
-              <span><strong>Full Stack Developer in Rahim Yar Khan:</strong> Complete database, server API, and client-side web synchronization.</span>
+              <span className="w-2 h-2 rounded-full bg-[#8B5CF6] mt-2 shrink-0" />
+              <span>
+                <strong className="text-[#F8FAFC]">Full-Stack Integrations:</strong> Connected databases, authentication flows, and structured SEO.
+              </span>
             </li>
           </ul>
         </div>
 
-        <div className="glass-card rounded-3xl p-8 border border-white/10 space-y-6 bg-black/40">
-          <h3 className="text-xl font-bold font-display text-white">
-            Website Developer in Rahim Yar Khan — Custom Quote
+        <div className="surface-card rounded-3xl p-8 space-y-5 border-[#3B82F6]/30 bg-gradient-to-br from-[#3B82F6]/10 via-white/[0.04] to-[#8B5CF6]/10">
+          <h3 className="text-xl font-bold font-display text-[#F8FAFC]">
+            Start a Web Development Scope
           </h3>
-          <p className="text-slate-400 text-xs leading-relaxed">
-            Ready to launch your project with a top-rated <strong>Website Developer in Rahim Yar Khan</strong>? Contact Hanan Irfan today for a free project timeline and technical strategy proposal.
+          <p className="text-[#94A3B8] text-xs sm:text-sm leading-relaxed">
+            Share your project brief, timeline, or technical requirements via email or social channels to discuss architecture and next steps.
           </p>
           <button
+            type="button"
             onClick={() => onNavigate('contact')}
-            className="w-full py-3.5 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-display font-bold text-xs tracking-wider shadow-lg shadow-purple-600/30 transition-all flex items-center justify-center gap-2"
+            className="w-full py-3.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-xs tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer"
           >
-            REQUEST FREE CONSULTATION <ArrowRight className="w-4 h-4" />
+            View Contact Channels <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </section>
-
     </div>
   );
 };

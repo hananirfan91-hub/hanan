@@ -1,16 +1,94 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { PageId, Project } from '../types';
 import { PERSONAL_INFO, PROJECTS, SERVICES, EXPERIENCE_ITEMS } from '../data/portfolioData';
 import { Project3DCarousel } from '../components/Project3DCarousel';
-import { SplitTextReveal } from '../components/animations/SplitTextReveal';
-import { Parallax3DCard } from '../components/animations/Parallax3DCard';
-import { ArrowUpRight, Sparkles, Terminal, ChevronDown, Cpu, Globe, Rocket, ExternalLink, ShieldCheck, GraduationCap, Award, X, ZoomIn, FileText } from 'lucide-react';
+import { SpotlightCard } from '../components/SpotlightCard';
+import { EditorialMarquee } from '../components/EditorialMarquee';
+import { MotionReveal, AnimatedStat } from '../components/MotionReveal';
+import {
+  ArrowUpRight,
+  Cpu,
+  ExternalLink,
+  GraduationCap,
+  Award,
+  X,
+  ZoomIn,
+  FileText,
+  Download,
+  CheckCircle2,
+  MapPin,
+} from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
   onSelectProject: (project: Project) => void;
 }
+
+const GOOGLE_AI_BADGES = [
+  {
+    title: 'Google AI Fundamentals',
+    type: 'Credly Verified',
+    date: '15 Nov 2026',
+    image: '/images/certificates/google-ai-fundamentals-2026.webp',
+    fallbackImage: '/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg',
+    verifyUrl: 'https://www.credly.com/go/TWCMECRu',
+    subtitle: 'Issued by Coursera & Google • ID: COSC241103038',
+    width: 3300,
+    height: 2550,
+  },
+  {
+    title: 'Google AI for Writing and Communicating',
+    type: 'Credly Verified',
+    date: '15 Nov 2026',
+    image: '/images/certificates/google-ai-writing-communicating-2026.webp',
+    fallbackImage: '/assets/aistudio/GoogleAIforWritingandCommunicating_Badge20261115-21-pheskb_page-0001_9dfedb0c.jpg',
+    verifyUrl: 'https://www.credly.com/go/NBK5o3WH',
+    subtitle: 'Issued by Coursera & Google • ID: COSC241103038',
+    width: 3300,
+    height: 2550,
+  },
+  {
+    title: 'Google AI for Brainstorming and Planning',
+    type: 'Credly Verified',
+    date: '15 Nov 2026',
+    image: '/images/certificates/google-ai-brainstorming-planning-2026.webp',
+    fallbackImage: '/assets/aistudio/GoogleAIforBrainstormingandPlanning_Badge20261115-21-nn2tzk_page-0001_02066a5f.jpg',
+    verifyUrl: 'https://www.credly.com/go/oBw1opSn',
+    subtitle: 'Issued by Coursera & Google • ID: COSC241103038',
+    width: 3300,
+    height: 2550,
+  },
+  {
+    title: 'Google AI for App Building',
+    type: 'Google AI Badge',
+    date: '16 Nov 2026',
+    image: '/images/certificates/google-ai-app-building-2026.webp',
+    fallbackImage: '/assets/aistudio/image_6e63b403.png',
+    verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
+    subtitle: 'Google AI Professional Certificate • Coursera & Google',
+    width: 1080,
+    height: 1080,
+  },
+  {
+    title: 'Google AI for Data Analysis',
+    type: 'Google AI Badge',
+    date: '16 Nov 2026',
+    image: '/images/certificates/google-ai-data-analysis-2026.webp',
+    fallbackImage: '/assets/aistudio/image_d10e45e6.png',
+    verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
+    subtitle: 'Google AI Professional Certificate • Coursera & Google',
+    width: 1080,
+    height: 1080,
+  },
+];
+
+const HERO_ROLES = [
+  'Multidisciplinary Developer, SEO Specialist & Entrepreneur',
+  'Full-Stack React, Next.js & TypeScript Engineer',
+  'AI Developer & Prompt Workflow Architect',
+  'Technical SEO, AEO & GEO Strategist',
+];
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject }) => {
   const [activeCertificate, setActiveCertificate] = useState<{
@@ -21,284 +99,280 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
     verifyUrl?: string;
     pdfUrl?: string;
   } | null>(null);
+  const [roleIndex, setRoleIndex] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const interval = window.setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % HERO_ROLES.length);
+    }, 3400);
+    return () => window.clearInterval(interval);
+  }, [shouldReduceMotion]);
+
+  useEffect(() => {
+    if (!activeCertificate) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveCertificate(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [activeCertificate]);
 
   return (
-    <div className="space-y-24 sm:space-y-32 pb-20">
-      
-      {/* ================= SECTION 1: HERO SECTION ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-12 overflow-hidden"
-      >
-        {/* Abstract Background Ambient Glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/15 rounded-full blur-[140px] pointer-events-none animate-pulse-glow" />
-        <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center sm:text-left">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Hero Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              {/* HELLO I'M */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-xs font-semibold"
-              >
-                <span className="w-2 h-2 rounded-full bg-purple-400 animate-ping" />
-                <span>HELLO, I'M</span>
-              </motion.div>
-
-              {/* Large Brand Title HANAN */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="space-y-1"
-              >
-                <h1 className="text-6xl sm:text-8xl lg:text-9xl font-black font-display tracking-tight text-white leading-none text-glow">
-                  {PERSONAL_INFO.primaryBrand}
-                </h1>
-                <div className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-400 font-display">
-                  {PERSONAL_INFO.name}
-                </div>
-              </motion.div>
-
-              {/* Tagline */}
-              <motion.h2
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg sm:text-xl font-bold text-purple-200/90 tracking-wide font-display max-w-2xl"
-              >
-                Full-Stack Software Developer & Digital Creator
-              </motion.h2>
-
-              {/* Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl"
-              >
-                "Building digital experiences that move people and technology forward." I build modern web applications, digital products, and practical software solutions while combining full-stack engineering, design, technical SEO, and emerging AI technologies.
-              </motion.p>
-
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-2"
-              >
-                <button
-                  onClick={() => onNavigate('projects')}
-                  className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white font-display font-extrabold text-xs tracking-wider shadow-2xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
-                >
-                  <Sparkles className="w-4 h-4" /> VIEW MY WORK
-                </button>
-                <button
-                  onClick={() => onNavigate('contact')}
-                  className="px-7 py-3.5 rounded-2xl glass-card border border-white/15 text-white hover:border-purple-500/50 hover:bg-white/5 font-display font-bold text-xs tracking-wider transition-all flex items-center gap-2"
-                >
-                  <span>LET'S CONNECT</span>
-                  <ArrowUpRight className="w-4 h-4 text-purple-400" />
-                </button>
-              </motion.div>
-
-              {/* Key Location Badges */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="pt-4 flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400"
-              >
-                <div className="flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Rahim Yar Khan, Pakistan</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>BSCS @ KFUEIT</span>
-                </div>
-              </motion.div>
-
+    <div className="space-y-20 sm:space-y-24 pb-20">
+      {/* ================= HERO SECTION ================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12 space-y-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6"
+          >
+            <div className="flex flex-wrap items-center gap-2 text-[#3B82F6] font-mono text-xs font-semibold">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>{PERSONAL_INFO.location}</span>
+              <span aria-hidden="true" className="text-[#94A3B8]/50">&middot;</span>
+              <span className="text-[#94A3B8]">BSCS 5th Semester &bull; CGPA 3.65</span>
             </div>
 
-            {/* Hero Right Code Card / Interactive UI Box */}
-            <div className="lg:col-span-5">
-              <Parallax3DCard parallaxSpeed={12}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="relative glass-card rounded-3xl p-6 border border-purple-500/30 shadow-2xl shadow-purple-950/40 bg-[#0b0d18]/85 overflow-hidden"
-                >
-                  {/* Header Dots */}
-                  <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                      <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                    </div>
-                    <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1">
-                      <Terminal className="w-3.5 h-3.5 text-purple-400" /> hanan.config.ts
-                    </span>
+            <div className="space-y-3">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black font-display tracking-tight text-[#F8FAFC] leading-[1.05]">
+                {PERSONAL_INFO.name}
+              </h1>
+              <div className="min-h-[2.25rem] sm:min-h-[2.5rem] flex items-center overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={roleIndex}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
+                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#8B5CF6] bg-clip-text text-transparent font-display"
+                  >
+                    {HERO_ROLES[roleIndex]}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            <p className="text-[#94A3B8] text-base sm:text-lg leading-relaxed max-w-2xl">
+              {PERSONAL_INFO.bioSummary}
+            </p>
+
+            {/* Primary CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <motion.button
+                type="button"
+                whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                onClick={() => onNavigate('projects')}
+                className="group px-6 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-sm shadow-[0_0_28px_rgba(59,130,246,0.28)] transition-all inline-flex items-center gap-2 cursor-pointer"
+              >
+                <span>Explore Projects</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </motion.button>
+              <motion.button
+                type="button"
+                whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                onClick={() => onNavigate('contact')}
+                className="px-6 py-3.5 rounded-xl bg-white/[0.05] border border-white/[0.14] hover:border-[#3B82F6]/50 hover:bg-white/[0.08] text-[#F8FAFC] font-semibold text-sm transition-all inline-flex items-center gap-2 cursor-pointer"
+              >
+                <span>Direct Contact</span>
+              </motion.button>
+            </div>
+
+            {/* Clean Typographic Highlights */}
+            <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-[#94A3B8]">
+              <span>Founder &amp; AI Developer — The Sports Room</span>
+              <span aria-hidden="true" className="text-white/25">&middot;</span>
+              <span>ACM KFUEIT Dev Team Head</span>
+              <span aria-hidden="true" className="text-white/25">&middot;</span>
+              <span>Ambassador of D&apos;Educationist</span>
+            </div>
+          </motion.div>
+
+          {/* Right Glass Portrait & Verified Profile Card */}
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5"
+          >
+            <SpotlightCard className="rounded-3xl p-6 sm:p-7 border-[#3B82F6]/25">
+              <div className="space-y-5">
+                <div className="flex items-center gap-4">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border border-[#3B82F6]/40 shadow-[0_0_24px_rgba(59,130,246,0.18)] shrink-0 bg-[#0D1425] group/avatar">
+                    <img
+                      src="/avatar.webp"
+                      alt="Hanan Irfan — Developer & SEO Specialist"
+                      width={96}
+                      height={96}
+                      loading="eager"
+                      decoding="async"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.endsWith('/avatar.jpg')) {
+                          target.src = '/avatar.jpg';
+                        }
+                      }}
+                      className="w-full h-full object-cover aspect-square group-hover/avatar:scale-105 transition-transform duration-300"
+                    />
                   </div>
-
-                  {/* Code Snippet */}
-                  <pre className="font-mono text-xs leading-relaxed text-slate-300 overflow-x-auto space-y-1">
-                    <code>
-                      <span className="text-purple-400">const</span> <span className="text-cyan-300">developer</span> = &#123;<br />
-                      &nbsp;&nbsp;<span className="text-slate-400">name</span>: <span className="text-emerald-300">"Hanan Irfan"</span>,<br />
-                      &nbsp;&nbsp;<span className="text-slate-400">brand</span>: <span className="text-emerald-300">"HANAN"</span>,<br />
-                      &nbsp;&nbsp;<span className="text-slate-400">age</span>: <span className="text-amber-300">18</span>,<br />
-                      &nbsp;&nbsp;<span className="text-slate-400">degree</span>: <span className="text-emerald-300">"BSCS @ KFUEIT"</span>,<br />
-                      &nbsp;&nbsp;<span className="text-slate-400">location</span>: <span className="text-emerald-300">"Rahim Yar Khan, PK"</span>,<br />
-                      &nbsp;&nbsp;<span className="text-slate-400">coreSkills</span>: [<br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-cyan-300">"React"</span>, <span className="text-cyan-300">"Next.js"</span>, <span className="text-cyan-300">"Technical SEO"</span>,<br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-cyan-300">"Supabase"</span>, <span className="text-cyan-300">"UI/UX Design"</span>, <span className="text-cyan-300">"AI"</span><br />
-                      &nbsp;&nbsp;],<br />
-                      &nbsp;&nbsp;<span className="text-slate-400">status</span>: <span className="text-purple-300">"Building & Launching 🚀"</span><br />
-                      &#125;;
-                    </code>
-                  </pre>
-
-                  {/* Live Stats Pill */}
-                  <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
-                    <span className="text-purple-300">10+ Projects Live</span>
-                    <span className="text-emerald-400">✔ Vercel Ready</span>
+                  <div className="space-y-1">
+                    <div className="text-xs font-mono text-[#3B82F6] font-semibold">Verified Profile</div>
+                    <h2 className="text-xl font-extrabold font-display text-[#F8FAFC]">
+                      {PERSONAL_INFO.name}
+                    </h2>
+                    <p className="text-xs text-[#94A3B8]">
+                      {PERSONAL_INFO.education.degree} &bull; KFUEIT
+                    </p>
                   </div>
-                </motion.div>
-              </Parallax3DCard>
-            </div>
+                </div>
 
-          </div>
-        </div>
+                <div className="border-t border-white/[0.1] pt-4 space-y-2.5 text-xs">
+                  <div className="flex items-center justify-between py-1 gap-2">
+                    <span className="text-[#94A3B8] font-mono">Academic Standing</span>
+                    <span className="font-semibold text-[#F8FAFC] text-right">5th Semester (CGPA 3.65)</span>
+                  </div>
+                  <div className="flex items-center justify-between py-1 border-t border-white/[0.08] gap-2">
+                    <span className="text-[#94A3B8] font-mono">Founder Role</span>
+                    <a
+                      href="https://thesportsroom.online"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-[#3B82F6] hover:underline inline-flex items-center gap-1"
+                    >
+                      The Sports Room <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between py-1 border-t border-white/[0.08] gap-2">
+                    <span className="text-[#94A3B8] font-mono">Campus Leadership</span>
+                    <span className="font-semibold text-[#F8FAFC] text-right">ACM Dev Head &bull; D&apos;Educationist</span>
+                  </div>
+                  <div className="flex items-center justify-between py-1 border-t border-white/[0.08] gap-2">
+                    <span className="text-[#94A3B8] font-mono">Core Focus</span>
+                    <span className="font-semibold text-[#F8FAFC] text-right">AI Dev &bull; Full-Stack &bull; SEO/AEO/GEO</span>
+                  </div>
+                </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-slate-500 font-mono text-[10px] tracking-widest uppercase">
-          <span>SCROLL TO EXPLORE</span>
-          <ChevronDown className="w-4 h-4 animate-bounce text-purple-400" />
-        </div>
-      </motion.section>
-
-      {/* ================= SECTION 2: INTRODUCTION ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/20 bg-gradient-to-br from-[#0c0e18] via-[#090b14] to-[#0d091a]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
-            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col items-start gap-6">
-              <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-purple-500/40 shadow-xl shadow-purple-600/30 shrink-0">
-                <img
-                  src="/avatar.webp"
-                  alt="Hanan Irfan Headshot — Web Developer in Rahim Yar Khan"
-                  width={144}
-                  height={144}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/avatar.jpg')) {
-                      target.src = '/avatar.jpg';
-                    }
-                  }}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 aspect-square"
-                />
-              </div>
-              <div className="space-y-4">
-                <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// ABOUT THE DEVELOPER</span>
-                <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
-                  WHO IS HANAN?
-                </h2>
-                <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full" />
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 space-y-6">
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Hanan Irfan is a multidisciplinary technology professional focused on building modern digital experiences. From full-stack web applications and SaaS platforms (NEXA POS) to SEO-focused websites and creative digital projects, his work sits at the intersection of technology, design, and innovation.
-              </p>
-
-              {/* Large Animated Statement */}
-              <div className="p-6 rounded-2xl bg-white/5 border border-purple-500/30">
-                <div className="text-xs font-mono text-purple-400 mb-2">CORE DISCIPLINE</div>
-                <div className="text-2xl sm:text-4xl font-black font-display tracking-wider text-white text-glow flex flex-wrap gap-x-4 gap-y-2">
-                  <span className="text-purple-400">CODE.</span>
-                  <span className="text-indigo-300">CREATE.</span>
-                  <span className="text-cyan-400">OPTIMIZE.</span>
-                  <span className="text-emerald-400">INNOVATE.</span>
+                <div className="pt-2 flex flex-wrap gap-2">
+                  <a
+                    href={PERSONAL_INFO.socials.linkedin.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-white/[0.05] border border-white/[0.1] hover:border-[#3B82F6]/50 hover:text-[#3B82F6] text-[#F8FAFC] text-xs font-medium transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    href={PERSONAL_INFO.socials.x.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-white/[0.05] border border-white/[0.1] hover:border-[#3B82F6]/50 hover:text-[#3B82F6] text-[#F8FAFC] text-xs font-medium transition-colors"
+                  >
+                    X (@hananirfan91)
+                  </a>
+                  <a
+                    href={PERSONAL_INFO.socials.instagram.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-white/[0.05] border border-white/[0.1] hover:border-[#3B82F6]/50 hover:text-[#3B82F6] text-[#F8FAFC] text-xs font-medium transition-colors"
+                  >
+                    Instagram
+                  </a>
                 </div>
               </div>
-
-              <div>
-                <button
-                  onClick={() => onNavigate('about')}
-                  className="px-6 py-3 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-white font-display font-bold text-xs tracking-wider transition-all inline-flex items-center gap-2"
-                >
-                  <span>EXPLORE MY STORY</span>
-                  <ArrowUpRight className="w-4 h-4 text-purple-300" />
-                </button>
-              </div>
-            </div>
-
-          </div>
+            </SpotlightCard>
+          </motion.div>
         </div>
-      </motion.section>
 
-      {/* ================= SECTION 2.5: RECOGNITION & CERTIFICATIONS ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.5 }}
+        {/* 4-Column Verified Key Metrics Row */}
+        <MotionReveal delay={0.08}>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <SpotlightCard className="rounded-2xl p-5 space-y-1.5">
+              <div className="text-2xl sm:text-3xl font-black font-mono text-[#F8FAFC]">
+                <AnimatedStat target={3.65} decimals={2} />
+                <span className="text-xs text-[#94A3B8] font-normal ml-1">/ 4.00</span>
+              </div>
+              <div className="text-xs font-semibold text-[#3B82F6]">BSCS CGPA &bull; 5th Sem</div>
+              <p className="text-[11px] text-[#94A3B8]">KFUEIT Dean&apos;s Honor Roll</p>
+            </SpotlightCard>
+
+            <SpotlightCard
+              onClick={() => onNavigate('projects')}
+              className="rounded-2xl p-5 space-y-1.5"
+            >
+              <div className="text-2xl sm:text-3xl font-black font-mono text-[#F8FAFC]">
+                <AnimatedStat target={PROJECTS.length} suffix="+" />
+              </div>
+              <div className="text-xs font-semibold text-[#8B5CF6]">Live Digital Products</div>
+              <p className="text-[11px] text-[#94A3B8]">Web Apps, SaaS, AI &amp; Media</p>
+            </SpotlightCard>
+
+            <SpotlightCard className="rounded-2xl p-5 space-y-1.5">
+              <div className="text-2xl sm:text-3xl font-black font-mono text-[#F8FAFC]">
+                <AnimatedStat target={9} />
+              </div>
+              <div className="text-xs font-semibold text-emerald-400">Honors &amp; AI Badges</div>
+              <p className="text-[11px] text-[#94A3B8]">Google, Coursera &amp; University</p>
+            </SpotlightCard>
+
+            <SpotlightCard
+              onClick={() => onNavigate('experience')}
+              className="rounded-2xl p-5 space-y-1.5"
+            >
+              <div className="text-2xl sm:text-3xl font-black font-mono text-[#F8FAFC]">
+                <AnimatedStat target={3} />
+              </div>
+              <div className="text-xs font-semibold text-[#3B82F6]">Leadership Roles</div>
+              <p className="text-[11px] text-[#94A3B8]">The Sports Room, ACM &amp; Ambassador</p>
+            </SpotlightCard>
+          </div>
+        </MotionReveal>
+      </section>
+
+      {/* Editorial Kinetic Marquee Ribbon */}
+      <EditorialMarquee />
+
+      {/* ================= RECOGNITION & CERTIFICATIONS ================= */}
+      <section
         aria-labelledby="recognition-certifications-heading"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"
       >
-        {/* Section Header */}
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-xs font-semibold">
-            <Award className="w-3.5 h-3.5 text-purple-400" />
-            <span>HONORS, AWARDS & CREDENTIALS</span>
+        <MotionReveal>
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-[#8B5CF6] font-mono text-xs font-semibold uppercase tracking-wider">
+              <Award className="w-4 h-4" />
+              <span>Honors, Awards &amp; Credentials</span>
+            </div>
+            <h3 id="recognition-certifications-heading" className="text-3xl sm:text-4xl font-black font-display text-[#F8FAFC] tracking-tight">
+              Recognition &amp; Certifications
+            </h3>
+            <p className="text-[#94A3B8] text-sm sm:text-base max-w-3xl leading-relaxed">
+              A collection of my academic achievements and professional certifications, reflecting my commitment to continuous learning, technical growth, and academic excellence.
+            </p>
           </div>
-          <h3 id="recognition-certifications-heading" className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
-            Recognition & Certifications
-          </h3>
-          <p className="text-slate-300 text-sm sm:text-base max-w-3xl leading-relaxed">
-            A collection of my academic achievements and professional certifications, reflecting my commitment to continuous learning, technical growth, and academic excellence.
-          </p>
-        </div>
+        </MotionReveal>
 
-        {/* Responsive Zero-Orphan Certificates Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-
-          {/* Certificate 1 (Featured Top Span): Dean's Honor Certificate */}
-          <article className="md:col-span-2 lg:col-span-3 glass-card glass-card-hover rounded-3xl p-6 sm:p-8 border border-emerald-500/40 bg-gradient-to-br from-[#07130f] via-[#090b14] to-[#0c0d18] relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-56 h-56 bg-emerald-500/10 rounded-full blur-[70px] pointer-events-none" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
-              {/* Left: Certificate Image Preview */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* 1. Dean's Honor Certificate (First) */}
+          <article className="md:col-span-2 lg:col-span-3 surface-card spotlight-surface surface-card-hover rounded-3xl p-6 sm:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
               <div className="lg:col-span-5">
                 <div
-                  onClick={() => setActiveCertificate({
-                    title: "Dean's Honor Certificate",
-                    subtitle: "Khwaja Fareed University of Engineering and Information Technology (KFUEIT)",
-                    image: "/images/certificates/deans-honor-certificate-2026.webp",
-                    fallbackImage: "/images/certificates/deans-honor-certificate-2026.png"
-                  })}
-                  className="relative group/img overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-xl shadow-emerald-950/40 bg-white cursor-pointer aspect-[3/4] max-h-80 mx-auto flex items-center justify-center"
+                  onClick={() =>
+                    setActiveCertificate({
+                      title: "Dean's Honor Certificate",
+                      subtitle: 'Khwaja Fareed University of Engineering and Information Technology (KFUEIT)',
+                      image: '/images/certificates/deans-honor-certificate-2026.webp',
+                      fallbackImage: '/images/certificates/deans-honor-certificate-2026.png',
+                    })
+                  }
+                  className="relative group/img overflow-hidden rounded-2xl border border-white/[0.14] bg-[#0D1425] cursor-pointer aspect-[3/4] max-h-80 mx-auto flex items-center justify-center"
                 >
                   <picture className="block w-full h-full">
                     <source srcSet="/images/certificates/deans-honor-certificate-2026.webp" type="image/webp" />
@@ -309,58 +383,60 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                       height={1448}
                       loading="lazy"
                       decoding="async"
+                      referrerPolicy="no-referrer"
                       onError={(e) => {
                         const target = e.currentTarget;
                         if (!target.src.endsWith('/images/certificates/deans-honor-certificate-2026.png')) {
                           target.src = '/images/certificates/deans-honor-certificate-2026.png';
                         }
                       }}
-                      className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain p-1.5 group-hover/img:scale-[1.03] transition-transform duration-300"
                     />
                   </picture>
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center">
-                    <ZoomIn className="w-6 h-6 text-emerald-400 animate-bounce" />
-                    <span>DEAN'S HONOR ROLL // SPRING 2026</span>
-                    <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
+                  <div className="absolute inset-0 bg-[#080D1B]/75 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 text-[#F8FAFC] text-xs font-semibold p-4 text-center">
+                    <ZoomIn className="w-5 h-5 text-[#3B82F6]" />
+                    <span>View Full Certificate</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right: Certificate Meta Details */}
               <div className="lg:col-span-7 space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-[11px] font-mono font-extrabold text-emerald-300 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center gap-1.5 shadow-lg shadow-emerald-950/40">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" /> Latest Achievement
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-400">November 2026</span>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#94A3B8]">
+                  <span className="text-[#3B82F6] font-semibold">Latest Achievement</span>
+                  <span aria-hidden="true">&middot;</span>
+                  <span>November 2026</span>
                 </div>
 
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
-                    <Award className="w-3.5 h-3.5" />
-                    <span>ACADEMIC EXCELLENCE &bull; KFUEIT</span>
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#8B5CF6] font-semibold">
+                    <Award className="w-4 h-4" />
+                    <span>Academic Excellence &bull; KFUEIT</span>
                   </div>
-                  <h4 className="text-2xl sm:text-3xl font-bold font-display text-white group-hover:text-emerald-300 transition-colors">
-                    Dean's Honor Certificate
+                  <h4 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
+                    Dean&apos;s Honor Certificate
                   </h4>
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Received in recognition of achieving a good CGPA in a single semester. Awarded to <strong className="text-emerald-300">Abdul Hanan Irfan</strong> by the <strong className="text-white">Faculty of Information Technology</strong> at Khwaja Fareed University of Engineering and Information Technology (KFUEIT).
+                  <p className="text-[#94A3B8] text-sm leading-relaxed">
+                    Received in recognition of achieving a good CGPA in a single semester. Awarded to{' '}
+                    <strong className="text-[#F8FAFC]">Abdul Hanan Irfan</strong> by the{' '}
+                    <strong className="text-[#F8FAFC]">Faculty of Information Technology</strong> at Khwaja Fareed University of Engineering and Information Technology (KFUEIT).
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slate-400">
-                  <span className="text-slate-300 font-semibold">KFUEIT &bull; BS Computer Science</span>
+                <div className="pt-4 border-t border-white/[0.1] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                  <span className="text-[#94A3B8] font-medium">KFUEIT &bull; BS Computer Science</span>
                   <button
                     type="button"
-                    onClick={() => setActiveCertificate({
-                      title: "Dean's Honor Certificate",
-                      subtitle: "Khwaja Fareed University of Engineering and Information Technology (KFUEIT)",
-                      image: "/images/certificates/deans-honor-certificate-2026.webp",
-                      fallbackImage: "/images/certificates/deans-honor-certificate-2026.png"
-                    })}
-                    className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
+                    onClick={() =>
+                      setActiveCertificate({
+                        title: "Dean's Honor Certificate",
+                        subtitle: 'Khwaja Fareed University of Engineering and Information Technology (KFUEIT)',
+                        image: '/images/certificates/deans-honor-certificate-2026.webp',
+                        fallbackImage: '/images/certificates/deans-honor-certificate-2026.png',
+                      })
+                    }
+                    className="text-[#3B82F6] hover:text-[#F8FAFC] font-semibold inline-flex items-center gap-1 cursor-pointer transition-colors"
                   >
-                    <span>VIEW CERTIFICATE</span>
+                    <span>View Certificate</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -368,23 +444,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             </div>
           </article>
 
-          {/* Certificate 2 (Featured Span): Google AI Professional Certificate & Earned Course Badges */}
-          <article className="md:col-span-2 lg:col-span-3 glass-card glass-card-hover rounded-3xl p-6 sm:p-8 border border-cyan-500/40 bg-gradient-to-br from-[#07101b] via-[#090b14] to-[#0a1426] relative overflow-hidden group">
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
-              {/* Left: Official Google AI Professional Certificate Preview */}
+          {/* 2. Google AI Professional Certificate + 5 Badges */}
+          <article className="md:col-span-2 lg:col-span-3 surface-card surface-card-hover rounded-3xl p-6 sm:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
               <div className="lg:col-span-5">
                 <div
-                  onClick={() => setActiveCertificate({
-                    title: 'Google AI Professional Certificate',
-                    subtitle: '8-Course Specialization • Google & Coursera • Nov 16, 2026',
-                    image: '/images/certificates/google-ai-professional-certificate-2026.png',
-                    fallbackImage: '/images/certificates/google-ai-fundamentals-2026.webp',
-                    verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
-                    pdfUrl: '/assets/aistudio/Coursera_X7TCM4MBEUWP_694dbd0c.pdf'
-                  })}
-                  className="relative group/img overflow-hidden rounded-2xl border-2 border-cyan-500/40 shadow-xl shadow-cyan-950/40 bg-white cursor-pointer aspect-[4/3] max-h-80 mx-auto flex items-center justify-center"
+                  onClick={() =>
+                    setActiveCertificate({
+                      title: 'Google AI Professional Certificate',
+                      subtitle: '8-Course Specialization • Google & Coursera • Nov 16, 2026',
+                      image: '/images/certificates/google-ai-professional-certificate-2026.png',
+                      fallbackImage: '/images/certificates/google-ai-fundamentals-2026.webp',
+                      verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
+                      pdfUrl: '/assets/aistudio/Coursera_X7TCM4MBEUWP_694dbd0c.pdf',
+                    })
+                  }
+                  className="relative group/img overflow-hidden rounded-2xl border border-white/[0.14] bg-[#0D1425] cursor-pointer aspect-[4/3] max-h-80 mx-auto flex items-center justify-center"
                 >
                   <img
                     src="/images/certificates/google-ai-professional-certificate-2026.png"
@@ -393,72 +468,81 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                     height={1870}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-contain p-1.5 group-hover/img:scale-[1.03] transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-cyan-300 font-mono text-xs font-bold p-4 text-center">
-                    <ZoomIn className="w-6 h-6 text-cyan-400 animate-bounce" />
-                    <span>GOOGLE AI PROFESSIONAL CERTIFICATE // 8 COURSES</span>
-                    <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
+                  <div className="absolute inset-0 bg-[#080D1B]/75 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 text-[#F8FAFC] text-xs font-semibold p-4 text-center">
+                    <ZoomIn className="w-5 h-5 text-[#3B82F6]" />
+                    <span>View Full Certificate</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right: Specialization Metadata & Verify Links */}
               <div className="lg:col-span-7 space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-[11px] font-mono font-extrabold text-cyan-300 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center gap-1.5 shadow-lg shadow-cyan-950/40">
-                    <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" /> Specialization Complete &bull; 8 Courses
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-400">16 Nov 2026</span>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#94A3B8]">
+                  <span className="text-[#3B82F6] font-semibold">8-Course Specialization</span>
+                  <span aria-hidden="true">&middot;</span>
+                  <span>16 Nov 2026</span>
                 </div>
 
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-[11px] font-mono text-cyan-400">
-                    <Cpu className="w-3.5 h-3.5" />
-                    <span>GOOGLE CAREER CERTIFICATES &bull; COURSERA</span>
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#8B5CF6] font-semibold">
+                    <Cpu className="w-4 h-4" />
+                    <span>Google Career Certificates &bull; Coursera</span>
                   </div>
-                  <h4 className="text-2xl sm:text-3xl font-bold font-display text-white group-hover:text-cyan-300 transition-colors">
+                  <h4 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
                     Google AI Professional Certificate
                   </h4>
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    Awarded to <strong className="text-cyan-300">Abdul Hanan Irfan</strong> by <strong className="text-white">Google</strong> &amp; <strong className="text-blue-300">Coursera</strong> upon completing all 8 courses — mastering AI Fundamentals, Brainstorming &amp; Planning, Research &amp; Insights, Writing &amp; Communicating, Content Creation, Data Analysis, App Building, and App Deployment with 20+ AI portfolio artifacts.
+                  <p className="text-[#94A3B8] text-sm leading-relaxed">
+                    Awarded to <strong className="text-[#F8FAFC]">Abdul Hanan Irfan</strong> by{' '}
+                    <strong className="text-[#F8FAFC]">Google &amp; Coursera</strong> after completing all 8 courses covering AI Fundamentals, Brainstorming &amp; Planning, Research &amp; Insights, Writing &amp; Communicating, Content Creation, Data Analysis, App Building, and App Deployment.
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slate-400">
-                  <span className="text-slate-300 font-semibold">Credential ID: X7TCM4MBEUWP</span>
+                <div className="pt-4 border-t border-white/[0.1] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                  <span className="text-[#94A3B8] font-medium">Credential ID: X7TCM4MBEUWP</span>
                   <div className="flex flex-wrap items-center gap-4">
                     <button
                       type="button"
-                      onClick={() => setActiveCertificate({
-                        title: 'Google AI Professional Certificate',
-                        subtitle: '8-Course Specialization • Google & Coursera • Nov 16, 2026',
-                        image: '/images/certificates/google-ai-professional-certificate-2026.png',
-                        fallbackImage: '/images/certificates/google-ai-fundamentals-2026.webp',
-                        verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
-                        pdfUrl: '/assets/aistudio/Coursera_X7TCM4MBEUWP_694dbd0c.pdf'
-                      })}
-                      className="text-cyan-300 hover:text-white flex items-center gap-1 transition-colors"
+                      onClick={() =>
+                        setActiveCertificate({
+                          title: 'Google AI Professional Certificate',
+                          subtitle: '8-Course Specialization • Google & Coursera • Nov 16, 2026',
+                          image: '/images/certificates/google-ai-professional-certificate-2026.png',
+                          fallbackImage: '/images/certificates/google-ai-fundamentals-2026.webp',
+                          verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
+                          pdfUrl: '/assets/aistudio/Coursera_X7TCM4MBEUWP_694dbd0c.pdf',
+                        })
+                      }
+                      className="text-[#3B82F6] hover:text-[#F8FAFC] font-semibold inline-flex items-center gap-1 cursor-pointer"
                     >
-                      <span>VIEW CERTIFICATE</span>
+                      <span>View</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                     <a
                       href="/assets/aistudio/Coursera_X7TCM4MBEUWP_694dbd0c.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-purple-300 hover:text-white flex items-center gap-1 transition-colors"
+                      className="text-[#F8FAFC] hover:text-[#3B82F6] font-semibold inline-flex items-center gap-1"
                     >
-                      <span>OPEN PDF</span>
+                      <span>Open PDF</span>
                       <FileText className="w-3.5 h-3.5" />
+                    </a>
+                    <a
+                      href="/assets/aistudio/Coursera_X7TCM4MBEUWP_694dbd0c.pdf"
+                      download="Hanan_Irfan_Google_AI_Certificate.pdf"
+                      className="text-[#94A3B8] hover:text-[#F8FAFC] font-semibold inline-flex items-center gap-1"
+                    >
+                      <span>Save</span>
+                      <Download className="w-3.5 h-3.5" />
                     </a>
                     <a
                       href="https://coursera.org/verify/professional-cert/X7TCM4MBEUWP"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-300 hover:text-white flex items-center gap-1 transition-colors"
+                      className="text-[#8B5CF6] hover:text-[#F8FAFC] font-semibold inline-flex items-center gap-1"
                     >
-                      <span>VERIFY</span>
+                      <span>Verify</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
@@ -466,97 +550,39 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
               </div>
             </div>
 
-            {/* Integrated Google AI & Coursera Badges Grid (All 5 Badges Together) */}
-            <div className="mt-8 pt-6 border-t border-white/10 relative z-10 space-y-4">
+            <div className="mt-7 pt-6 border-t border-white/[0.1] space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-xs font-mono text-cyan-300 font-bold uppercase tracking-wider flex items-center gap-2">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="text-xs font-mono text-[#F8FAFC] font-bold uppercase tracking-wider">
                   Earned Google AI &amp; Coursera Course Badges
                 </span>
-                <span className="text-[11px] font-mono text-slate-400">
-                  5 Core Badges Included in Program
-                </span>
+                <span className="text-xs font-mono text-[#94A3B8]">5 Verified Badges</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                {[
-                  {
-                    title: 'Google AI Fundamentals',
-                    type: 'Credly Verified',
-                    date: '15 Nov 2026',
-                    image: '/images/certificates/google-ai-fundamentals-2026.webp',
-                    fallbackImage: '/assets/aistudio/GoogleAIFundamentals_Badge20261115-21-oiv3es_page-0001_61ad1a4a.jpg',
-                    verifyUrl: 'https://www.credly.com/go/TWCMECRu',
-                    subtitle: 'Issued by Coursera & Google • ID: COSC241103038',
-                    width: 3300,
-                    height: 2550
-                  },
-                  {
-                    title: 'Google AI for Writing and Communicating',
-                    type: 'Credly Verified',
-                    date: '15 Nov 2026',
-                    image: '/images/certificates/google-ai-writing-communicating-2026.webp',
-                    fallbackImage: '/assets/aistudio/GoogleAIforWritingandCommunicating_Badge20261115-21-pheskb_page-0001_9dfedb0c.jpg',
-                    verifyUrl: 'https://www.credly.com/go/NBK5o3WH',
-                    subtitle: 'Issued by Coursera & Google • ID: COSC241103038',
-                    width: 3300,
-                    height: 2550
-                  },
-                  {
-                    title: 'Google AI for Brainstorming and Planning',
-                    type: 'Credly Verified',
-                    date: '15 Nov 2026',
-                    image: '/images/certificates/google-ai-brainstorming-planning-2026.webp',
-                    fallbackImage: '/assets/aistudio/GoogleAIforBrainstormingandPlanning_Badge20261115-21-nn2tzk_page-0001_02066a5f.jpg',
-                    verifyUrl: 'https://www.credly.com/go/oBw1opSn',
-                    subtitle: 'Issued by Coursera & Google • ID: COSC241103038',
-                    width: 3300,
-                    height: 2550
-                  },
-                  {
-                    title: 'Google AI for App Building',
-                    type: 'Google AI Badge',
-                    date: '16 Nov 2026',
-                    image: '/images/certificates/google-ai-app-building-2026.webp',
-                    fallbackImage: '/assets/aistudio/image_6e63b403.png',
-                    verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
-                    subtitle: 'Google AI Professional Certificate • Coursera & Google',
-                    width: 1080,
-                    height: 1080
-                  },
-                  {
-                    title: 'Google AI for Data Analysis',
-                    type: 'Google AI Badge',
-                    date: '16 Nov 2026',
-                    image: '/images/certificates/google-ai-data-analysis-2026.webp',
-                    fallbackImage: '/assets/aistudio/image_d10e45e6.png',
-                    verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
-                    subtitle: 'Google AI Professional Certificate • Coursera & Google',
-                    width: 1080,
-                    height: 1080
-                  }
-                ].map((badge, idx) => (
+                {GOOGLE_AI_BADGES.map((badge, idx) => (
                   <div
                     key={badge.title}
-                    className={`rounded-2xl p-3.5 border border-cyan-500/25 bg-[#081220]/80 hover:border-cyan-400/50 transition-all flex flex-col justify-between gap-3 group/badge ${idx === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+                    className={`rounded-2xl p-3.5 border border-white/[0.12] bg-[#0D1425]/70 hover:border-[#3B82F6]/45 transition-colors flex flex-col justify-between gap-3 ${
+                      idx === 4 ? 'sm:col-span-2 lg:col-span-1' : ''
+                    }`}
                   >
                     <div className="space-y-2.5">
-                      <div className="flex items-center justify-between gap-1 text-[10px] font-mono">
-                        <span className="text-cyan-300 px-2 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 font-semibold truncate">
-                          {badge.type}
-                        </span>
-                        <span className="text-slate-400 shrink-0">{badge.date}</span>
+                      <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-[#94A3B8]">
+                        <span className="text-[#3B82F6] font-semibold truncate">{badge.type}</span>
+                        <span className="shrink-0">{badge.date}</span>
                       </div>
 
                       <div
-                        onClick={() => setActiveCertificate({
-                          title: badge.title,
-                          subtitle: badge.subtitle,
-                          image: badge.image,
-                          fallbackImage: badge.fallbackImage,
-                          verifyUrl: badge.verifyUrl
-                        })}
-                        className="relative overflow-hidden rounded-xl border border-cyan-500/30 bg-white cursor-pointer aspect-[4/3] flex items-center justify-center p-1.5"
+                        onClick={() =>
+                          setActiveCertificate({
+                            title: badge.title,
+                            subtitle: badge.subtitle,
+                            image: badge.image,
+                            fallbackImage: badge.fallbackImage,
+                            verifyUrl: badge.verifyUrl,
+                          })
+                        }
+                        className="relative overflow-hidden rounded-xl border border-white/[0.1] bg-[#080D1B] cursor-pointer aspect-[4/3] flex items-center justify-center p-1.5 group/badge"
                       >
                         <picture className="block w-full h-full">
                           <source srcSet={badge.image} type="image/webp" />
@@ -567,47 +593,47 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                             height={badge.height}
                             loading="lazy"
                             decoding="async"
+                            referrerPolicy="no-referrer"
                             onError={(e) => {
                               const target = e.currentTarget;
                               if (!target.src.endsWith(badge.fallbackImage)) {
                                 target.src = badge.fallbackImage;
                               }
                             }}
-                            className="w-full h-full object-contain group-hover/badge:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-contain group-hover/badge:scale-105 transition-transform duration-300"
                           />
                         </picture>
-                        <div className="absolute inset-0 bg-black/55 opacity-0 group-hover/badge:opacity-100 transition-opacity flex items-center justify-center">
-                          <ZoomIn className="w-5 h-5 text-cyan-300" />
-                        </div>
                       </div>
 
-                      <h5 className="text-xs sm:text-sm font-bold font-display text-white group-hover/badge:text-cyan-300 transition-colors leading-snug">
+                      <h5 className="text-xs font-bold font-display text-[#F8FAFC] leading-snug">
                         {badge.title}
                       </h5>
                     </div>
 
-                    <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] font-mono">
+                    <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono">
                       <button
                         type="button"
-                        onClick={() => setActiveCertificate({
-                          title: badge.title,
-                          subtitle: badge.subtitle,
-                          image: badge.image,
-                          fallbackImage: badge.fallbackImage,
-                          verifyUrl: badge.verifyUrl
-                        })}
-                        className="text-cyan-300 hover:text-white flex items-center gap-0.5 transition-colors"
+                        onClick={() =>
+                          setActiveCertificate({
+                            title: badge.title,
+                            subtitle: badge.subtitle,
+                            image: badge.image,
+                            fallbackImage: badge.fallbackImage,
+                            verifyUrl: badge.verifyUrl,
+                          })
+                        }
+                        className="text-[#3B82F6] hover:underline inline-flex items-center gap-0.5 cursor-pointer"
                       >
-                        <span>VIEW</span>
+                        <span>View</span>
                         <ArrowUpRight className="w-3 h-3" />
                       </button>
                       <a
                         href={badge.verifyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-300 hover:text-white flex items-center gap-0.5 transition-colors"
+                        className="text-[#8B5CF6] hover:underline inline-flex items-center gap-0.5"
                       >
-                        <span>VERIFY</span>
+                        <span>Verify</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
@@ -617,24 +643,24 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             </div>
           </article>
 
-          {/* Certificate 5: ACM KFUEIT Certificate of Appreciation */}
-          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-amber-500/40 bg-gradient-to-br from-[#0c0d18] via-[#090b14] to-[#120f09] relative overflow-hidden flex flex-col justify-between group">
+          {/* 3. ACM KFUEIT Certificate of Appreciation */}
+          <article className="surface-card surface-card-hover rounded-3xl p-6 flex flex-col justify-between space-y-4">
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
-                  <Award className="w-3.5 h-3.5" /> Web Developer Recognition
-                </span>
-                <span className="text-[11px] font-mono text-slate-400">Session 2025–26</span>
+              <div className="flex items-center justify-between gap-2 text-xs font-mono text-[#94A3B8]">
+                <span className="text-[#3B82F6] font-semibold">Web Developer</span>
+                <span>Session 2025–26</span>
               </div>
 
               <div
-                onClick={() => setActiveCertificate({
-                  title: "Certificate of Appreciation — Web Developer",
-                  subtitle: "ACM KFUEIT Student Chapter",
-                  image: "/certificate.webp",
-                  fallbackImage: "/certificate.jpg"
-                })}
-                className="relative group/img overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-xl shadow-amber-950/40 bg-black/40 cursor-pointer aspect-[4/3] flex items-center justify-center"
+                onClick={() =>
+                  setActiveCertificate({
+                    title: 'Certificate of Appreciation — Web Developer',
+                    subtitle: 'ACM KFUEIT Student Chapter',
+                    image: '/certificate.webp',
+                    fallbackImage: '/certificate.jpg',
+                  })
+                }
+                className="relative group/img overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0D1425] cursor-pointer aspect-[4/3] flex items-center justify-center"
               >
                 <picture className="block w-full h-full">
                   <source srcSet="/certificate.webp" type="image/webp" />
@@ -645,72 +671,66 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                     height={672}
                     loading="lazy"
                     decoding="async"
+                    referrerPolicy="no-referrer"
                     onError={(e) => {
                       const target = e.currentTarget;
                       if (!target.src.endsWith('/certificate.jpg')) {
                         target.src = '/certificate.jpg';
                       }
                     }}
-                    className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
                   />
                 </picture>
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center">
-                  <ZoomIn className="w-6 h-6 text-amber-400 animate-bounce" />
-                  <span>ACM KFUEIT SESSION 2025–26</span>
-                  <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
-                </div>
               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[11px] font-mono text-amber-400">
-                  <Award className="w-3.5 h-3.5" />
-                  <span>ACM CHAPTER &bull; WEB DEVELOPER</span>
-                </div>
-                <h4 className="text-xl font-bold font-display text-white group-hover:text-amber-300 transition-colors">
-                  Certificate of Appreciation — Web Developer
+              <div className="space-y-1.5">
+                <h4 className="text-lg font-bold font-display text-[#F8FAFC]">
+                  Certificate of Appreciation — ACM KFUEIT
                 </h4>
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  Proudly presented to <strong className="text-amber-300">Abdul Hanan Irfan</strong> in recognition of dedication, commitment, and valuable contributions as <strong className="text-cyan-300">WEB DEVELOPER</strong> for <strong className="text-purple-300">ACM KFUEIT</strong> during session 2025–26.
+                <p className="text-[#94A3B8] text-xs sm:text-sm leading-relaxed">
+                  Presented to <strong className="text-[#F8FAFC]">Abdul Hanan Irfan</strong> for dedication and contributions as Web Developer for <strong className="text-[#F8FAFC]">ACM KFUEIT</strong> during session 2025–26.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
-              <span className="text-slate-300 font-semibold truncate pr-2">Dr. Asma Nadeem &amp; Hamza Arshad</span>
+            <div className="pt-4 border-t border-white/[0.1] flex items-center justify-between text-xs font-mono">
+              <span className="text-[#94A3B8] truncate pr-2">ACM KFUEIT Chapter</span>
               <button
                 type="button"
-                onClick={() => setActiveCertificate({
-                  title: "Certificate of Appreciation — Web Developer",
-                  subtitle: "ACM KFUEIT Student Chapter",
-                  image: "/certificate.webp",
-                  fallbackImage: "/certificate.jpg"
-                })}
-                className="text-amber-300 hover:text-white flex items-center gap-1 transition-colors shrink-0"
+                onClick={() =>
+                  setActiveCertificate({
+                    title: 'Certificate of Appreciation — Web Developer',
+                    subtitle: 'ACM KFUEIT Student Chapter',
+                    image: '/certificate.webp',
+                    fallbackImage: '/certificate.jpg',
+                  })
+                }
+                className="text-[#3B82F6] hover:underline font-semibold inline-flex items-center gap-1 shrink-0 cursor-pointer"
               >
-                <span>VIEW CERTIFICATE</span>
+                <span>View</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </article>
 
-          {/* Certificate 6: Nayi Manzil Web Development Certificate */}
-          <article className="glass-card glass-card-hover rounded-3xl p-6 border border-amber-500/30 bg-gradient-to-br from-[#0c0d18] via-[#090b14] to-[#120f09] relative overflow-hidden flex flex-col justify-between group">
+          {/* 4. Nayi Manzil Web Development Certificate */}
+          <article className="surface-card surface-card-hover rounded-3xl p-6 flex flex-col justify-between space-y-4">
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-[11px] font-mono font-extrabold text-amber-400 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
-                  <Award className="w-3.5 h-3.5" /> Professional Program
-                </span>
-                <span className="text-[11px] font-mono text-slate-400">Web Development</span>
+              <div className="flex items-center justify-between gap-2 text-xs font-mono text-[#94A3B8]">
+                <span className="text-[#8B5CF6] font-semibold">Program Completion</span>
+                <span>Web Development</span>
               </div>
 
               <div
-                onClick={() => setActiveCertificate({
-                  title: "Web Development Certificate — Nayi Manzil",
-                  subtitle: "Nayi Manzil Program Completion",
-                  image: "/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp",
-                  fallbackImage: "/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg"
-                })}
-                className="relative group/img overflow-hidden rounded-2xl border-2 border-amber-500/40 shadow-xl shadow-amber-950/40 bg-white cursor-pointer aspect-[4/3] flex items-center justify-center"
+                onClick={() =>
+                  setActiveCertificate({
+                    title: 'Web Development Certificate — Nayi Manzil',
+                    subtitle: 'Nayi Manzil Program Completion',
+                    image: '/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp',
+                    fallbackImage: '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg',
+                  })
+                }
+                className="relative group/img overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0D1425] cursor-pointer aspect-[4/3] flex items-center justify-center"
               >
                 <picture className="block w-full h-full">
                   <source srcSet="/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp" type="image/webp" />
@@ -721,213 +741,201 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                     height={2481}
                     loading="lazy"
                     decoding="async"
+                    referrerPolicy="no-referrer"
                     onError={(e) => {
                       const target = e.currentTarget;
                       if (!target.src.endsWith('/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg')) {
                         target.src = '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg';
                       }
                     }}
-                    className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-contain p-1 group-hover/img:scale-105 transition-transform duration-300"
                   />
                 </picture>
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-amber-300 font-mono text-xs font-bold p-4 text-center">
-                  <ZoomIn className="w-6 h-6 text-amber-400 animate-bounce" />
-                  <span>NAYI MANZIL &bull; WEB DEVELOPMENT</span>
-                  <span className="text-white text-xs underline font-sans">Click to View Full Size</span>
-                </div>
               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[11px] font-mono text-amber-400">
-                  <Award className="w-3.5 h-3.5" />
-                  <span>NAYI MANZIL &bull; PROFESSIONAL TECH</span>
-                </div>
-                <h4 className="text-xl font-bold font-display text-white group-hover:text-amber-300 transition-colors">
+              <div className="space-y-1.5">
+                <h4 className="text-lg font-bold font-display text-[#F8FAFC]">
                   Web Development Certificate — Nayi Manzil
                 </h4>
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  <strong className="text-amber-300">Abdul Hanan Irfan</strong> successfully completed a <strong className="text-cyan-300">Web Development</strong> program at <strong className="text-purple-300">Nayi Manzil</strong>, earning recognition for his learning and development in web technologies.
+                <p className="text-[#94A3B8] text-xs sm:text-sm leading-relaxed">
+                  Awarded to <strong className="text-[#F8FAFC]">Abdul Hanan Irfan</strong> upon completing the Nayi Manzil Web Development curriculum and practical projects.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
-              <span className="text-slate-300 font-semibold">Issuing Org: Nayi Manzil</span>
+            <div className="pt-4 border-t border-white/[0.1] flex items-center justify-between text-xs font-mono">
+              <span className="text-[#94A3B8]">Nayi Manzil</span>
               <button
                 type="button"
-                onClick={() => setActiveCertificate({
-                  title: "Web Development Certificate — Nayi Manzil",
-                  subtitle: "Nayi Manzil Program Completion",
-                  image: "/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp",
-                  fallbackImage: "/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg"
-                })}
-                className="text-amber-300 hover:text-white flex items-center gap-1 transition-colors"
+                onClick={() =>
+                  setActiveCertificate({
+                    title: 'Web Development Certificate — Nayi Manzil',
+                    subtitle: 'Nayi Manzil Program Completion',
+                    image: '/abdul-hanan-irfan-nayi-manzil-web-development-certificate.webp',
+                    fallbackImage: '/assets/aistudio/NM-CCC-2026-KBJNSFEG5E_page-0001_3ed9f65f.jpg',
+                  })
+                }
+                className="text-[#3B82F6] hover:underline font-semibold inline-flex items-center gap-1 cursor-pointer"
               >
-                <span>VIEW CERTIFICATE</span>
+                <span>View</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </article>
 
-          {/* Certificate 5: D' Educationist Campus Ambassador Appointment */}
-          <article className="md:col-span-2 lg:col-span-1 glass-card glass-card-hover rounded-3xl p-6 border border-emerald-500/30 bg-gradient-to-br from-[#07130f] via-[#081017] to-[#0d0a1b] relative overflow-hidden flex flex-col justify-between group shadow-xl shadow-emerald-950/20">
+          {/* 5. D'Educationist Ambassador */}
+          <article className="md:col-span-2 lg:col-span-1 surface-card surface-card-hover rounded-3xl p-6 flex flex-col justify-between space-y-4">
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-[11px] font-mono font-extrabold text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
-                  <GraduationCap className="w-3.5 h-3.5" /> Official Appointment
+              <div className="flex items-center justify-between gap-2 text-xs font-mono text-[#94A3B8]">
+                <span className="text-[#3B82F6] font-semibold inline-flex items-center gap-1">
+                  <GraduationCap className="w-3.5 h-3.5" /> Campus Role
                 </span>
-                <span className="text-[11px] font-mono text-slate-400">KFUEIT Campus</span>
+                <span>KFUEIT Campus</span>
               </div>
 
               <div
-                onClick={() => setActiveCertificate({
-                  title: "Ambassador of D' Educationist @ KFUEIT",
-                  subtitle: "D' Educationist International Education & Career Guidance",
-                  image: "/deducationist-ambassador.webp",
-                  fallbackImage: "/deducationist-ambassador.jpg"
-                })}
-                className="relative group/img overflow-hidden rounded-2xl border-2 border-emerald-500/40 shadow-xl shadow-emerald-950/40 bg-[#06100d] cursor-pointer aspect-[4/3] flex items-center justify-center"
+                onClick={() =>
+                  setActiveCertificate({
+                    title: "Ambassador of D'Educationist @ KFUEIT",
+                    subtitle: "D'Educationist Student Outreach & Guidance",
+                    image: '/deducationist-ambassador.webp',
+                    fallbackImage: '/deducationist-ambassador.jpg',
+                  })
+                }
+                className="relative group/img overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0D1425] cursor-pointer aspect-[4/3] flex items-center justify-center"
               >
                 <picture className="block w-full h-full">
                   <source srcSet="/deducationist-ambassador.webp" type="image/webp" />
                   <img
                     src="/deducationist-ambassador.webp"
-                    alt="Hanan Irfan joins D' Educationist as Ambassador of KFUEIT RYK"
+                    alt="Hanan Irfan joins D'Educationist as Ambassador at KFUEIT RYK"
                     width={800}
                     height={1000}
                     loading="lazy"
                     decoding="async"
+                    referrerPolicy="no-referrer"
                     onError={(e) => {
                       const target = e.currentTarget;
                       if (!target.src.endsWith('/deducationist-ambassador.jpg')) {
                         target.src = '/deducationist-ambassador.jpg';
                       }
                     }}
-                    className="w-full h-full object-cover object-top group-hover/img:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-top group-hover/img:scale-105 transition-transform duration-300"
                   />
                 </picture>
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-emerald-300 font-mono text-xs font-bold p-4 text-center">
-                  <ZoomIn className="w-6 h-6 text-emerald-400 animate-bounce" />
-                  <span>D' EDUCATIONIST &times; KFUEIT RYK</span>
-                  <span className="text-white text-xs underline font-sans">Click to View Full Poster</span>
-                </div>
               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
-                  <Award className="w-3.5 h-3.5" />
-                  <span>CAMPUS AMBASSADOR &bull; LEADERSHIP</span>
-                </div>
-                <h4 className="text-xl font-bold font-display text-white group-hover:text-emerald-300 transition-colors">
-                  Ambassador of D' Educationist @ KFUEIT
+              <div className="space-y-1.5">
+                <h4 className="text-lg font-bold font-display text-[#F8FAFC]">
+                  Ambassador of D&apos;Educationist @ KFUEIT
                 </h4>
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  Empowering university students across the <strong className="text-emerald-300">KFUEIT Rahim Yar Khan</strong> campus with educational awareness seminars, scholarship opportunities, and international study guidance.
+                <p className="text-[#94A3B8] text-xs sm:text-sm leading-relaxed">
+                  Representing D&apos;Educationist across the <strong className="text-[#F8FAFC]">KFUEIT</strong> community, sharing academic guidance and global study pathways with students.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
-              <span className="text-slate-300 font-semibold">D' Educationist &bull; KFUEIT</span>
+            <div className="pt-4 border-t border-white/[0.1] flex items-center justify-between text-xs font-mono">
+              <span className="text-[#94A3B8]">D&apos;Educationist &bull; KFUEIT</span>
               <button
                 type="button"
-                onClick={() => setActiveCertificate({
-                  title: "Ambassador of D' Educationist @ KFUEIT",
-                  subtitle: "D' Educationist International Education & Career Guidance",
-                  image: "/deducationist-ambassador.webp",
-                  fallbackImage: "/deducationist-ambassador.jpg"
-                })}
-                className="text-emerald-300 hover:text-white flex items-center gap-1 transition-colors"
+                onClick={() =>
+                  setActiveCertificate({
+                    title: "Ambassador of D'Educationist @ KFUEIT",
+                    subtitle: "D'Educationist Student Outreach & Guidance",
+                    image: '/deducationist-ambassador.webp',
+                    fallbackImage: '/deducationist-ambassador.jpg',
+                  })
+                }
+                className="text-[#3B82F6] hover:underline font-semibold inline-flex items-center gap-1 cursor-pointer"
               >
-                <span>VIEW POSTER</span>
+                <span>View</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </article>
-
         </div>
 
-        {/* Click-To-View Full-Size Certificate Modal */}
         <AnimatePresence>
           {activeCertificate && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={activeCertificate.title}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+            >
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setActiveCertificate(null)}
-                className="fixed inset-0 bg-black/85 backdrop-blur-md"
+                className="fixed inset-0 bg-[#040712]/80 backdrop-blur-md"
               />
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                initial={{ opacity: 0, scale: 0.97, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                className="relative w-full max-w-4xl bg-[#0a0c14] border border-purple-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-purple-950/60 z-10 max-h-[92vh] overflow-y-auto"
+                exit={{ opacity: 0, scale: 0.97, y: 16 }}
+                transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+                className="relative w-full max-w-4xl bg-[#0D1425]/92 backdrop-blur-2xl border border-white/[0.14] rounded-3xl p-6 sm:p-8 shadow-2xl z-10 max-h-[92vh] overflow-y-auto text-[#F8FAFC]"
               >
-                {/* Close Button */}
                 <button
                   type="button"
                   onClick={() => setActiveCertificate(null)}
-                  className="absolute top-5 right-5 p-2 rounded-full glass-card text-slate-400 hover:text-white hover:border-purple-500/50 transition-colors"
+                  className="absolute top-5 right-5 p-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-[#94A3B8] hover:bg-white/[0.12] hover:text-[#F8FAFC] transition-colors cursor-pointer"
                   aria-label="Close certificate modal"
                 >
                   <X className="w-5 h-5" />
                 </button>
 
                 <div className="space-y-1 mb-4 pr-10">
-                  <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">
-                    // FULL SIZE CERTIFICATE VIEW
+                  <span className="text-xs font-mono text-[#3B82F6] font-semibold uppercase tracking-wider">
+                    Verified Credential
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-[#F8FAFC]">
                     {activeCertificate.title}
                   </h3>
                   {activeCertificate.subtitle && (
-                    <p className="text-xs font-mono text-slate-400">
-                      {activeCertificate.subtitle}
-                    </p>
+                    <p className="text-xs font-mono text-[#94A3B8]">{activeCertificate.subtitle}</p>
                   )}
                 </div>
 
-                <div className="rounded-2xl overflow-hidden border border-white/10 bg-white p-2 flex items-center justify-center max-h-[70vh]">
+                <div className="rounded-2xl overflow-hidden border border-white/[0.12] bg-[#080D1B] p-2 flex items-center justify-center max-h-[68vh]">
                   <img
                     src={activeCertificate.image}
                     alt={activeCertificate.title}
+                    referrerPolicy="no-referrer"
                     onError={(e) => {
                       const fallback = activeCertificate.fallbackImage;
                       if (fallback && !e.currentTarget.src.endsWith(fallback)) {
                         e.currentTarget.src = fallback;
                       }
                     }}
-                    className="max-h-[66vh] w-auto object-contain mx-auto"
+                    className="max-h-[64vh] w-auto object-contain mx-auto"
                   />
                 </div>
 
                 <div className="pt-4 flex flex-wrap items-center justify-between gap-4 mt-2">
-                  <span className="text-xs font-mono text-slate-400">
-                    Abdul Hanan Irfan &bull; Portfolio Verified Credential
-                  </span>
+                  <span className="text-xs font-mono text-[#94A3B8]">Abdul Hanan Irfan</span>
                   <div className="flex flex-wrap items-center gap-2">
                     {activeCertificate.verifyUrl && (
                       <a
                         href={activeCertificate.verifyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-xl bg-cyan-600/30 hover:bg-cyan-600/50 border border-cyan-500/40 text-cyan-200 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all"
+                        className="px-4 py-2 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
                       >
-                        <span>VERIFY CREDENTIAL</span>
+                        <span>Verify Credential</span>
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                     )}
                     {activeCertificate.pdfUrl && (
                       <a
                         href={activeCertificate.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-xl bg-emerald-600/25 hover:bg-emerald-600/45 border border-emerald-500/40 text-emerald-200 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-all"
+                        download="Hanan_Irfan_Certificate.pdf"
+                        className="px-4 py-2 rounded-xl bg-white/[0.06] border border-white/[0.12] hover:bg-white/[0.1] text-[#F8FAFC] text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
                       >
-                        <span>OPEN PDF</span>
+                        <span>Download PDF</span>
                         <FileText className="w-3.5 h-3.5" />
                       </a>
                     )}
@@ -935,9 +943,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                       href={activeCertificate.image}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-white text-xs font-mono flex items-center gap-1.5 transition-all"
+                      className="px-4 py-2 rounded-xl bg-white/[0.06] border border-white/[0.12] hover:bg-white/[0.1] text-[#F8FAFC] text-xs font-semibold inline-flex items-center gap-1.5 transition-colors"
                     >
-                      <span>OPEN IMAGE FILE</span>
+                      <span>Open Full Image</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
@@ -946,252 +954,209 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             </div>
           )}
         </AnimatePresence>
-      </motion.section>
+      </section>
 
-      {/* ================= SECTION 3: FEATURED PROJECTS 3D CAROUSEL ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
-      >
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
-          <div>
-            <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// PORTFOLIO SHOWCASE</span>
-            <SplitTextReveal
-              text="FEATURED PROJECTS"
-              as="h2"
-              className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide"
-            />
-          </div>
-          <button
-            onClick={() => onNavigate('projects')}
-            className="text-xs font-mono text-purple-400 hover:text-white flex items-center gap-1 transition-colors"
-          >
-            <span>VIEW ALL {PROJECTS.length} PROJECTS</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Premium Draggable 3D Perspective Carousel */}
-        <Project3DCarousel projects={PROJECTS} onSelectProject={onSelectProject} />
-      </motion.section>
-
-      {/* ================= SECTION 4: LIVE TOOLS HUB HIGHLIGHT ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-cyan-500/30 bg-gradient-to-r from-[#060a12] via-[#090d18] to-[#0a0718] relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">// LIVE UTILITY ENGINE</span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
-                FREE TOOLS HUB
-              </h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Explore a suite of fast, privacy-focused online utilities created by Hanan Irfan — including word counters, QR code generators, JSON formatters, password generators, and CSS glassmorphism generators.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">Word Counter</span>
-                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono">QR Generator</span>
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono">JSON Formatter</span>
-                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono">CSS Glass Maker</span>
-              </div>
-            </div>
-            <div className="lg:col-span-5 flex flex-col items-center lg:items-end gap-4">
-              <div className="w-full p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-                  <span>DEPLOYED HUB</span>
-                  <span className="text-emerald-400">● ACTIVE VERCEL</span>
-                </div>
-                <div className="text-sm text-slate-200 font-mono break-all">
-                  freetoolshub.vercel.app
-                </div>
-                <a
-                  href="https://freetoolshub.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-200 hover:text-black font-display font-bold text-xs tracking-wider transition-all flex items-center justify-center gap-2"
-                >
-                  <span>LAUNCH FREE TOOLS HUB</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* ================= SECTION 5: TECH STACK & SKILLS ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"
-      >
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
-          <div>
-            <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// TECHNICAL STACK</span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
-              CORE CAPABILITIES
-            </h2>
-          </div>
-          <button
-            onClick={() => onNavigate('skills')}
-            className="text-xs font-mono text-purple-400 hover:text-white flex items-center gap-1 transition-colors"
-          >
-            <span>VIEW ALL SKILLS</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {[
-            { name: 'React.js', desc: 'Modern SPA UI', color: 'from-cyan-500/20 to-blue-500/10' },
-            { name: 'Next.js', desc: 'SSR & App Router', color: 'from-purple-500/20 to-indigo-500/10' },
-            { name: 'TypeScript', desc: 'Type-Safe Code', color: 'from-blue-500/20 to-cyan-500/10' },
-            { name: 'Technical SEO', desc: 'Schema & Core Vitals', color: 'from-emerald-500/20 to-teal-500/10' },
-            { name: 'Tailwind CSS', desc: 'Modern Utility Styling', color: 'from-sky-500/20 to-indigo-500/10' },
-            { name: 'Supabase / Firebase', desc: 'Cloud Auth & DB', color: 'from-amber-500/20 to-orange-500/10' }
-          ].map((item, idx) => (
-            <motion.div
-              key={idx}
-              whileHover={{ y: -4 }}
-              className={`glass-card rounded-2xl p-4 border border-white/10 bg-gradient-to-br ${item.color} space-y-2 text-center`}
-            >
-              <div className="text-sm font-bold font-display text-white">{item.name}</div>
-              <div className="text-[10px] font-mono text-slate-400">{item.desc}</div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* ================= SECTION 6: SERVICES PREVIEW ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"
-      >
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// DIGITAL SOLUTIONS</span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-wide">
-            CAPABILITIES & SERVICES
-          </h2>
-          <p className="text-slate-400 text-sm">
-            Delivering end-to-end web engineering, search optimization, and visual design solutions.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {SERVICES.slice(0, 3).map((service) => (
-            <div
-              key={service.id}
-              onClick={() => onNavigate('services')}
-              className="glass-card glass-card-hover rounded-3xl p-6 border border-white/10 cursor-pointer flex flex-col justify-between"
-            >
-              <div>
-                <div className="text-xs font-mono text-purple-400 mb-3">SERVICE {service.number}</div>
-                <h3 className="text-xl font-bold font-display text-white mb-3">{service.title}</h3>
-                <p className="text-xs text-slate-300 leading-relaxed mb-6">{service.shortDesc}</p>
-              </div>
-              <div className="flex items-center gap-1 text-xs font-mono text-purple-400 group-hover:text-white">
-                <span>EXPLORE SERVICE</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center pt-4">
-          <button
-            onClick={() => onNavigate('services')}
-            className="px-6 py-3 rounded-xl glass-card border border-purple-500/30 text-purple-300 hover:text-white font-display font-bold text-xs tracking-wider transition-all"
-          >
-            VIEW ALL 7 SERVICES
-          </button>
-        </div>
-      </motion.section>
-
-      {/* ================= SECTION 7: MILESTONES & JOURNEY ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"
-      >
-        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-purple-500/20 bg-[#080a14]">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-white/10">
-            <div>
-              <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// EXPERIENCE & GROWTH</span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
-                ACADEMIC & INDUSTRY MILESTONES
+      {/* ================= FEATURED PROJECTS ================= */}
+      <MotionReveal>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+                Selected Engineering &amp; Product Work
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black font-display text-[#F8FAFC] tracking-tight">
+                Featured Projects
               </h2>
             </div>
             <button
-              onClick={() => onNavigate('experience')}
-              className="px-5 py-2.5 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-200 text-xs font-mono hover:bg-purple-600 hover:text-white transition-all"
+              type="button"
+              onClick={() => onNavigate('projects')}
+              className="text-xs font-mono font-semibold text-[#3B82F6] hover:text-[#F8FAFC] inline-flex items-center gap-1 cursor-pointer transition-colors"
             >
-              VIEW FULL TIMELINE →
+              <span>View All {PROJECTS.length} Projects</span>
+              <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
-            {EXPERIENCE_ITEMS.slice(0, 3).map((exp) => (
-              <div key={exp.id} className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-3">
-                <span className="text-[10px] font-mono text-purple-400 font-bold">{exp.period}</span>
-                <h3 className="text-lg font-bold font-display text-white">{exp.title}</h3>
-                <p className="text-xs font-mono text-slate-400">{exp.organization}</p>
-                <p className="text-xs text-slate-300 leading-relaxed line-clamp-3">{exp.description}</p>
-              </div>
+          <Project3DCarousel projects={PROJECTS} onSelectProject={onSelectProject} />
+        </section>
+      </MotionReveal>
+
+      {/* ================= SKILLS & EXPERTISE MATRIX ================= */}
+      <MotionReveal>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+                Core Disciplines
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black font-display text-[#F8FAFC] tracking-tight">
+                Skills &amp; Professional Areas
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigate('skills')}
+              className="text-xs font-mono font-semibold text-[#3B82F6] hover:text-[#F8FAFC] inline-flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>Explore Full Tech Stack</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {PERSONAL_INFO.professionalAreas.map((area, idx) => (
+              <MotionReveal key={area} delay={idx * 0.03} yOffset={10}>
+                <SpotlightCard
+                  onClick={() => onNavigate('skills')}
+                  className="rounded-2xl p-4 h-full flex items-center gap-2.5 text-xs font-semibold text-[#F8FAFC]"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#3B82F6] shrink-0" />
+                    <span>{area}</span>
+                  </div>
+                </SpotlightCard>
+              </MotionReveal>
             ))}
           </div>
-        </div>
-      </motion.section>
+        </section>
+      </MotionReveal>
 
-      {/* ================= SECTION 8: FINAL CTA SECTION ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="glass-card rounded-3xl p-10 sm:p-16 border border-purple-500/30 text-center relative overflow-hidden bg-gradient-to-r from-purple-950/40 via-[#0a0c16] to-indigo-950/40">
-          <div className="max-w-3xl mx-auto space-y-6 relative z-10">
-            <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">// START A CONVERSATION</span>
-            <h2 className="text-4xl sm:text-6xl font-black font-display text-white tracking-wide text-glow">
-              LET'S BUILD SOMETHING GREAT.
-            </h2>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Have an idea, project, website, digital product, or technology challenge? Let's turn it into something useful, functional, and memorable.
-            </p>
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-              <button
-                onClick={() => onNavigate('contact')}
-                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-display font-extrabold text-xs tracking-wider shadow-2xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
-              >
-                <Rocket className="w-4 h-4" /> START A PROJECT
-              </button>
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="px-8 py-4 rounded-2xl glass-card border border-white/15 text-white hover:border-purple-500/50 font-display font-bold text-xs tracking-wider transition-all"
-              >
-                DIRECT EMAIL ({PERSONAL_INFO.email})
-              </a>
+      {/* ================= EXPERIENCE & LEADERSHIP HIGHLIGHTS ================= */}
+      <MotionReveal>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          <SpotlightCard hoverable={false} className="rounded-3xl p-6 sm:p-10">
+            <div className="space-y-8">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/[0.1] pb-6">
+                <div>
+                  <span className="text-xs font-mono font-semibold text-[#8B5CF6] uppercase tracking-wider">
+                    Experience &amp; Leadership
+                  </span>
+                  <h2 className="text-2xl sm:text-4xl font-black font-display text-[#F8FAFC] mt-1">
+                    Leadership &amp; Milestones
+                  </h2>
+                </div>
+                <motion.button
+                  type="button"
+                  whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                  onClick={() => onNavigate('experience')}
+                  className="px-4 py-2.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] text-xs font-semibold transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Full Timeline</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </motion.button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {EXPERIENCE_ITEMS.slice(0, 3).map((exp, idx) => (
+                  <MotionReveal key={exp.id} delay={idx * 0.05} yOffset={12}>
+                    <div className="p-5 rounded-2xl bg-[#0D1425]/80 border border-white/[0.1] hover:border-[#3B82F6]/35 transition-colors space-y-2.5 h-full">
+                      <span className="text-[11px] font-mono text-[#3B82F6] font-bold block">{exp.period}</span>
+                      <h3 className="text-lg font-bold font-display text-[#F8FAFC] leading-snug">{exp.title}</h3>
+                      {exp.organization && (
+                        <p className="text-xs font-mono text-[#94A3B8]">{exp.organization}</p>
+                      )}
+                      <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed line-clamp-3">
+                        {exp.description}
+                      </p>
+                    </div>
+                  </MotionReveal>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      </motion.section>
+          </SpotlightCard>
+        </section>
+      </MotionReveal>
 
+      {/* ================= SERVICES PREVIEW ================= */}
+      <MotionReveal>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
+                Consulting &amp; Engineering
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black font-display text-[#F8FAFC] tracking-tight">
+                Capabilities &amp; Services
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigate('services')}
+              className="text-xs font-mono font-semibold text-[#3B82F6] hover:text-[#F8FAFC] inline-flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>View All {SERVICES.length} Services</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {SERVICES.slice(0, 3).map((service, idx) => (
+              <MotionReveal key={service.id} delay={idx * 0.06}>
+                <SpotlightCard
+                  onClick={() => onNavigate('services')}
+                  className="rounded-3xl p-6 h-full group"
+                >
+                  <div className="flex flex-col justify-between h-full">
+                    <div>
+                      <div className="text-xs font-mono font-bold text-[#8B5CF6] mb-3">0{Number(service.number)}.</div>
+                      <h3 className="text-xl font-bold font-display text-[#F8FAFC] group-hover:text-[#3B82F6] transition-colors mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed mb-5">{service.shortDesc}</p>
+                    </div>
+                    <div className="inline-flex items-center gap-1 text-xs font-semibold text-[#3B82F6]">
+                      <span>Explore Service</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </MotionReveal>
+            ))}
+          </div>
+        </section>
+      </MotionReveal>
+
+      {/* ================= FINAL CONTACT CTA ================= */}
+      <MotionReveal>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SpotlightCard
+            hoverable={false}
+            className="rounded-3xl p-8 sm:p-14 border-[#3B82F6]/30 text-center bg-gradient-to-br from-[#3B82F6]/12 via-white/[0.04] to-[#8B5CF6]/12"
+          >
+            <div className="space-y-5">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#3B82F6] block">
+                Open for Collaboration &amp; Projects
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-[#F8FAFC]">
+                Let&apos;s Build Something Useful Together
+              </h2>
+              <p className="text-[#94A3B8] text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Interested in collaborating on AI web applications, full-stack software, or SEO/AEO/GEO growth? Reach out directly.
+              </p>
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                <motion.button
+                  type="button"
+                  whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                  onClick={() => onNavigate('contact')}
+                  className="px-7 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] font-semibold text-sm transition-colors inline-flex items-center gap-2 cursor-pointer shadow-[0_0_24px_rgba(59,130,246,0.28)]"
+                >
+                  <span>Contact Channels</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </motion.button>
+                <a
+                  href={`mailto:${PERSONAL_INFO.email}`}
+                  className="px-7 py-3.5 rounded-xl bg-white/[0.06] border border-white/[0.14] hover:bg-white/[0.1] hover:border-[#3B82F6]/45 text-[#F8FAFC] font-semibold text-sm transition-colors"
+                >
+                  {PERSONAL_INFO.email}
+                </a>
+              </div>
+            </div>
+          </SpotlightCard>
+        </section>
+      </MotionReveal>
     </div>
   );
 };
