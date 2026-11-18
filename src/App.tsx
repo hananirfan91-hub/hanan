@@ -153,7 +153,7 @@ export default function App() {
       'web-development': 'React, Next.js, TypeScript, and full-stack web application development by Hanan Irfan in Rahim Yar Khan, Pakistan.',
       'seo-expert': 'Search Engine Optimization (SEO), Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), and keyword clustering services by Hanan Irfan.',
       'graphic-design': 'UI/UX design, brand visuals, and clean responsive interface design by Hanan Irfan.',
-      contact: 'Connect directly with Hanan Irfan via email (hananirfan91@gmail.com), location details in Rahim Yar Khan, LinkedIn, X (@hananirfan91), Instagram, Facebook, and TikTok.',
+      contact: 'Connect directly with Hanan Irfan via email (hananirfan91@gmail.com), location details in Rahim Yar Khan, GitHub, LinkedIn, X (@hananirfan91), Instagram, Facebook, and TikTok.',
       'privacy-policy': 'Privacy Policy detailing exact storage, Service Worker caching, external links, and user privacy practices for Hanan Irfan Portfolio.',
       privacy: 'Privacy Policy for Hanan Irfan Portfolio.',
       'terms-and-conditions': 'Terms and Conditions governing use of Hanan Irfan Portfolio, intellectual property, third-party project demos, and liability disclosures.',

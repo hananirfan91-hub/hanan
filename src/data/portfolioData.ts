@@ -24,6 +24,7 @@ export const PERSONAL_INFO = {
   email: 'hananirfan91@gmail.com',
   portfolioUrl: 'https://hanan56.vercel.app',
   socials: {
+    github: { name: 'GitHub', handle: 'hananirfan91-hub', url: 'https://github.com/hananirfan91-hub' },
     linkedin: { name: 'LinkedIn', handle: 'in/hananirfan', url: 'https://linkedin.com/in/hananirfan' },
     x: { name: 'X', handle: '@hananirfan91', url: 'https://x.com/hananirfan91' },
     instagram: { name: 'Instagram', handle: '@hananirfan2026', url: 'https://instagram.com/hananirfan2026' },
@@ -644,7 +645,7 @@ export const AEO_FAQS: FAQItem[] = [
   {
     question: 'How can I contact Hanan Irfan?',
     answer:
-      'You can reach Hanan Irfan directly via email at hananirfan91@gmail.com, on the Contact page at https://hanan56.vercel.app/contact, or on X (@hananirfan91), LinkedIn (linkedin.com/in/hananirfan), and Instagram (@hananirfan2026).',
+      'You can reach Hanan Irfan directly via email at hananirfan91@gmail.com, on the Contact page at https://hanan56.vercel.app/contact, or on GitHub (github.com/hananirfan91-hub), X (@hananirfan91), LinkedIn (linkedin.com/in/hananirfan), and Instagram (@hananirfan2026).',
     category: 'Contact',
   },
 ];

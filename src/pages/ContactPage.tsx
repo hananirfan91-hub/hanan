@@ -35,6 +35,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 
   const socialProfiles = [
     {
+      ...PERSONAL_INFO.socials.github,
+      note: 'Open-source repositories, web apps & code',
+    },
+    {
       ...PERSONAL_INFO.socials.x,
       note: 'Engineering updates, AI builds & SEO threads',
     },
@@ -188,7 +192,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Right: Social Account Links (X, LinkedIn, Instagram, Facebook, TikTok - No YouTube) */}
+        {/* Right: Social Account Links (GitHub, X, LinkedIn, Instagram, Facebook, TikTok) */}
         <div className="lg:col-span-7 surface-card rounded-3xl p-7 sm:p-8 flex flex-col justify-between space-y-6">
           <div className="space-y-1">
             <span className="text-xs font-mono text-[#8B5CF6] font-semibold uppercase tracking-wider">

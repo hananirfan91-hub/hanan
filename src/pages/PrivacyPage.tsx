@@ -45,7 +45,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
             <a href={`mailto:${PERSONAL_INFO.email}`} className="text-[#3B82F6] underline">
               {PERSONAL_INFO.email}
             </a>{' '}
-            using your device&apos;s email application or reach out through external social networks (LinkedIn, X, Instagram, Facebook, TikTok), any details you send (such as your name, email address, or message) are processed solely to respond to your inquiry.
+            using your device&apos;s email application or reach out through external social networks (GitHub, LinkedIn, X, Instagram, Facebook, TikTok), any details you send (such as your name, email address, or message) are processed solely to respond to your inquiry.
           </p>
         </section>
 
@@ -98,7 +98,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
         <section className="space-y-2.5">
           <h2 className="text-lg font-bold font-display text-[#F8FAFC]">6. External Links &amp; Third-Party Sites</h2>
           <p>
-            This portfolio links to external web deployments (such as <em>The Sports Room</em>, <em>NEXA POS System</em>, <em>Free Tools Hub</em>, <em>AI Tool Guide</em>), credential verifiers (Coursera, Credly), and social profiles (LinkedIn, X, Instagram, Facebook, TikTok). Once you navigate to an external domain, that site&apos;s own privacy policy governs your visit.
+            This portfolio links to external web deployments (such as <em>The Sports Room</em>, <em>NEXA POS System</em>, <em>Free Tools Hub</em>, <em>AI Tool Guide</em>), credential verifiers (Coursera, Credly), and social profiles (GitHub, LinkedIn, X, Instagram, Facebook, TikTok). Once you navigate to an external domain, that site&apos;s own privacy policy governs your visit.
           </p>
         </section>
 

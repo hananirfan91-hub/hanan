@@ -261,6 +261,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
 
                 <div className="pt-2 flex flex-wrap gap-2">
                   <a
+                    href={PERSONAL_INFO.socials.github.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-white/[0.05] border border-white/[0.1] hover:border-[#3B82F6]/50 hover:text-[#3B82F6] text-[#F8FAFC] text-xs font-medium transition-colors"
+                  >
+                    GitHub
+                  </a>
+                  <a
                     href={PERSONAL_INFO.socials.linkedin.url}
                     target="_blank"
                     rel="noopener noreferrer"

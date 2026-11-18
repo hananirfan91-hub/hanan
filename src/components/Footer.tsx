@@ -109,6 +109,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h3>
             <ul className="space-y-2.5 text-xs font-medium">
               {[
+                PERSONAL_INFO.socials.github,
                 PERSONAL_INFO.socials.linkedin,
                 PERSONAL_INFO.socials.x,
                 PERSONAL_INFO.socials.instagram,
