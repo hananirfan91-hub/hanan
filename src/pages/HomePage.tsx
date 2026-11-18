@@ -60,26 +60,37 @@ const GOOGLE_AI_BADGES = [
     height: 2550,
   },
   {
-    title: 'Google AI for App Building',
-    type: 'Google AI Badge',
+    title: 'AI for App Building',
+    type: 'Coursera Certificate',
     date: '16 Nov 2026',
-    image: '/images/certificates/google-ai-app-building-2026.webp',
-    fallbackImage: '/assets/aistudio/image_6e63b403.png',
-    verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
-    subtitle: 'Google AI Professional Certificate • Coursera & Google',
-    width: 1080,
-    height: 1080,
+    image: '/assets/aistudio/Coursera_CHB462QJ6RVH_page-0001_aadbbfe8.jpg',
+    fallbackImage: '/assets/aistudio/Coursera_CHB462QJ6RVH_page-0001_aadbbfe8.jpg',
+    verifyUrl: 'https://coursera.org/verify/CHB462QJ6RVH',
+    subtitle: 'Authorized by Google & offered through Coursera • ID: CHB462QJ6RVH',
+    width: 3300,
+    height: 2550,
   },
   {
-    title: 'Google AI for Data Analysis',
-    type: 'Google AI Badge',
-    date: '16 Nov 2026',
-    image: '/images/certificates/google-ai-data-analysis-2026.webp',
-    fallbackImage: '/assets/aistudio/image_d10e45e6.png',
-    verifyUrl: 'https://coursera.org/verify/professional-cert/X7TCM4MBEUWP',
-    subtitle: 'Google AI Professional Certificate • Coursera & Google',
-    width: 1080,
-    height: 1080,
+    title: 'AI for Data Analysis',
+    type: 'Coursera Certificate',
+    date: '17 Nov 2026',
+    image: '/assets/aistudio/Coursera_TP7VLK5828ET_page-0001_725a85ff.jpg',
+    fallbackImage: '/assets/aistudio/Coursera_TP7VLK5828ET_page-0001_725a85ff.jpg',
+    verifyUrl: 'https://coursera.org/verify/TP7VLK5828ET',
+    subtitle: 'Authorized by Google & offered through Coursera • ID: TP7VLK5828ET',
+    width: 3300,
+    height: 2550,
+  },
+  {
+    title: 'AI for App Deployment',
+    type: 'Coursera Certificate',
+    date: '17 Nov 2026',
+    image: '/assets/aistudio/Coursera_25V3FGI10PCJ_page-0001_50caa1fc.jpg',
+    fallbackImage: '/assets/aistudio/Coursera_25V3FGI10PCJ_page-0001_50caa1fc.jpg',
+    verifyUrl: 'https://coursera.org/verify/25V3FGI10PCJ',
+    subtitle: 'Authorized by Google & offered through Coursera • ID: 25V3FGI10PCJ',
+    width: 3300,
+    height: 2550,
   },
 ];
 
@@ -323,9 +334,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
 
             <SpotlightCard className="rounded-2xl p-5 space-y-1.5">
               <div className="text-2xl sm:text-3xl font-black font-mono text-[#F8FAFC]">
-                <AnimatedStat target={9} />
+                <AnimatedStat target={GOOGLE_AI_BADGES.length + 4} />
               </div>
-              <div className="text-xs font-semibold text-emerald-400">Honors &amp; AI Badges</div>
+              <div className="text-xs font-semibold text-emerald-400">Honors &amp; AI Credentials</div>
               <p className="text-[11px] text-[#94A3B8]">Google, Coursera &amp; University</p>
             </SpotlightCard>
 
@@ -563,16 +574,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 <span className="text-xs font-mono text-[#F8FAFC] font-bold uppercase tracking-wider">
                   Earned Google AI &amp; Coursera Course Badges
                 </span>
-                <span className="text-xs font-mono text-[#94A3B8]">5 Verified Badges</span>
+                <span className="text-xs font-mono text-[#94A3B8]">
+                  {GOOGLE_AI_BADGES.length} Verified Badges &amp; Certificates
+                </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                {GOOGLE_AI_BADGES.map((badge, idx) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {GOOGLE_AI_BADGES.map((badge) => (
                   <div
                     key={badge.title}
-                    className={`rounded-2xl p-3.5 border border-white/[0.12] bg-[#0D1425]/70 hover:border-[#3B82F6]/45 transition-colors flex flex-col justify-between gap-3 ${
-                      idx === 4 ? 'sm:col-span-2 lg:col-span-1' : ''
-                    }`}
+                    className="rounded-2xl p-3.5 border border-white/[0.12] bg-[#0D1425]/70 hover:border-[#3B82F6]/45 transition-colors flex flex-col justify-between gap-3"
                   >
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-[#94A3B8]">
@@ -593,7 +604,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                         className="relative overflow-hidden rounded-xl border border-white/[0.1] bg-[#080D1B] cursor-pointer aspect-[4/3] flex items-center justify-center p-1.5 group/badge"
                       >
                         <picture className="block w-full h-full">
-                          <source srcSet={badge.image} type="image/webp" />
+                          {badge.image.endsWith('.webp') && (
+                            <source srcSet={badge.image} type="image/webp" />
+                          )}
                           <img
                             src={badge.image}
                             alt={`${badge.title} — Abdul Hanan Irfan`}
