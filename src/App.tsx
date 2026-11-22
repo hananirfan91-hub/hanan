@@ -8,6 +8,7 @@ import { BackgroundMusicControl } from './components/BackgroundMusicControl';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { MobileBottomNav } from './components/MobileBottomNav';
+import { AnnouncementBanner } from './components/AnnouncementBanner';
 
 import { HomePage } from './pages/HomePage';
 
@@ -222,7 +223,7 @@ export default function App() {
   return (
     <ErrorBoundary>
       <SmoothLenis>
-        <div className="min-h-screen bg-[#080D1B] text-[#F8FAFC] font-sans relative overflow-x-hidden selection:bg-[#3B82F6]/30 selection:text-[#F8FAFC]">
+        <div className="min-h-screen bg-[#080D1B] text-[#F8FAFC] font-sans relative overflow-x-clip selection:bg-[#3B82F6]/30 selection:text-[#F8FAFC]">
           {/* Midnight Navy radial blue/violet ambient backdrop */}
           <div
             aria-hidden="true"
@@ -250,6 +251,8 @@ export default function App() {
             }}
           />
 
+          <AnnouncementBanner />
+
           <Navbar
             currentPage={currentPage}
             onNavigate={handleNavigate}
@@ -257,7 +260,7 @@ export default function App() {
             toggleAudio={toggleAudio}
           />
 
-          <main className="relative z-10 pt-20 sm:pt-24">
+          <main className="relative z-10 pt-4 sm:pt-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPage}

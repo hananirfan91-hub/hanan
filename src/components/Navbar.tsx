@@ -51,10 +51,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 safe-top transition-all duration-300 ${
+        className={`sticky top-0 left-0 right-0 z-50 safe-top transition-all duration-300 ${
           scrolled
             ? 'bg-[#080D1B]/88 backdrop-blur-xl border-b border-white/[0.12] py-3 shadow-[0_8px_32px_rgba(4,8,20,0.65)]'
-            : 'bg-[#080D1B]/65 backdrop-blur-lg border-b border-white/[0.08] py-4'
+            : 'bg-[#080D1B]/72 backdrop-blur-lg border-b border-white/[0.08] py-4'
         }`}
       >
         <div
@@ -241,9 +241,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#080D1B]/95 backdrop-blur-2xl pt-24 pb-24 px-6 flex flex-col justify-between overflow-y-auto lg:hidden"
+            className="fixed inset-0 z-[60] safe-top bg-[#080D1B]/95 backdrop-blur-2xl pt-4 pb-24 px-6 flex flex-col justify-between overflow-y-auto lg:hidden"
           >
             <div className="space-y-6">
+              <div className="flex items-center justify-between pb-3 border-b border-white/[0.1]">
+                <span className="font-display font-black text-base tracking-tight text-[#F8FAFC]">
+                  {PERSONAL_INFO.primaryBrand}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Close navigation menu"
+                  className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] hover:bg-white/[0.1] transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
               <div>
                 <p className="text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] mb-3">
                   More Pages
