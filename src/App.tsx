@@ -7,6 +7,7 @@ import { SmoothLenis } from './components/animations/SmoothLenis';
 import { BackgroundMusicControl } from './components/BackgroundMusicControl';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { OfflineIndicator } from './components/OfflineIndicator';
+import { MobileBottomNav } from './components/MobileBottomNav';
 
 import { HomePage } from './pages/HomePage';
 
@@ -273,6 +274,8 @@ export default function App() {
           </main>
 
           <Footer onNavigate={handleNavigate} />
+
+          <MobileBottomNav currentPage={currentPage} onNavigate={handleNavigate} />
 
           {selectedProject && (
             <Suspense fallback={null}>

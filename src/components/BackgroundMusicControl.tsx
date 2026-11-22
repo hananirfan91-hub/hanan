@@ -28,7 +28,7 @@ export const BackgroundMusicControl: React.FC<BackgroundMusicControlProps> = ({
       aria-label={isPlaying ? 'Pause background music' : 'Play background music'}
       aria-pressed={isPlaying}
       title={isPlaying ? 'Pause ambient music' : 'Play ambient music'}
-      className={`fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-30 safe-bottom rounded-full px-3.5 py-2 flex items-center gap-2.5 transition-all duration-200 cursor-pointer border backdrop-blur-xl ${
+      className={`fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-30 safe-bottom rounded-full px-3.5 py-2 flex items-center gap-2.5 transition-all duration-200 cursor-pointer border backdrop-blur-xl ${
         isPlaying
           ? 'bg-[#3B82F6]/20 border-[#3B82F6]/50 text-[#F8FAFC] shadow-[0_0_24px_rgba(59,130,246,0.28)]'
           : 'bg-white/[0.06] border-white/[0.14] text-[#94A3B8] hover:border-[#3B82F6]/45 hover:text-[#F8FAFC] shadow-lg'

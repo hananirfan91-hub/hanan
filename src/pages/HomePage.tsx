@@ -18,6 +18,9 @@ import {
   Download,
   CheckCircle2,
   MapPin,
+  Code2,
+  SearchCheck,
+  Palette,
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -165,6 +168,19 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                     {HERO_ROLES[roleIndex]}
                   </motion.p>
                 </AnimatePresence>
+              </div>
+              <div className="flex lg:hidden items-center gap-1.5 pt-0.5">
+                {HERO_ROLES.map((role, idx) => (
+                  <button
+                    key={role}
+                    type="button"
+                    onClick={() => setRoleIndex(idx)}
+                    aria-label={`Show role ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                      roleIndex === idx ? 'w-5 bg-[#3B82F6]' : 'w-1.5 bg-white/[0.25]'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
 
@@ -352,6 +368,62 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             </SpotlightCard>
           </div>
         </MotionReveal>
+
+        {/* Mobile-only 3-Column Quick Practice Strip (App-Style Layout) */}
+        <div className="lg:hidden space-y-3 pt-1">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-extrabold font-display text-[#F8FAFC] tracking-tight">
+              Explore by Practice
+            </h2>
+            <button
+              type="button"
+              onClick={() => onNavigate('services')}
+              className="text-[11px] font-mono font-semibold text-[#3B82F6] cursor-pointer"
+            >
+              View All
+            </button>
+          </div>
+          <div className="grid grid-cols-3 gap-2.5">
+            <button
+              type="button"
+              onClick={() => onNavigate('web-development')}
+              className="surface-card rounded-2xl p-2.5 text-center space-y-2 hover:border-[#3B82F6]/45 transition-colors cursor-pointer"
+            >
+              <div className="aspect-square rounded-xl bg-[#3B82F6]/12 border border-[#3B82F6]/25 flex items-center justify-center text-[#3B82F6]">
+                <Code2 className="w-6 h-6" />
+              </div>
+              <span className="block text-[11px] font-bold text-[#F8FAFC] truncate">
+                Web Dev
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onNavigate('seo-expert')}
+              className="surface-card rounded-2xl p-2.5 text-center space-y-2 hover:border-[#3B82F6]/45 transition-colors cursor-pointer"
+            >
+              <div className="aspect-square rounded-xl bg-emerald-500/12 border border-emerald-400/25 flex items-center justify-center text-emerald-400">
+                <SearchCheck className="w-6 h-6" />
+              </div>
+              <span className="block text-[11px] font-bold text-[#F8FAFC] truncate">
+                SEO &amp; GEO
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onNavigate('graphic-design')}
+              className="surface-card rounded-2xl p-2.5 text-center space-y-2 hover:border-[#3B82F6]/45 transition-colors cursor-pointer"
+            >
+              <div className="aspect-square rounded-xl bg-[#8B5CF6]/12 border border-[#8B5CF6]/25 flex items-center justify-center text-[#8B5CF6]">
+                <Palette className="w-6 h-6" />
+              </div>
+              <span className="block text-[11px] font-bold text-[#F8FAFC] truncate">
+                UI Design
+              </span>
+            </button>
+          </div>
+        </div>
       </section>
 
       {/* Editorial Kinetic Marquee Ribbon */}
@@ -579,11 +651,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {GOOGLE_AI_BADGES.map((badge) => (
                   <div
                     key={badge.title}
-                    className="rounded-2xl p-3.5 border border-white/[0.12] bg-[#0D1425]/70 hover:border-[#3B82F6]/45 transition-colors flex flex-col justify-between gap-3"
+                    className="rounded-2xl p-3 sm:p-3.5 border border-white/[0.12] bg-[#0D1425]/70 hover:border-[#3B82F6]/45 transition-colors flex flex-col justify-between gap-2.5 sm:gap-3"
                   >
                     <div className="space-y-2.5">
                       <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-[#94A3B8]">
@@ -1025,12 +1097,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
             {PERSONAL_INFO.professionalAreas.map((area, idx) => (
               <MotionReveal key={area} delay={idx * 0.03} yOffset={10}>
                 <SpotlightCard
                   onClick={() => onNavigate('skills')}
-                  className="rounded-2xl p-4 h-full flex items-center gap-2.5 text-xs font-semibold text-[#F8FAFC]"
+                  className="rounded-2xl p-3.5 sm:p-4 h-full flex items-center gap-2 sm:gap-2.5 text-[11px] sm:text-xs font-semibold text-[#F8FAFC]"
                 >
                   <div className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#3B82F6] shrink-0" />

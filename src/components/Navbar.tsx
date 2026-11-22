@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PageId } from '../types';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import { Menu, X, Volume2, VolumeX, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX, ArrowUpRight, ArrowLeft, Search } from 'lucide-react';
 
 interface NavbarProps {
   currentPage: PageId;
@@ -62,7 +62,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           style={{ width: `${scrollProgress}%` }}
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        {/* Desktop Header (Unchanged on lg+) */}
+        <div className="hidden lg:flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => handleNavClick('home')}
@@ -97,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </button>
 
-          <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-1">
+          <nav aria-label="Primary navigation" className="flex items-center gap-1">
             {navItems.map((item) => {
               const isActive = currentPage === item.id;
               return (
@@ -126,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0">
             <motion.button
               type="button"
               whileTap={{ scale: 0.94 }}
@@ -155,13 +156,67 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ArrowUpRight className="w-3.5 h-3.5" />
             </motion.button>
           </div>
+        </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
+        {/* Mobile App-Style Top Bar (< lg) */}
+        <div className="flex lg:hidden items-center justify-between px-4 gap-2">
+          <div className="w-20 flex items-center">
+            {currentPage !== 'home' ? (
+              <button
+                type="button"
+                onClick={() => handleNavClick('home')}
+                aria-label="Back to Home"
+                className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] hover:border-[#3B82F6]/50 transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => handleNavClick('projects')}
+                aria-label="Browse Projects"
+                className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#3B82F6]/50 transition-colors cursor-pointer"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => handleNavClick('home')}
+            className="flex items-center gap-2 cursor-pointer"
+            aria-label="Hanan Irfan Home"
+          >
+            <div className="w-8 h-8 rounded-xl overflow-hidden border border-[#3B82F6]/45 bg-[#0D1425] shadow-[0_0_16px_rgba(59,130,246,0.22)]">
+              <img
+                src="/avatar.webp"
+                alt="Hanan Irfan"
+                width={32}
+                height={32}
+                loading="eager"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.endsWith('/avatar.jpg')) {
+                    target.src = '/avatar.jpg';
+                  }
+                }}
+                className="w-full h-full object-cover aspect-square"
+              />
+            </div>
+            <span className="font-display font-black text-base tracking-tight text-[#F8FAFC]">
+              {PERSONAL_INFO.primaryBrand}
+            </span>
+          </button>
+
+          <div className="w-20 flex items-center justify-end gap-1.5">
             <button
               type="button"
               onClick={toggleAudio}
               aria-label={audioEnabled ? 'Mute background music' : 'Play background music'}
-              className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] cursor-pointer"
+              className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] cursor-pointer"
             >
               {audioEnabled ? <Volume2 className="w-4 h-4 text-[#3B82F6]" /> : <VolumeX className="w-4 h-4 text-[#94A3B8]" />}
             </button>
@@ -171,9 +226,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="btn-mobile-menu-toggle"
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileMenuOpen}
-              className="p-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] hover:bg-white/[0.1] transition-colors cursor-pointer"
+              className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] hover:bg-white/[0.1] transition-colors cursor-pointer"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
@@ -186,15 +241,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#080D1B]/95 backdrop-blur-2xl pt-24 pb-8 px-6 flex flex-col justify-between overflow-y-auto lg:hidden"
+            className="fixed inset-0 z-40 bg-[#080D1B]/95 backdrop-blur-2xl pt-24 pb-24 px-6 flex flex-col justify-between overflow-y-auto lg:hidden"
           >
             <div className="space-y-6">
               <div>
                 <p className="text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] mb-3">
-                  Navigation
+                  More Pages
                 </p>
                 <div className="flex flex-col divide-y divide-white/[0.08]">
-                  {navItems.map((item) => {
+                  {(
+                    [
+                      { id: 'experience', label: 'Experience' },
+                      { id: 'services', label: 'Services' },
+                    ] as { id: PageId; label: string }[]
+                  ).map((item) => {
                     const isActive = currentPage === item.id;
                     return (
                       <button
@@ -227,28 +287,28 @@ export const Navbar: React.FC<NavbarProps> = ({
                       { id: 'terms-and-conditions', label: 'Terms' },
                       { id: 'disclaimer', label: 'Disclaimer' },
                     ] as { id: PageId; label: string }[]
-                  ).map((sub) => (
-                    <button
-                      type="button"
-                      key={sub.id}
-                      onClick={() => handleNavClick(sub.id)}
-                      className="text-left px-3 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-[#F8FAFC] font-medium hover:border-[#3B82F6]/50 transition-colors cursor-pointer"
-                    >
-                      {sub.label}
-                    </button>
-                  ))}
+                  ).map((sub) => {
+                    const isSubActive = currentPage === sub.id;
+                    return (
+                      <button
+                        type="button"
+                        key={sub.id}
+                        onClick={() => handleNavClick(sub.id)}
+                        className={`text-left px-3 py-2.5 rounded-xl border font-medium transition-colors cursor-pointer ${
+                          isSubActive
+                            ? 'bg-[#3B82F6]/15 border-[#3B82F6]/50 text-[#3B82F6]'
+                            : 'bg-white/[0.05] border-white/[0.12] text-[#F8FAFC] hover:border-[#3B82F6]/50'
+                        }`}
+                      >
+                        {sub.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-white/[0.1] space-y-3">
-              <button
-                type="button"
-                onClick={() => handleNavClick('contact')}
-                className="w-full py-3.5 rounded-xl font-bold text-sm bg-[#3B82F6] hover:bg-[#2563EB] text-[#F8FAFC] transition-colors cursor-pointer"
-              >
-                Get Contact Channels
-              </button>
+            <div className="pt-6 border-t border-white/[0.1]">
               <p className="text-center text-xs text-[#94A3B8] font-mono">
                 {PERSONAL_INFO.location} &bull; {PERSONAL_INFO.education.semester}
               </p>
