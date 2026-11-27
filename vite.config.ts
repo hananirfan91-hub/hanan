@@ -1,14 +1,47 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+function disableBrokenHmrWebSocketPlugin(hmrDisabled: boolean): Plugin {
+  return {
+    name: 'disable-broken-hmr-websocket',
+    apply: 'serve',
+    enforce: 'post',
+    transform(code, id) {
+      if (!hmrDisabled) return null;
+      const normalized = id.replace(/\\/g, '/');
+      if (
+        normalized.endsWith('/vite/dist/client/client.mjs') ||
+        normalized.includes('@vite/client')
+      ) {
+        if (code.includes('transport.connect(createHMRHandler(handleMessage))')) {
+          return {
+            code: code.replace(
+              'transport.connect(createHMRHandler(handleMessage));',
+              '/* HMR WebSocket intentionally disabled in preview runtime */'
+            ),
+            map: null,
+          };
+        }
+      }
+      return null;
+    },
+  };
+}
+
 export default defineConfig(() => {
+  const hmrDisabled =
+    process.env.DISABLE_HMR === 'true' ||
+    Boolean(process.env.K_SERVICE) ||
+    process.env.ENABLE_HMR !== 'true';
+
   return {
     plugins: [
       react(),
       tailwindcss(),
+      disableBrokenHmrWebSocketPlugin(hmrDisabled),
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: [
@@ -21,17 +54,53 @@ export default defineConfig(() => {
         ],
         manifest: {
           id: '/',
-          name: 'Hanan Irfan Portfolio',
+          lang: 'en',
+          dir: 'ltr',
+          name: 'Hanan Irfan Portfolio — Developer, AI & SEO Specialist',
           short_name: 'Hanan Irfan',
           description:
-            'Portfolio of Hanan Irfan — Multidisciplinary Developer, SEO Specialist & Entrepreneur from Rahim Yar Khan, Pakistan.',
+            'Official portfolio & Android app of Hanan Irfan — Multidisciplinary Developer, AI Developer, Full-Stack Engineer & SEO/AEO/GEO Specialist from Rahim Yar Khan, Pakistan.',
           theme_color: '#080D1B',
           background_color: '#080D1B',
           display: 'standalone',
           start_url: '/',
           scope: '/',
           orientation: 'portrait-primary',
-          categories: ['portfolio', 'technology', 'business'],
+          categories: ['portfolio', 'developer tools', 'business', 'education'],
+          prefer_related_applications: false,
+          related_applications: [
+            {
+              platform: 'play',
+              url: 'https://play.google.com/store/apps/details?id=com.hananirfan.app',
+              id: 'com.hananirfan.app',
+            },
+          ],
+          shortcuts: [
+            {
+              name: 'Projects Portfolio',
+              short_name: 'Projects',
+              url: '/projects',
+              description: 'Explore deployed web apps, AI platforms, and SaaS builds',
+            },
+            {
+              name: 'Skills & Expertise',
+              short_name: 'Skills',
+              url: '/skills',
+              description: 'AI Development, Full-Stack, Technical SEO, AEO & GEO stack',
+            },
+            {
+              name: 'SEO, AEO & GEO Services',
+              short_name: 'SEO / AEO',
+              url: '/seo-expert',
+              description: 'Technical SEO, Answer Engine Optimization & GEO consulting',
+            },
+            {
+              name: 'Contact Hanan Irfan',
+              short_name: 'Contact',
+              url: '/contact',
+              description: 'Direct email and verified social profiles',
+            },
+          ],
           icons: [
             {
               src: '/pwa-192x192.png',
@@ -54,6 +123,7 @@ export default defineConfig(() => {
           ],
         },
         workbox: {
+          importScripts: ['/push-sw.js'],
           globPatterns: [
             '**/*.{js,css,html,ico,svg,woff2}',
             'pwa-*.png',
@@ -72,7 +142,15 @@ export default defineConfig(() => {
             'ambassador.jpg',
           ],
           navigateFallback: '/index.html',
-          navigateFallbackDenylist: [/^\/\.well-known\//, /^\/sitemap\.xml$/, /^\/robots\.txt$/],
+          navigateFallbackDenylist: [
+            /^\/api\//,
+            /^\/\.well-known\//,
+            /^\/sitemap\.xml$/,
+            /^\/robots\.txt$/,
+            /^\/llms(-full)?\.txt$/,
+            /^\/push-sw\.js$/,
+            /^\/firebase-messaging-sw\.js$/,
+          ],
           maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
           runtimeCaching: [
             {
@@ -107,7 +185,7 @@ export default defineConfig(() => {
         },
         devOptions: {
           enabled: true,
-          type: 'module',
+          type: 'classic',
         },
       }),
     ],
@@ -121,6 +199,7 @@ export default defineConfig(() => {
             'vendor-icons': ['lucide-react'],
             'vendor-charts': ['recharts'],
             'vendor-scroll': ['lenis', 'gsap'],
+            'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
           },
         },
       },
@@ -131,8 +210,9 @@ export default defineConfig(() => {
       },
     },
     server: {
-      hmr: process.env.DISABLE_HMR !== 'true',
-      watch: process.env.DISABLE_HMR === 'true' ? null : {},
+      hmr: hmrDisabled ? false : undefined,
+      ws: hmrDisabled ? (false as const) : undefined,
+      watch: hmrDisabled ? null : {},
     },
   };
 });

@@ -1,0 +1,63 @@
+# Hanan Irfan — Multidisciplinary Developer, SEO Specialist & Entrepreneur
+
+> Official portfolio web application and Android TWA app of Abdul Hanan Irfan (Hanan Irfan), based in Rahim Yar Khan, Punjab, Pakistan.
+
+Hanan Irfan is a 5th Semester BS Computer Science student at Khwaja Fareed University of Engineering and Information Technology (KFUEIT) with a 3.65 CGPA and Spring 2026 Dean's Honor Certificate. He serves as Founder & AI Developer of The Sports Room (co-founded with Urwah Farooq under HI Digital Group), Development Team Head at ACM KFUEIT, and Campus Ambassador of D'Educationist.
+
+## Primary Identity & Entity Graph
+
+- **Full Name**: Abdul Hanan Irfan (known professionally as Hanan Irfan)
+- **Location**: Rahim Yar Khan, Punjab, Pakistan
+- **Email**: hananirfan91@gmail.com
+- **Canonical Website**: https://hanan56.vercel.app/
+- **Android App (Google Play / TWA)**: https://play.google.com/store/apps/details?id=com.hananirfan.app (`com.hananirfan.app`)
+- **Full Technical Context**: https://hanan56.vercel.app/llms-full.txt
+- **XML Sitemap**: https://hanan56.vercel.app/sitemap.xml
+
+## Core Specializations
+
+- AI Application Development & Prompt Workflow Architecture
+- Full-Stack Web Engineering (React, Next.js, TypeScript, Tailwind CSS, Firebase, Supabase)
+- Search Engine Optimization (Technical SEO, Keyword Research & Clustering, Content Strategy)
+- Answer Engine Optimization (AEO — Direct-answer entities, FAQPage & Schema.org graphs)
+- Generative Engine Optimization (GEO — Citation-ready structured authority & provenance)
+- App Store Optimization (ASO — Google Play TWA listing, Digital Asset Links, PWA manifest metadata)
+
+## Flagship Deployed Projects
+
+- **The Sports Room**: https://thesportsroom.online — Independent digital sports media, live match telemetry & analytics platform
+- **NEXA POS System**: https://nexapossystem.vercel.app/ — Point of Sale, inventory alert & CRM SaaS web application
+- **ACM KFUEIT**: https://acm-kfueit.vercel.app/ — Official student chapter web portal for ACM KFUEIT
+- **Free Tools Hub**: https://freetoolshub1.vercel.app/ — Zero-retention browser-based developer utilities suite
+- **AI Tool Guide**: https://aitoolguide.vercel.app/ — Curated AI platforms discovery & workflow directory
+- **HI Digital Group**: https://hidigitalgroup.vercel.app/ — Web engineering & technical SEO consulting portal
+- **AI Course by Hanan Irfan**: https://aicoursebyhananirfan.vercel.app/ — Foundational AI & prompt engineering learning resource
+
+## Verified Credentials
+
+- **Google AI Professional Certificate** (8-Course Specialization, Nov 2026): https://coursera.org/verify/professional-cert/X7TCM4MBEUWP
+- **Dean's Honor Certificate (Spring 2026)** — Faculty of Information Technology, KFUEIT
+- **Certificate of Appreciation — Web Developer** — ACM KFUEIT Student Chapter
+- **Web Development Certificate** — Nayi Manzil
+
+## Key Site Routes
+
+- [Home](https://hanan56.vercel.app/)
+- [About & Achievements](https://hanan56.vercel.app/about)
+- [Skills & Tech Stack](https://hanan56.vercel.app/skills)
+- [Experience & Leadership](https://hanan56.vercel.app/experience)
+- [Projects Portfolio](https://hanan56.vercel.app/projects)
+- [Services Overview](https://hanan56.vercel.app/services)
+- [SEO, AEO & GEO Strategy](https://hanan56.vercel.app/seo-expert)
+- [Web & Full-Stack Development](https://hanan56.vercel.app/web-development)
+- [UI/UX & Brand Design](https://hanan56.vercel.app/graphic-design)
+- [Contact](https://hanan56.vercel.app/contact)
+
+## Verified Social Profiles
+
+- GitHub: https://github.com/hananirfan91-hub
+- LinkedIn: https://linkedin.com/in/hananirfan
+- X (Twitter): https://x.com/hananirfan91
+- Instagram: https://instagram.com/hananirfan2026
+- Facebook: https://facebook.com/HananIrfan001
+- TikTok: https://tiktok.com/@pathan_x_babarian565

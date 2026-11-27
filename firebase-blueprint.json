@@ -1,0 +1,301 @@
+{
+  "entities": {
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized portfolio administrator record.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 160
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin"],
+          "maxLength": 16
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "AdminSchedulerSettings": {
+      "title": "AdminSchedulerSettings",
+      "description": "Configuration for the daily portfolio reminder scheduler.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "sendHour": {
+          "type": "integer"
+        },
+        "sendMinute": {
+          "type": "integer"
+        },
+        "timezone": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_/+\\-]+$"
+        },
+        "rotatingMessages": {
+          "type": "array"
+        },
+        "lastRunDateKey": {
+          "type": "string",
+          "maxLength": 20,
+          "pattern": "^[0-9\\-]*$"
+        },
+        "updatedByUid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "enabled",
+        "sendHour",
+        "sendMinute",
+        "timezone",
+        "rotatingMessages",
+        "lastRunDateKey",
+        "updatedByUid",
+        "updatedAt"
+      ]
+    },
+    "NotificationLog": {
+      "title": "NotificationLog",
+      "description": "Audit log for manual, test, and scheduled push notifications.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "notificationType": {
+          "type": "string",
+          "enum": [
+            "daily-reminder",
+            "new-project",
+            "project-update",
+            "new-achievement",
+            "new-skill",
+            "new-certificate",
+            "experience-update",
+            "general-announcement"
+          ],
+          "maxLength": 32
+        },
+        "targetUrl": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "targetCategories": {
+          "type": "array"
+        },
+        "isTest": {
+          "type": "boolean"
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_:\\-]+$"
+        },
+        "totalAttempted": {
+          "type": "integer"
+        },
+        "successCount": {
+          "type": "integer"
+        },
+        "failureCount": {
+          "type": "integer"
+        },
+        "cleanedCount": {
+          "type": "integer"
+        },
+        "errorSummary": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "ownerUid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "title",
+        "body",
+        "notificationType",
+        "targetUrl",
+        "targetCategories",
+        "isTest",
+        "idempotencyKey",
+        "totalAttempted",
+        "successCount",
+        "failureCount",
+        "cleanedCount",
+        "errorSummary",
+        "ownerUid",
+        "createdAt"
+      ]
+    },
+    "SubscriberRecord": {
+      "title": "SubscriberRecord",
+      "description": "Server-managed push subscription record including endpoint/FCM token and category preferences.",
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "endpoint": {
+          "type": "string",
+          "maxLength": 1024
+        },
+        "fcmToken": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "categories": {
+          "type": "array"
+        },
+        "dailyReminder": {
+          "type": "boolean"
+        },
+        "timezone": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "platform": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "lastDailySentDateKey": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "subscriptionId",
+        "categories",
+        "dailyReminder",
+        "timezone",
+        "platform",
+        "active",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SubscriberProfile": {
+      "title": "SubscriberProfile",
+      "description": "Authenticated user's own notification preference profile.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "categories": {
+          "type": "array"
+        },
+        "dailyReminder": {
+          "type": "boolean"
+        },
+        "timezone": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_/+\\-]+$"
+        },
+        "deviceLabel": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "categories",
+        "dailyReminder",
+        "timezone",
+        "deviceLabel",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": {
+        "$ref": "#/entities/AdminUser"
+      },
+      "description": "Admin role allowlist records"
+    },
+    "/admin_settings/{settingId}": {
+      "schema": {
+        "$ref": "#/entities/AdminSchedulerSettings"
+      },
+      "description": "Daily notification scheduler configuration"
+    },
+    "/notification_logs/{logId}": {
+      "schema": {
+        "$ref": "#/entities/NotificationLog"
+      },
+      "description": "Notification send audit history and delivery error summaries"
+    },
+    "/subscribers/{subscriberId}": {
+      "schema": {
+        "$ref": "#/entities/SubscriberRecord"
+      },
+      "description": "Server-managed Web Push and FCM subscriptions (locked from public client access)"
+    },
+    "/subscriber_profiles/{userId}": {
+      "schema": {
+        "$ref": "#/entities/SubscriberProfile"
+      },
+      "description": "Signed-in user notification preferences owned strictly by userId"
+    }
+  }
+}

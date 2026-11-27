@@ -13,7 +13,8 @@ export type PageId =
   | 'terms-and-conditions'
   | 'disclaimer'
   | 'privacy'
-  | 'terms';
+  | 'terms'
+  | 'admin-notifications';
 
 export interface Project {
   id: string;

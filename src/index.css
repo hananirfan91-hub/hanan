@@ -201,6 +201,22 @@
 .reveal.is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+@media (max-width: 767px) {
+  .surface-card,
+  .glass-card,
+  .surface-secondary {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .aurora-orb-a,
+  .aurora-orb-b {
+    animation: none;
+    will-change: auto;
+  }
 }
 
 /* Safe-area helpers for Android TWA/WebView & iOS standalone */

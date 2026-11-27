@@ -1,80 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://hanan56.vercel.app/</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://hanan56.vercel.app/avatar.webp</image:loc>
+      <image:title>Hanan Irfan — Multidisciplinary Developer, AI Developer &amp; SEO Specialist</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/about</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hanan56.vercel.app/images/certificates/google-ai-professional-certificate-2026.png</image:loc>
+      <image:title>Google AI Professional Certificate — Abdul Hanan Irfan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://hanan56.vercel.app/images/certificates/deans-honor-certificate-2026.webp</image:loc>
+      <image:title>KFUEIT Dean's Honor Certificate — Abdul Hanan Irfan</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/skills</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/experience</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/projects</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://hanan56.vercel.app/the-sports-room.webp</image:loc>
+      <image:title>The Sports Room — Digital Sports Media &amp; Analytics Platform</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://hanan56.vercel.app/nexapos.webp</image:loc>
+      <image:title>NEXA POS System — Retail Point of Sale SaaS Application</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/services</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/web-development</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/seo-expert</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/graphic-design</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hanan56.vercel.app/contact</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hanan56.vercel.app/contact</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://hanan56.vercel.app/privacy-policy</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/terms-and-conditions</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://hanan56.vercel.app/disclaimer</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>

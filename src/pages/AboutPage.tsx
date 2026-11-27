@@ -171,7 +171,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
 
       {/* Certificates & Credentials Section */}
       <MotionReveal>
-        <div className="space-y-6">
+        <div id="achievements" className="space-y-6 scroll-mt-24">
         <div className="space-y-2">
           <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider">
             Credentials &amp; Honors

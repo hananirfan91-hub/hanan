@@ -1,8 +1,58 @@
-# Robots.txt for Hanan Irfan Portfolio
+# Robots.txt for Hanan Irfan Portfolio (SEO, AEO, GEO & AIO optimized)
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /admin-notifications
 Disallow: /dashboard/
 
+# Major Search & Answer / Generative AI Crawlers
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin-notifications
+
+# Machine-Readable AI Context & Sitemap
+# LLMs Context: https://hanan56.vercel.app/llms.txt
+# LLMs Full Reference: https://hanan56.vercel.app/llms-full.txt
 Sitemap: https://hanan56.vercel.app/sitemap.xml

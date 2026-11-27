@@ -1,0 +1,232 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Core Reusable Primitives
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isVerifiedUser() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && (
+        request.auth.token.email == 'hananirfan91@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Validation Blueprints
+    function isValidAdminSettings(data) {
+      return data.keys().hasAll([
+          'enabled',
+          'sendHour',
+          'sendMinute',
+          'timezone',
+          'rotatingMessages',
+          'lastRunDateKey',
+          'updatedByUid',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'enabled',
+          'sendHour',
+          'sendMinute',
+          'timezone',
+          'rotatingMessages',
+          'lastRunDateKey',
+          'updatedByUid',
+          'updatedAt'
+        ]) &&
+        data.enabled is bool &&
+        data.sendHour is int && data.sendHour >= 0 && data.sendHour <= 23 &&
+        data.sendMinute is int && data.sendMinute >= 0 && data.sendMinute <= 59 &&
+        data.timezone is string && data.timezone.size() >= 2 && data.timezone.size() <= 64 &&
+        data.timezone.matches('^[A-Za-z0-9_/+\\-]+$') &&
+        data.rotatingMessages is list && data.rotatingMessages.size() >= 1 && data.rotatingMessages.size() <= 12 &&
+        data.rotatingMessages[0] is string && data.rotatingMessages[0].size() >= 5 && data.rotatingMessages[0].size() <= 240 &&
+        data.lastRunDateKey is string && data.lastRunDateKey.size() <= 20 &&
+        data.lastRunDateKey.matches('^[0-9\\-]*$') &&
+        data.updatedByUid is string && data.updatedByUid == request.auth.uid &&
+        data.updatedByUid.size() <= 128 &&
+        data.updatedAt == request.time;
+    }
+
+    function isValidNotificationLog(data) {
+      return data.keys().hasAll([
+          'title',
+          'body',
+          'notificationType',
+          'targetUrl',
+          'targetCategories',
+          'isTest',
+          'idempotencyKey',
+          'totalAttempted',
+          'successCount',
+          'failureCount',
+          'cleanedCount',
+          'errorSummary',
+          'ownerUid',
+          'createdAt'
+        ]) &&
+        data.keys().hasOnly([
+          'title',
+          'body',
+          'notificationType',
+          'targetUrl',
+          'targetCategories',
+          'isTest',
+          'idempotencyKey',
+          'totalAttempted',
+          'successCount',
+          'failureCount',
+          'cleanedCount',
+          'errorSummary',
+          'ownerUid',
+          'createdAt'
+        ]) &&
+        data.title is string && data.title.size() >= 1 && data.title.size() <= 120 &&
+        data.body is string && data.body.size() >= 1 && data.body.size() <= 500 &&
+        data.notificationType in [
+          'daily-reminder',
+          'new-project',
+          'project-update',
+          'new-achievement',
+          'new-skill',
+          'new-certificate',
+          'experience-update',
+          'general-announcement'
+        ] &&
+        data.targetUrl is string && data.targetUrl.size() >= 1 && data.targetUrl.size() <= 256 &&
+        data.targetCategories is list && data.targetCategories.size() >= 1 && data.targetCategories.size() <= 10 &&
+        data.targetCategories[0] is string &&
+        data.isTest is bool &&
+        data.idempotencyKey is string && data.idempotencyKey.size() >= 1 && data.idempotencyKey.size() <= 128 &&
+        data.idempotencyKey.matches('^[a-zA-Z0-9_:\\-]+$') &&
+        data.totalAttempted is int && data.totalAttempted >= 0 &&
+        data.successCount is int && data.successCount >= 0 &&
+        data.failureCount is int && data.failureCount >= 0 &&
+        data.cleanedCount is int && data.cleanedCount >= 0 &&
+        data.errorSummary is string && data.errorSummary.size() <= 1000 &&
+        data.ownerUid is string && data.ownerUid == request.auth.uid && data.ownerUid.size() <= 128 &&
+        data.createdAt == request.time;
+    }
+
+    function isValidSubscriberProfile(data, userId) {
+      return data.keys().hasAll([
+          'userId',
+          'categories',
+          'dailyReminder',
+          'timezone',
+          'deviceLabel',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'userId',
+          'categories',
+          'dailyReminder',
+          'timezone',
+          'deviceLabel',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.userId is string && data.userId == request.auth.uid && data.userId == userId &&
+        data.userId.size() <= 128 &&
+        data.categories is list && data.categories.size() <= 10 &&
+        (data.categories.size() == 0 || data.categories[0] is string) &&
+        data.dailyReminder is bool &&
+        data.timezone is string && data.timezone.size() >= 2 && data.timezone.size() <= 64 &&
+        data.timezone.matches('^[A-Za-z0-9_/+\\-]+$') &&
+        data.deviceLabel is string && data.deviceLabel.size() <= 80 &&
+        data.createdAt is timestamp &&
+        data.updatedAt == request.time;
+    }
+
+    // 1. Admins collection (read-only for verified admin; never writable via client SDK)
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && isAdmin();
+      allow list: if isAdmin() && resource.data.uid == request.auth.uid;
+      allow create, update, delete: if false;
+    }
+
+    // 2. Admin Scheduler Settings (strictly admin-only)
+    match /admin_settings/{settingId} {
+      allow get: if isValidId(settingId) && isAdmin();
+      allow list: if isAdmin() && resource.data.updatedByUid == request.auth.uid;
+      allow create: if isValidId(settingId) && isAdmin() && isValidAdminSettings(incoming());
+      allow update: if isValidId(settingId) && isAdmin() && isValidAdminSettings(incoming()) && (
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'enabled',
+          'sendHour',
+          'sendMinute',
+          'timezone',
+          'rotatingMessages',
+          'lastRunDateKey',
+          'updatedByUid',
+          'updatedAt'
+        ])
+      );
+      allow delete: if false;
+    }
+
+    // 3. Notification Logs (strictly admin-only; immutable audit logs after creation)
+    match /notification_logs/{logId} {
+      allow get: if isValidId(logId) && isAdmin();
+      allow list: if isAdmin() && resource.data.ownerUid == request.auth.uid;
+      allow create: if isValidId(logId) && isAdmin() && isValidNotificationLog(incoming());
+      allow update: if false;
+      allow delete: if isValidId(logId) && isAdmin();
+    }
+
+    // 4. Server-Managed Subscribers (no public or client writes; Admin read-only if needed)
+    match /subscribers/{subscriberId} {
+      allow get: if isValidId(subscriberId) && isAdmin();
+      allow list: if isAdmin() && resource.data.active is bool;
+      allow create, update, delete: if false;
+    }
+
+    // 5. Authenticated User Subscriber Profiles (strict owner-only access)
+    match /subscriber_profiles/{userId} {
+      allow get: if isValidId(userId) && isOwner(userId);
+      allow list: if isVerifiedUser() && resource.data.userId == request.auth.uid;
+      allow create: if isValidId(userId) && isOwner(userId) &&
+        isValidSubscriberProfile(incoming(), userId) &&
+        incoming().createdAt == request.time;
+      allow update: if isValidId(userId) && isOwner(userId) &&
+        isValidSubscriberProfile(incoming(), userId) &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().userId == existing().userId &&
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'categories',
+          'dailyReminder',
+          'timezone',
+          'deviceLabel',
+          'updatedAt'
+        ]);
+      allow delete: if isValidId(userId) && isOwner(userId);
+    }
+  }
+}

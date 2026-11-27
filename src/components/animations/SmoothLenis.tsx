@@ -11,14 +11,20 @@ interface SmoothLenisProps {
 
 export const SmoothLenis: React.FC<SmoothLenisProps> = ({ children }) => {
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const isFinePointer = window.matchMedia?.('(pointer: fine)').matches;
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (!isFinePointer || prefersReducedMotion) {
+      return;
+    }
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.05,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 1.5,
       infinite: false,
     });
 
@@ -30,7 +36,6 @@ export const SmoothLenis: React.FC<SmoothLenisProps> = ({ children }) => {
     };
 
     gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.off('scroll', handleScroll);

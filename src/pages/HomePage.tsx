@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { PageId, Project } from '../types';
-import { PERSONAL_INFO, PROJECTS, SERVICES, EXPERIENCE_ITEMS } from '../data/portfolioData';
+import { PERSONAL_INFO, PROJECTS, SERVICES, EXPERIENCE_ITEMS, AEO_FAQS } from '../data/portfolioData';
 import { Project3DCarousel } from '../components/Project3DCarousel';
 import { SpotlightCard } from '../components/SpotlightCard';
 import { EditorialMarquee } from '../components/EditorialMarquee';
 import { MotionReveal, AnimatedStat } from '../components/MotionReveal';
+import { NotificationSubscriptionCard } from '../components/NotificationSubscriptionCard';
 import {
   ArrowUpRight,
   Cpu,
@@ -21,6 +22,8 @@ import {
   Code2,
   SearchCheck,
   Palette,
+  HelpCircle,
+  ChevronDown,
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -114,6 +117,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
     pdfUrl?: string;
   } | null>(null);
   const [roleIndex, setRoleIndex] = useState(0);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -1207,6 +1211,83 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
                 </SpotlightCard>
               </MotionReveal>
             ))}
+          </div>
+        </section>
+      </MotionReveal>
+
+      {/* ================= PUSH NOTIFICATION SUBSCRIPTION ================= */}
+      <MotionReveal>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <NotificationSubscriptionCard
+            compact
+            onOpenAdmin={() => onNavigate('admin-notifications')}
+          />
+        </div>
+      </MotionReveal>
+
+      {/* ================= QUICK ANSWERS (AEO / GEO FAQ) ================= */}
+      <MotionReveal>
+        <section
+          aria-labelledby="home-aeo-faq-heading"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-semibold text-[#3B82F6] uppercase tracking-wider inline-flex items-center gap-1.5">
+                <HelpCircle className="w-3.5 h-3.5" />
+                <span>Direct Answers (AEO &amp; GEO)</span>
+              </span>
+              <h2
+                id="home-aeo-faq-heading"
+                className="text-3xl sm:text-4xl font-black font-display text-[#F8FAFC] tracking-tight"
+              >
+                Frequently Asked Questions
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigate('seo-expert')}
+              className="text-xs font-mono font-semibold text-[#3B82F6] hover:text-[#F8FAFC] inline-flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>SEO, AEO &amp; GEO Services</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            {AEO_FAQS.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx;
+              return (
+                <article
+                  key={faq.question}
+                  className="surface-card rounded-2xl border border-white/[0.12] overflow-hidden"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                    aria-expanded={isOpen}
+                    className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-3 font-display font-bold text-sm sm:text-base text-[#F8FAFC] hover:text-[#3B82F6] transition-colors cursor-pointer"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="text-xs font-mono text-[#3B82F6]">0{idx + 1}</span>
+                      <span>{faq.question}</span>
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-[#94A3B8] shrink-0 transition-transform ${
+                        isOpen ? 'rotate-180 text-[#3B82F6]' : ''
+                      }`}
+                    />
+                  </button>
+                  <div
+                    className={`px-5 pb-4 pt-2 text-xs sm:text-sm text-[#94A3B8] leading-relaxed border-t border-white/[0.08] bg-[#0D1425]/60 ${
+                      isOpen ? 'block' : 'hidden'
+                    }`}
+                  >
+                    {faq.answer}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
       </MotionReveal>

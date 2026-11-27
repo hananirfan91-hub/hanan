@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PageId } from '../types';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { copyTextSafely } from '../lib/safeStorage';
+import { NotificationSubscriptionCard } from '../components/NotificationSubscriptionCard';
 import {
   Mail,
   MapPin,
@@ -342,6 +343,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </section>
+
+      {/* Section 4: Optional Push Notification Alerts */}
+      <NotificationSubscriptionCard
+        onOpenAdmin={() => onNavigate?.('admin-notifications')}
+      />
     </div>
   );
 };

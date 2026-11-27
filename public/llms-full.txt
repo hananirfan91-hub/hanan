@@ -1,0 +1,93 @@
+# Hanan Irfan — Complete Portfolio, Technical & Entity Reference (`llms-full.txt`)
+
+Canonical Source: https://hanan56.vercel.app/
+Android Application Package: `com.hananirfan.app` (Trusted Web Activity on Google Play)
+Contact Email: hananirfan91@gmail.com
+Geographic Base: Rahim Yar Khan, Punjab, Pakistan (`28.4212° N, 70.2989° E`)
+
+---
+
+## 1. Biography & Academic Standing
+
+Abdul Hanan Irfan (professionally **Hanan Irfan**) is a Multidisciplinary Developer, SEO Specialist, and Entrepreneur based in Rahim Yar Khan, Pakistan. He is currently in the **5th Semester of BS Computer Science (BSCS)** at **Khwaja Fareed University of Engineering and Information Technology (KFUEIT)**, maintaining a **3.65 CGPA** and holding the **Faculty of IT Dean's Honor Certificate (Spring 2026)**.
+
+Leadership roles:
+1. **Founder & AI Developer — The Sports Room** (2026–Present, co-founded with Urwah Farooq under HI Digital Group)
+2. **Development Team Head — ACM KFUEIT** (2025–Present, ACM Student Chapter at KFUEIT)
+3. **Ambassador of D'Educationist @ KFUEIT** (2025–Present)
+4. **Full-Stack Developer, SEO Specialist & Digital Consultant** (2023–Present, HI Digital Group & Independent)
+
+---
+
+## 2. Deployed Projects & Software Products (11 Live Builds)
+
+1. **The Sports Room** (`https://thesportsroom.online`) — Independent digital sports media and analytics platform co-founded by Hanan Irfan and Urwah Farooq under HI Digital Group. Built with AI-assisted workflows, technical SEO, AEO/GEO schemas, cricket telemetry, tactical breakdowns, daily quizzes, and fan leaderboards.
+2. **NEXA POS System** (`https://nexapossystem.vercel.app/`) — Full-stack retail POS and business management SaaS built with React, TypeScript, Tailwind CSS, PWA offline resilience, inventory low-stock alerts, customer CRM, ledgers, and sales analytics charts.
+3. **ACM KFUEIT** (`https://acm-kfueit.vercel.app/`) — Official web portal for the ACM KFUEIT Student Chapter supporting campus technical events, announcements, and student developer showcases.
+4. **Free Tools Hub** (`https://freetoolshub1.vercel.app/`) — Privacy-first browser-based developer utilities suite (JSON Formatter & Validator, Base64 Encoder/Decoder, Image Compressor/Resizer, Text Case & Word Counter, Password/UUID Generator, Color Picker).
+5. **AI Tool Guide** (`https://aitoolguide.vercel.app/`) — Curated AI platforms discovery platform structured by workflow, prompt pattern, and practical use-case.
+6. **HI Digital Group** (`https://hidigitalgroup.vercel.app/`) — Digital engineering and search consulting portal covering React/Next.js builds, technical SEO, AEO & GEO.
+7. **Hanan Irfan Portfolio** (`https://hanan56.vercel.app/`) — Official multi-page PWA and Bubblewrap Android TWA portfolio (`com.hananirfan.app`) featuring Schema.org JSON-LD, Web Push / FCM notifications, and responsive design.
+8. **Caesar 2026** (`https://caesar2026.vercel.app/`) — Frontend UI layout & typographic hierarchy web project.
+9. **Garden Layout Tips** (`https://gardenlayouttips.vercel.app/`) — Search-engineered content architecture & keyword-clustered informational site.
+10. **Punch Monkey** (`https://punchmonkey.vercel.app/`) — Interactive HTML5 Canvas 2D pointer/touch physics experiment.
+11. **AI Course by Hanan Irfan** (`https://aicoursebyhananirfan.vercel.app/`) — Educational web resource covering foundational AI and prompt engineering patterns.
+
+---
+
+## 3. Technical Stack & Core Competencies
+
+- **AI Development**: AI Application Development, Prompt Engineering & Workflows, Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), Python & Automation Scripting.
+- **Frontend & Full-Stack**: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, PWA / Service Workers / Web Push.
+- **SEO, AEO, GEO & Content**: Technical SEO, Schema.org JSON-LD graphs, XML Sitemaps, Robots/AI Crawler configuration, Keyword Research & Clustering, Content Strategy, Google Search Console diagnostics.
+- **Programming & Databases**: C++, Java, SQL, Firebase (Firestore, Auth, FCM), Supabase (PostgreSQL), WordPress / Astra CMS performance tuning.
+- **Design & Platforms**: UI/UX wireframing, Figma, Canva, Photoshop, Git, GitHub, Vercel edge hosting, Bubblewrap Android TWA (`com.hananirfan.app`).
+
+---
+
+## 4. Verified Certificates & Honors
+
+- **Dean's Honor Certificate (Spring 2026)** — Faculty of Information Technology, KFUEIT (academic excellence / single-semester CGPA honor).
+- **Google AI Professional Certificate** — 8-Course Specialization awarded Nov 16, 2026 by Google Career Certificates & Coursera (`https://coursera.org/verify/professional-cert/X7TCM4MBEUWP`).
+  - Verified Google & Coursera Course Badges/Certificates:
+    - Google AI Fundamentals (`https://www.credly.com/go/TWCMECRu`)
+    - Google AI for Writing and Communicating (`https://www.credly.com/go/NBK5o3WH`)
+    - Google AI for Brainstorming and Planning (`https://www.credly.com/go/oBw1opSn`)
+    - AI for App Building (`https://coursera.org/verify/CHB462QJ6RVH`)
+    - AI for Data Analysis (`https://coursera.org/verify/TP7VLK5828ET`)
+    - AI for App Deployment (`https://coursera.org/verify/25V3FGI10PCJ`)
+- **Certificate of Appreciation — Web Developer** — ACM KFUEIT Student Chapter (Session 2025–26).
+- **Web Development Certificate** — Nayi Manzil.
+
+---
+
+## 5. Consulting & Engineering Services (`/services`)
+
+1. **AI Development & Workflows** — Custom AI-powered web integrations, prompt pipelines, and interactive product modules.
+2. **Full-Stack & Web App Development** (`/web-development`) — Mobile-first React, Next.js, TypeScript, Firebase, and Supabase applications.
+3. **SEO, AEO & GEO Optimization** (`/seo-expert`) — Technical SEO audits, Schema.org structured data, keyword clustering, AEO answer architecture, and GEO entity signaling.
+4. **Frontend & Portfolio Architecture** — Responsive interfaces with strong Core Web Vitals and accessibility.
+5. **WordPress & CMS Solutions** — Fast, clean WordPress builds with on-page SEO readiness.
+6. **UI/UX & Visual Design** (`/graphic-design`) — Interface wireframes, design systems, and brand graphics.
+
+---
+
+## 6. Frequently Asked Questions (AEO Quick Answers)
+
+**Q: Who is Hanan Irfan?**
+A: Hanan Irfan (Abdul Hanan Irfan) is a Multidisciplinary Developer, SEO Specialist & Entrepreneur from Rahim Yar Khan, Pakistan. He is a 5th Semester BS Computer Science student at KFUEIT (CGPA 3.65), Founder & AI Developer of The Sports Room, ACM KFUEIT Development Team Head, and Ambassador of D'Educationist.
+
+**Q: What is Hanan Irfan studying?**
+A: Hanan Irfan is pursuing a Bachelor of Science in Computer Science (BSCS) at Khwaja Fareed University of Engineering and Information Technology (KFUEIT) in Rahim Yar Khan, currently in his 5th Semester with a 3.65 CGPA and a Spring 2026 Dean's Honor Certificate.
+
+**Q: What are Hanan Irfan's core professional areas?**
+A: AI Development, Frontend Development, Full-Stack Web Application Development, Search Engine Optimization (SEO), Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), Technical SEO, Keyword Research & Clustering, and Content Strategy.
+
+**Q: How does Hanan Irfan approach SEO, AEO, and GEO?**
+A: He combines technical crawlability, Schema.org structured data, Core Web Vitals performance, semantic keyword clustering, and answer-first content strategy so websites perform well in both traditional search engines and AI answer/generative engines.
+
+**Q: Is Hanan Irfan's portfolio available as an Android app?**
+A: Yes. It is published as a Google Play Trusted Web Activity (`com.hananirfan.app`) powered by the canonical web app at https://hanan56.vercel.app/ with PWA installability and push notification support.
+
+**Q: How can I contact Hanan Irfan?**
+A: Email hananirfan91@gmail.com, visit https://hanan56.vercel.app/contact, or connect on GitHub (`github.com/hananirfan91-hub`), LinkedIn (`linkedin.com/in/hananirfan`), X (`@hananirfan91`), and Instagram (`@hananirfan2026`).

@@ -9,6 +9,21 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { AnnouncementBanner } from './components/AnnouncementBanner';
+import {
+  ForegroundPushToast,
+  type ForegroundNotificationItem,
+} from './components/ForegroundPushToast';
+import { applyPageSeo } from './lib/seo';
+import {
+  dismissToastId,
+  fetchLiveNotificationFeed,
+  getReadNotificationIds,
+  isToastDismissed,
+  markAllNotificationsRead,
+  markNotificationRead,
+  type LiveNotificationItem,
+} from './lib/liveNotifications';
+import { autoSyncExistingPushSubscription } from './lib/pushNotifications';
 
 import { HomePage } from './pages/HomePage';
 
@@ -26,6 +41,9 @@ const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ defa
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
 const TermsPage = lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })));
 const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage').then((m) => ({ default: m.DisclaimerPage })));
+const AdminNotificationsPage = lazy(() =>
+  import('./pages/AdminNotificationsPage').then((m) => ({ default: m.AdminNotificationsPage }))
+);
 
 function getPageFromPath(path: string): PageId {
   const cleanPath = path.replace(/^\/+|\/+$/g, '').toLowerCase();
@@ -44,6 +62,7 @@ function getPageFromPath(path: string): PageId {
     'seo-expert',
     'graphic-design',
     'contact',
+    'admin-notifications',
   ];
   if (validPages.includes(cleanPath as PageId)) return cleanPath as PageId;
   return 'home';
@@ -59,6 +78,12 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [audioError, setAudioError] = useState(false);
+  const [foregroundPush, setForegroundPush] = useState<ForegroundNotificationItem | null>(null);
+  const [activeToastFeedId, setActiveToastFeedId] = useState<string | null>(null);
+  const [liveNotifications, setLiveNotifications] = useState<LiveNotificationItem[]>([]);
+  const [readNotificationIds, setReadNotificationIds] = useState<Set<string>>(() =>
+    getReadNotificationIds()
+  );
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -126,63 +151,168 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const navigateByNotificationTarget = (rawUrl?: string, notificationType?: string) => {
+    setForegroundPush(null);
+
+    if (rawUrl && /^https?:\/\//i.test(rawUrl)) {
+      try {
+        const parsed = new URL(rawUrl);
+        if (parsed.origin !== window.location.origin) {
+          window.location.href = parsed.href;
+          return;
+        }
+        rawUrl = `${parsed.pathname}${parsed.search}${parsed.hash}`;
+      } catch {
+        // Fallback to route check below
+      }
+    }
+
+    const fallbackPath =
+      notificationType === 'new-project' || notificationType === 'project-update'
+        ? '/projects'
+        : notificationType === 'new-achievement' || notificationType === 'new-certificate'
+          ? '/about#achievements'
+          : notificationType === 'new-skill'
+            ? '/skills'
+            : notificationType === 'experience-update'
+              ? '/experience'
+              : '/';
+
+    const target = rawUrl && rawUrl.startsWith('/') ? rawUrl : fallbackPath;
+    const [pathOnly, hashPart] = target.split('#');
+    const pageId = getPageFromPath(pathOnly || '/');
+    handleNavigate(pageId);
+
+    if (hashPart) {
+      window.setTimeout(() => {
+        const el = document.getElementById(hashPart);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 360);
+    }
+  };
+
   useEffect(() => {
-    const titleMap: Record<PageId, string> = {
-      home: 'Hanan Irfan | Multidisciplinary Developer, SEO Specialist & Entrepreneur',
-      about: 'About Hanan Irfan | BSCS (5th Semester) @ KFUEIT & Founder of The Sports Room',
-      skills: 'Skills & Expertise | AI Dev, Full-Stack, SEO, AEO & GEO — Hanan Irfan',
-      experience: 'Experience & Leadership | Hanan Irfan Portfolio',
-      projects: 'Projects Portfolio | Hanan Irfan — Web Apps, AI & SEO',
-      services: 'Digital & Technical Services | Hanan Irfan',
-      'web-development': 'Web & Full-Stack Development | Hanan Irfan — Rahim Yar Khan',
-      'seo-expert': 'SEO, AEO & GEO Consulting | Hanan Irfan — Rahim Yar Khan',
-      'graphic-design': 'UI/UX & Brand Design | Hanan Irfan — Rahim Yar Khan',
-      contact: 'Contact Hanan Irfan | Email, Address & Social Profiles',
-      'privacy-policy': 'Privacy Policy | Hanan Irfan Portfolio',
-      privacy: 'Privacy Policy | Hanan Irfan Portfolio',
-      'terms-and-conditions': 'Terms & Conditions | Hanan Irfan Portfolio',
-      terms: 'Terms & Conditions | Hanan Irfan Portfolio',
-      disclaimer: 'Disclaimer | Hanan Irfan Portfolio',
+    if (typeof window === 'undefined') return;
+
+    // Handle initial hash anchor (e.g. /about#achievements opened from closed app notification)
+    if (window.location.hash) {
+      const targetId = window.location.hash.slice(1);
+      window.setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 450);
+    }
+
+    const handleSwMessage = (event: MessageEvent) => {
+      const data = event.data as
+        | {
+            type?: string;
+            url?: string;
+            notificationType?: string;
+            payload?: ForegroundNotificationItem;
+          }
+        | undefined;
+      if (!data?.type) return;
+
+      if (data.type === 'NOTIFICATION_NAVIGATE') {
+        navigateByNotificationTarget(data.url, data.notificationType);
+      } else if (data.type === 'PORTFOLIO_PUSH_RECEIVED' && data.payload) {
+        setForegroundPush(data.payload);
+      }
     };
 
-    const descriptionMap: Record<PageId, string> = {
-      home: 'Portfolio of Hanan Irfan — Multidisciplinary Developer, SEO Specialist & Entrepreneur from Rahim Yar Khan, Pakistan. BSCS 5th Semester (CGPA 3.65) at KFUEIT, Founder of The Sports Room, and ACM KFUEIT Development Team Head.',
-      about: "Learn about Hanan Irfan's Computer Science background at KFUEIT (5th Semester, CGPA 3.65), leadership roles at The Sports Room, ACM KFUEIT, and D'Educationist, and verified certifications.",
-      skills: 'Technical stack and expertise of Hanan Irfan: AI Development, Frontend & Full-Stack Development, SEO, AEO, GEO, Technical SEO, Keyword Clustering, and Content Strategy.',
-      experience: 'Leadership and engineering experience of Hanan Irfan across The Sports Room, ACM KFUEIT, HI Digital Group, and KFUEIT.',
-      projects: 'Explore live web applications and digital platforms built by Hanan Irfan, including The Sports Room, NEXA POS System, ACM KFUEIT, Free Tools Hub, and AI Tool Guide.',
-      services: 'AI development, full-stack web applications, technical SEO, AEO, GEO, keyword strategy, and UI/UX services by Hanan Irfan.',
-      'web-development': 'React, Next.js, TypeScript, and full-stack web application development by Hanan Irfan in Rahim Yar Khan, Pakistan.',
-      'seo-expert': 'Search Engine Optimization (SEO), Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), and keyword clustering services by Hanan Irfan.',
-      'graphic-design': 'UI/UX design, brand visuals, and clean responsive interface design by Hanan Irfan.',
-      contact: 'Connect directly with Hanan Irfan via email (hananirfan91@gmail.com), location details in Rahim Yar Khan, GitHub, LinkedIn, X (@hananirfan91), Instagram, Facebook, and TikTok.',
-      'privacy-policy': 'Privacy Policy detailing exact storage, Service Worker caching, external links, and user privacy practices for Hanan Irfan Portfolio.',
-      privacy: 'Privacy Policy for Hanan Irfan Portfolio.',
-      'terms-and-conditions': 'Terms and Conditions governing use of Hanan Irfan Portfolio, intellectual property, third-party project demos, and liability disclosures.',
-      terms: 'Terms and Conditions for Hanan Irfan Portfolio.',
-      disclaimer: 'General, external project, and informational disclaimers for Hanan Irfan Portfolio.',
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', handleSwMessage);
+    }
+
+    let unsubFcm: (() => void) | undefined;
+    if ('Notification' in window && Notification.permission === 'granted') {
+      void autoSyncExistingPushSubscription();
+      void import('./lib/firebase')
+        .then(({ listenToForegroundFcmMessages }) =>
+          listenToForegroundFcmMessages((msg) => {
+            if (msg.title || msg.body) {
+              setActiveToastFeedId(null);
+              setForegroundPush({
+                title: msg.title || 'Hanan Irfan Portfolio',
+                body: msg.body || 'New portfolio update available.',
+                url: msg.url,
+                notificationType: msg.type,
+              });
+            }
+          })
+        )
+        .then((unsub) => {
+          unsubFcm = unsub;
+        })
+        .catch(() => {});
+    }
+
+    // Fetch live updates automatically for ALL devices (no "Enable Now" required)
+    let cancelled = false;
+    const loadFeed = async () => {
+      const items = await fetchLiveNotificationFeed();
+      if (cancelled || items.length === 0) return;
+      setLiveNotifications(items);
+
+      const currentRead = getReadNotificationIds();
+      setReadNotificationIds(currentRead);
+
+      const firstUnread = items.find(
+        (item) => !currentRead.has(item.id) && !isToastDismissed(item.id)
+      );
+      if (firstUnread) {
+        setActiveToastFeedId(firstUnread.id);
+        setForegroundPush((prev) =>
+          prev
+            ? prev
+            : {
+                title: firstUnread.title,
+                body: firstUnread.body,
+                url: firstUnread.targetUrl,
+                notificationType: firstUnread.notificationType,
+              }
+        );
+      }
     };
 
-    const pageTitle = titleMap[currentPage] || titleMap.home;
-    const pageDescription = descriptionMap[currentPage] || descriptionMap.home;
-    const canonicalPath = currentPage === 'home' ? '/' : `/${currentPage}`;
-    const canonicalUrl = `https://hanan56.vercel.app${canonicalPath}`;
+    const initialTimer = window.setTimeout(() => {
+      void loadFeed();
+    }, 1200);
 
-    document.title = pageTitle;
+    const refreshInterval = window.setInterval(() => {
+      if (!document.hidden) {
+        void loadFeed();
+      }
+    }, 5 * 60 * 1000);
 
-    const updateMeta = (selector: string, attr: string, content: string) => {
-      const el = document.querySelector(selector);
-      if (el) el.setAttribute(attr, content);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(initialTimer);
+      window.clearInterval(refreshInterval);
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.removeEventListener('message', handleSwMessage);
+      }
+      if (unsubFcm) unsubFcm();
     };
+  }, []);
 
-    updateMeta('meta[name="description"]', 'content', pageDescription);
-    updateMeta('meta[property="og:title"]', 'content', pageTitle);
-    updateMeta('meta[property="og:description"]', 'content', pageDescription);
-    updateMeta('meta[property="og:url"]', 'content', canonicalUrl);
-    updateMeta('meta[name="twitter:title"]', 'content', pageTitle);
-    updateMeta('meta[name="twitter:description"]', 'content', pageDescription);
-    updateMeta('meta[name="twitter:url"]', 'content', canonicalUrl);
-    updateMeta('link[rel="canonical"]', 'href', canonicalUrl);
+  useEffect(() => {
+    if (!foregroundPush) return;
+    const autoHide = window.setTimeout(() => {
+      if (activeToastFeedId) {
+        dismissToastId(activeToastFeedId);
+        setActiveToastFeedId(null);
+      }
+      setForegroundPush(null);
+    }, 9000);
+    return () => window.clearTimeout(autoHide);
+  }, [foregroundPush, activeToastFeedId]);
+
+  useEffect(() => {
+    applyPageSeo(currentPage);
   }, [currentPage]);
 
   const renderPage = () => {
@@ -215,6 +345,8 @@ export default function App() {
         return <TermsPage onNavigate={handleNavigate} />;
       case 'disclaimer':
         return <DisclaimerPage onNavigate={handleNavigate} />;
+      case 'admin-notifications':
+        return <AdminNotificationsPage />;
       default:
         return <HomePage onNavigate={handleNavigate} onSelectProject={(p) => setSelectedProject(p)} />;
     }
@@ -258,6 +390,17 @@ export default function App() {
             onNavigate={handleNavigate}
             audioEnabled={audioEnabled}
             toggleAudio={toggleAudio}
+            liveNotifications={liveNotifications}
+            readNotificationIds={readNotificationIds}
+            onMarkNotificationRead={(id) => setReadNotificationIds(markNotificationRead(id))}
+            onMarkAllNotificationsRead={() =>
+              setReadNotificationIds(markAllNotificationsRead(liveNotifications.map((n) => n.id)))
+            }
+            onSelectLiveNotification={(item) => {
+              setReadNotificationIds(markNotificationRead(item.id));
+              dismissToastId(item.id);
+              navigateByNotificationTarget(item.targetUrl, item.notificationType);
+            }}
           />
 
           <main className="relative z-10 pt-4 sm:pt-6">
@@ -301,6 +444,25 @@ export default function App() {
           <BackgroundMusicControl isPlaying={audioEnabled} onToggle={toggleAudio} disabled={audioError} />
 
           <OfflineIndicator />
+
+          <ForegroundPushToast
+            notification={foregroundPush}
+            onDismiss={() => {
+              if (activeToastFeedId) {
+                dismissToastId(activeToastFeedId);
+                setActiveToastFeedId(null);
+              }
+              setForegroundPush(null);
+            }}
+            onOpen={(url, type) => {
+              if (activeToastFeedId) {
+                setReadNotificationIds(markNotificationRead(activeToastFeedId));
+                dismissToastId(activeToastFeedId);
+                setActiveToastFeedId(null);
+              }
+              navigateByNotificationTarget(url, type);
+            }}
+          />
 
           <Suspense fallback={null}>
             <PWAInstallModal />
