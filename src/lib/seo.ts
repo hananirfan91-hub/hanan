@@ -126,8 +126,8 @@ const SEO_CONFIGS: Record<PageId, PageSeoConfig> = {
   'privacy-policy': {
     title: 'Privacy Policy | Hanan Irfan Portfolio',
     description:
-      'Privacy Policy detailing browser storage, Service Worker caching, push notifications, and Android TWA privacy practices for Hanan Irfan Portfolio.',
-    keywords: 'Hanan Irfan Privacy Policy, Android TWA com.hananirfan.app Privacy Policy, Web Push privacy',
+      'Privacy Policy detailing browser storage, Service Worker caching, and Android TWA privacy practices for Hanan Irfan Portfolio.',
+    keywords: 'Hanan Irfan Privacy Policy, Android TWA com.hananirfan.app Privacy Policy',
     canonicalPath: '/privacy-policy',
     ogType: 'website',
     breadcrumbLabel: 'Privacy Policy',
@@ -165,15 +165,6 @@ const SEO_CONFIGS: Record<PageId, PageSeoConfig> = {
     canonicalPath: '/disclaimer',
     ogType: 'website',
     breadcrumbLabel: 'Disclaimer',
-  },
-  'admin-notifications': {
-    title: 'Notification Admin Console | Hanan Irfan Portfolio',
-    description: 'Private Push Notification Management Console for Hanan Irfan Portfolio.',
-    keywords: 'Notification Admin',
-    canonicalPath: '/admin-notifications',
-    ogType: 'website',
-    noindex: true,
-    breadcrumbLabel: 'Admin',
   },
 };
 

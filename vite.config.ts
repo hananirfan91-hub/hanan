@@ -123,7 +123,6 @@ export default defineConfig(() => {
           ],
         },
         workbox: {
-          importScripts: ['/push-sw.js'],
           globPatterns: [
             '**/*.{js,css,html,ico,svg,woff2}',
             'pwa-*.png',
@@ -148,8 +147,6 @@ export default defineConfig(() => {
             /^\/sitemap\.xml$/,
             /^\/robots\.txt$/,
             /^\/llms(-full)?\.txt$/,
-            /^\/push-sw\.js$/,
-            /^\/firebase-messaging-sw\.js$/,
           ],
           maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
           runtimeCaching: [
@@ -199,7 +196,6 @@ export default defineConfig(() => {
             'vendor-icons': ['lucide-react'],
             'vendor-charts': ['recharts'],
             'vendor-scroll': ['lenis', 'gsap'],
-            'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
           },
         },
       },

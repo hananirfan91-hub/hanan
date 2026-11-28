@@ -3,19 +3,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { PageId } from '../types';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { Menu, X, Volume2, VolumeX, ArrowUpRight, ArrowLeft, Search } from 'lucide-react';
-import { LiveNotificationBell } from './LiveNotificationBell';
-import { LiveNotificationItem } from '../lib/liveNotifications';
 
 interface NavbarProps {
   currentPage: PageId;
   onNavigate: (page: PageId) => void;
   audioEnabled: boolean;
   toggleAudio: () => void;
-  liveNotifications?: LiveNotificationItem[];
-  readNotificationIds?: Set<string>;
-  onMarkNotificationRead?: (id: string) => void;
-  onMarkAllNotificationsRead?: () => void;
-  onSelectLiveNotification?: (item: LiveNotificationItem) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -23,11 +16,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   audioEnabled,
   toggleAudio,
-  liveNotifications = [],
-  readNotificationIds = new Set<string>(),
-  onMarkNotificationRead = () => {},
-  onMarkAllNotificationsRead = () => {},
-  onSelectLiveNotification = () => {},
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -140,13 +128,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           <div className="flex items-center gap-2.5 shrink-0">
-            <LiveNotificationBell
-              items={liveNotifications}
-              readIds={readNotificationIds}
-              onMarkRead={onMarkNotificationRead}
-              onMarkAllRead={onMarkAllNotificationsRead}
-              onSelectNotification={onSelectLiveNotification}
-            />
 
             <motion.button
               type="button"
@@ -231,15 +212,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </button>
 
-          <div className="w-24 flex items-center justify-end gap-1.5">
-            <LiveNotificationBell
-              compact
-              items={liveNotifications}
-              readIds={readNotificationIds}
-              onMarkRead={onMarkNotificationRead}
-              onMarkAllRead={onMarkAllNotificationsRead}
-              onSelectNotification={onSelectLiveNotification}
-            />
+          <div className="w-20 flex items-center justify-end gap-1.5">
             <button
               type="button"
               onClick={toggleAudio}

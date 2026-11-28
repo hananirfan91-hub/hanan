@@ -175,18 +175,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </button>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onNavigate('admin-notifications');
-                    scrollToTop();
-                  }}
-                  className="text-[#94A3B8] hover:text-[#3B82F6] transition-colors cursor-pointer"
-                >
-                  Notification Admin
-                </button>
-              </li>
-              <li>
                 <a
                   href="/sitemap.xml"
                   target="_blank"

@@ -27,7 +27,7 @@ Leadership roles:
 4. **Free Tools Hub** (`https://freetoolshub1.vercel.app/`) — Privacy-first browser-based developer utilities suite (JSON Formatter & Validator, Base64 Encoder/Decoder, Image Compressor/Resizer, Text Case & Word Counter, Password/UUID Generator, Color Picker).
 5. **AI Tool Guide** (`https://aitoolguide.vercel.app/`) — Curated AI platforms discovery platform structured by workflow, prompt pattern, and practical use-case.
 6. **HI Digital Group** (`https://hidigitalgroup.vercel.app/`) — Digital engineering and search consulting portal covering React/Next.js builds, technical SEO, AEO & GEO.
-7. **Hanan Irfan Portfolio** (`https://hanan56.vercel.app/`) — Official multi-page PWA and Bubblewrap Android TWA portfolio (`com.hananirfan.app`) featuring Schema.org JSON-LD, Web Push / FCM notifications, and responsive design.
+7. **Hanan Irfan Portfolio** (`https://hanan56.vercel.app/`) — Official multi-page PWA and Bubblewrap Android TWA portfolio (`com.hananirfan.app`) featuring Schema.org JSON-LD and responsive design.
 8. **Caesar 2026** (`https://caesar2026.vercel.app/`) — Frontend UI layout & typographic hierarchy web project.
 9. **Garden Layout Tips** (`https://gardenlayouttips.vercel.app/`) — Search-engineered content architecture & keyword-clustered informational site.
 10. **Punch Monkey** (`https://punchmonkey.vercel.app/`) — Interactive HTML5 Canvas 2D pointer/touch physics experiment.
@@ -38,9 +38,9 @@ Leadership roles:
 ## 3. Technical Stack & Core Competencies
 
 - **AI Development**: AI Application Development, Prompt Engineering & Workflows, Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), Python & Automation Scripting.
-- **Frontend & Full-Stack**: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, PWA / Service Workers / Web Push.
+- **Frontend & Full-Stack**: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, PWA / Service Workers.
 - **SEO, AEO, GEO & Content**: Technical SEO, Schema.org JSON-LD graphs, XML Sitemaps, Robots/AI Crawler configuration, Keyword Research & Clustering, Content Strategy, Google Search Console diagnostics.
-- **Programming & Databases**: C++, Java, SQL, Firebase (Firestore, Auth, FCM), Supabase (PostgreSQL), WordPress / Astra CMS performance tuning.
+- **Programming & Databases**: C++, Java, SQL, Firebase (Firestore, Auth), Supabase (PostgreSQL), WordPress / Astra CMS performance tuning.
 - **Design & Platforms**: UI/UX wireframing, Figma, Canva, Photoshop, Git, GitHub, Vercel edge hosting, Bubblewrap Android TWA (`com.hananirfan.app`).
 
 ---
@@ -87,7 +87,7 @@ A: AI Development, Frontend Development, Full-Stack Web Application Development,
 A: He combines technical crawlability, Schema.org structured data, Core Web Vitals performance, semantic keyword clustering, and answer-first content strategy so websites perform well in both traditional search engines and AI answer/generative engines.
 
 **Q: Is Hanan Irfan's portfolio available as an Android app?**
-A: Yes. It is published as a Google Play Trusted Web Activity (`com.hananirfan.app`) powered by the canonical web app at https://hanan56.vercel.app/ with PWA installability and push notification support.
+A: Yes. It is published as a Google Play Trusted Web Activity (`com.hananirfan.app`) powered by the canonical web app at https://hanan56.vercel.app/ with PWA installability.
 
 **Q: How can I contact Hanan Irfan?**
 A: Email hananirfan91@gmail.com, visit https://hanan56.vercel.app/contact, or connect on GitHub (`github.com/hananirfan91-hub`), LinkedIn (`linkedin.com/in/hananirfan`), X (`@hananirfan91`), and Instagram (`@hananirfan2026`).

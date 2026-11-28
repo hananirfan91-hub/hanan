@@ -31,7 +31,7 @@
       ]
     },
     {
-      "source": "/(push-sw\\.js|firebase-messaging-sw\\.js|sw\\.js)",
+      "source": "/sw\\.js",
       "headers": [
         {
           "key": "Cache-Control",
@@ -44,15 +44,9 @@
       ]
     }
   ],
-  "crons": [
-    {
-      "path": "/api/cron/daily-reminder",
-      "schedule": "0 4 * * *"
-    }
-  ],
   "rewrites": [
     {
-      "source": "/((?!api/|\\.well-known/|assets/|images/|manifest\\.webmanifest|sw\\.js|push-sw\\.js|firebase-messaging-sw\\.js|sitemap\\.xml|robots\\.txt|llms\\.txt|llms-full\\.txt|.*\\.).*)",
+      "source": "/((?!api/|\\.well-known/|assets/|images/|manifest\\.webmanifest|sw\\.js|sitemap\\.xml|robots\\.txt|llms\\.txt|llms-full\\.txt|.*\\.).*)",
       "destination": "/index.html"
     }
   ]

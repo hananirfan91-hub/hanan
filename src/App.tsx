@@ -9,21 +9,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { AnnouncementBanner } from './components/AnnouncementBanner';
-import {
-  ForegroundPushToast,
-  type ForegroundNotificationItem,
-} from './components/ForegroundPushToast';
 import { applyPageSeo } from './lib/seo';
-import {
-  dismissToastId,
-  fetchLiveNotificationFeed,
-  getReadNotificationIds,
-  isToastDismissed,
-  markAllNotificationsRead,
-  markNotificationRead,
-  type LiveNotificationItem,
-} from './lib/liveNotifications';
-import { autoSyncExistingPushSubscription } from './lib/pushNotifications';
 
 import { HomePage } from './pages/HomePage';
 
@@ -41,9 +27,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ defa
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
 const TermsPage = lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })));
 const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage').then((m) => ({ default: m.DisclaimerPage })));
-const AdminNotificationsPage = lazy(() =>
-  import('./pages/AdminNotificationsPage').then((m) => ({ default: m.AdminNotificationsPage }))
-);
 
 function getPageFromPath(path: string): PageId {
   const cleanPath = path.replace(/^\/+|\/+$/g, '').toLowerCase();
@@ -62,7 +45,6 @@ function getPageFromPath(path: string): PageId {
     'seo-expert',
     'graphic-design',
     'contact',
-    'admin-notifications',
   ];
   if (validPages.includes(cleanPath as PageId)) return cleanPath as PageId;
   return 'home';
@@ -78,12 +60,6 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [audioError, setAudioError] = useState(false);
-  const [foregroundPush, setForegroundPush] = useState<ForegroundNotificationItem | null>(null);
-  const [activeToastFeedId, setActiveToastFeedId] = useState<string | null>(null);
-  const [liveNotifications, setLiveNotifications] = useState<LiveNotificationItem[]>([]);
-  const [readNotificationIds, setReadNotificationIds] = useState<Set<string>>(() =>
-    getReadNotificationIds()
-  );
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -151,165 +127,15 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const navigateByNotificationTarget = (rawUrl?: string, notificationType?: string) => {
-    setForegroundPush(null);
-
-    if (rawUrl && /^https?:\/\//i.test(rawUrl)) {
-      try {
-        const parsed = new URL(rawUrl);
-        if (parsed.origin !== window.location.origin) {
-          window.location.href = parsed.href;
-          return;
-        }
-        rawUrl = `${parsed.pathname}${parsed.search}${parsed.hash}`;
-      } catch {
-        // Fallback to route check below
-      }
-    }
-
-    const fallbackPath =
-      notificationType === 'new-project' || notificationType === 'project-update'
-        ? '/projects'
-        : notificationType === 'new-achievement' || notificationType === 'new-certificate'
-          ? '/about#achievements'
-          : notificationType === 'new-skill'
-            ? '/skills'
-            : notificationType === 'experience-update'
-              ? '/experience'
-              : '/';
-
-    const target = rawUrl && rawUrl.startsWith('/') ? rawUrl : fallbackPath;
-    const [pathOnly, hashPart] = target.split('#');
-    const pageId = getPageFromPath(pathOnly || '/');
-    handleNavigate(pageId);
-
-    if (hashPart) {
-      window.setTimeout(() => {
-        const el = document.getElementById(hashPart);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 360);
-    }
-  };
-
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Handle initial hash anchor (e.g. /about#achievements opened from closed app notification)
-    if (window.location.hash) {
-      const targetId = window.location.hash.slice(1);
-      window.setTimeout(() => {
-        const el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 450);
-    }
-
-    const handleSwMessage = (event: MessageEvent) => {
-      const data = event.data as
-        | {
-            type?: string;
-            url?: string;
-            notificationType?: string;
-            payload?: ForegroundNotificationItem;
-          }
-        | undefined;
-      if (!data?.type) return;
-
-      if (data.type === 'NOTIFICATION_NAVIGATE') {
-        navigateByNotificationTarget(data.url, data.notificationType);
-      } else if (data.type === 'PORTFOLIO_PUSH_RECEIVED' && data.payload) {
-        setForegroundPush(data.payload);
-      }
-    };
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('message', handleSwMessage);
-    }
-
-    let unsubFcm: (() => void) | undefined;
-    if ('Notification' in window && Notification.permission === 'granted') {
-      void autoSyncExistingPushSubscription();
-      void import('./lib/firebase')
-        .then(({ listenToForegroundFcmMessages }) =>
-          listenToForegroundFcmMessages((msg) => {
-            if (msg.title || msg.body) {
-              setActiveToastFeedId(null);
-              setForegroundPush({
-                title: msg.title || 'Hanan Irfan Portfolio',
-                body: msg.body || 'New portfolio update available.',
-                url: msg.url,
-                notificationType: msg.type,
-              });
-            }
-          })
-        )
-        .then((unsub) => {
-          unsubFcm = unsub;
-        })
-        .catch(() => {});
-    }
-
-    // Fetch live updates automatically for ALL devices (no "Enable Now" required)
-    let cancelled = false;
-    const loadFeed = async () => {
-      const items = await fetchLiveNotificationFeed();
-      if (cancelled || items.length === 0) return;
-      setLiveNotifications(items);
-
-      const currentRead = getReadNotificationIds();
-      setReadNotificationIds(currentRead);
-
-      const firstUnread = items.find(
-        (item) => !currentRead.has(item.id) && !isToastDismissed(item.id)
-      );
-      if (firstUnread) {
-        setActiveToastFeedId(firstUnread.id);
-        setForegroundPush((prev) =>
-          prev
-            ? prev
-            : {
-                title: firstUnread.title,
-                body: firstUnread.body,
-                url: firstUnread.targetUrl,
-                notificationType: firstUnread.notificationType,
-              }
-        );
-      }
-    };
-
-    const initialTimer = window.setTimeout(() => {
-      void loadFeed();
-    }, 1200);
-
-    const refreshInterval = window.setInterval(() => {
-      if (!document.hidden) {
-        void loadFeed();
-      }
-    }, 5 * 60 * 1000);
-
-    return () => {
-      cancelled = true;
-      window.clearTimeout(initialTimer);
-      window.clearInterval(refreshInterval);
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.removeEventListener('message', handleSwMessage);
-      }
-      if (unsubFcm) unsubFcm();
-    };
+    if (typeof window === 'undefined' || !window.location.hash) return;
+    const targetId = window.location.hash.slice(1);
+    const timer = window.setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 450);
+    return () => window.clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    if (!foregroundPush) return;
-    const autoHide = window.setTimeout(() => {
-      if (activeToastFeedId) {
-        dismissToastId(activeToastFeedId);
-        setActiveToastFeedId(null);
-      }
-      setForegroundPush(null);
-    }, 9000);
-    return () => window.clearTimeout(autoHide);
-  }, [foregroundPush, activeToastFeedId]);
 
   useEffect(() => {
     applyPageSeo(currentPage);
@@ -345,8 +171,6 @@ export default function App() {
         return <TermsPage onNavigate={handleNavigate} />;
       case 'disclaimer':
         return <DisclaimerPage onNavigate={handleNavigate} />;
-      case 'admin-notifications':
-        return <AdminNotificationsPage />;
       default:
         return <HomePage onNavigate={handleNavigate} onSelectProject={(p) => setSelectedProject(p)} />;
     }
@@ -390,17 +214,6 @@ export default function App() {
             onNavigate={handleNavigate}
             audioEnabled={audioEnabled}
             toggleAudio={toggleAudio}
-            liveNotifications={liveNotifications}
-            readNotificationIds={readNotificationIds}
-            onMarkNotificationRead={(id) => setReadNotificationIds(markNotificationRead(id))}
-            onMarkAllNotificationsRead={() =>
-              setReadNotificationIds(markAllNotificationsRead(liveNotifications.map((n) => n.id)))
-            }
-            onSelectLiveNotification={(item) => {
-              setReadNotificationIds(markNotificationRead(item.id));
-              dismissToastId(item.id);
-              navigateByNotificationTarget(item.targetUrl, item.notificationType);
-            }}
           />
 
           <main className="relative z-10 pt-4 sm:pt-6">
@@ -444,25 +257,6 @@ export default function App() {
           <BackgroundMusicControl isPlaying={audioEnabled} onToggle={toggleAudio} disabled={audioError} />
 
           <OfflineIndicator />
-
-          <ForegroundPushToast
-            notification={foregroundPush}
-            onDismiss={() => {
-              if (activeToastFeedId) {
-                dismissToastId(activeToastFeedId);
-                setActiveToastFeedId(null);
-              }
-              setForegroundPush(null);
-            }}
-            onOpen={(url, type) => {
-              if (activeToastFeedId) {
-                setReadNotificationIds(markNotificationRead(activeToastFeedId));
-                dismissToastId(activeToastFeedId);
-                setActiveToastFeedId(null);
-              }
-              navigateByNotificationTarget(url, type);
-            }}
-          />
 
           <Suspense fallback={null}>
             <PWAInstallModal />

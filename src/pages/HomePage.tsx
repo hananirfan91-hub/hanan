@@ -6,7 +6,6 @@ import { Project3DCarousel } from '../components/Project3DCarousel';
 import { SpotlightCard } from '../components/SpotlightCard';
 import { EditorialMarquee } from '../components/EditorialMarquee';
 import { MotionReveal, AnimatedStat } from '../components/MotionReveal';
-import { NotificationSubscriptionCard } from '../components/NotificationSubscriptionCard';
 import {
   ArrowUpRight,
   Cpu,
@@ -1213,16 +1212,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectProject 
             ))}
           </div>
         </section>
-      </MotionReveal>
-
-      {/* ================= PUSH NOTIFICATION SUBSCRIPTION ================= */}
-      <MotionReveal>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <NotificationSubscriptionCard
-            compact
-            onOpenAdmin={() => onNavigate('admin-notifications')}
-          />
-        </div>
       </MotionReveal>
 
       {/* ================= QUICK ANSWERS (AEO / GEO FAQ) ================= */}

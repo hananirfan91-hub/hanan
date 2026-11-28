@@ -82,9 +82,6 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
             <li>
               <strong className="text-[#F8FAFC]">Service Worker Cache (Workbox):</strong> Caches static UI bundles, icons, images, and font assets locally on supported browsers so previously viewed pages remain readable offline.
             </li>
-            <li>
-              <strong className="text-[#F8FAFC]">Optional Push Notifications (Web Push / FCM):</strong> Only if you explicitly click <em>Enable Notifications</em> and grant browser or Android permission, a browser push subscription endpoint (and optional Firebase Cloud Messaging token) along with your selected topic preferences, timezone, and device category are stored so portfolio updates or optional daily reminders can be delivered. No name, email, or personal identity is required to subscribe, and you can unsubscribe anytime with one click.
-            </li>
           </ul>
           <p>
             Interactive preview utilities inside Free Tools Hub (such as JSON formatting, password generation, text transformation, and Base64 conversion) run strictly inside your browser memory without uploading data to external servers.
@@ -94,7 +91,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
         <section className="space-y-2.5">
           <h2 className="text-lg font-bold font-display text-[#F8FAFC]">5. Android App (TWA / WebView) &amp; Device Permissions</h2>
           <p>
-            When accessed via an Android Trusted Web Activity (<code className="text-xs bg-white/[0.08] text-[#F8FAFC] px-1.5 py-0.5 rounded">com.hananirfan.app</code>) or Android WebView, the web application does not request access to device camera, microphone, contacts, SMS, call logs, background location, or external storage. On Android 13+, notification permission (<code className="text-xs bg-white/[0.08] text-[#F8FAFC] px-1.5 py-0.5 rounded">POST_NOTIFICATIONS</code>) is requested solely if you explicitly tap to subscribe to portfolio alerts.
+            When accessed via an Android Trusted Web Activity (<code className="text-xs bg-white/[0.08] text-[#F8FAFC] px-1.5 py-0.5 rounded">com.hananirfan.app</code>) or Android WebView, the web application does not request access to device camera, microphone, contacts, SMS, call logs, background location, or external storage.
           </p>
         </section>
 
